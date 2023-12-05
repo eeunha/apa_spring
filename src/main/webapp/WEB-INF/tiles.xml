@@ -9,11 +9,17 @@
 		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/main.jsp"></put-attribute>
 	</definition>
-		<definition name="search.*" template="/WEB-INF/views/layout/search.jsp">
+	<definition name="search.*" template="/WEB-INF/views/layout/search.jsp">
 		<put-attribute name="asset" value="/WEB-INF/inc/asset.jsp"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/inc/header.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/search/{1}.jsp"></put-attribute>
+	</definition>
+	<definition name="advice.*" template="/WEB-INF/views/layout/main.jsp">
+		<put-attribute name="asset" value="/WEB-INF/inc/asset.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/inc/header.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/advice/{1}.jsp"></put-attribute>
 	</definition>
 	<definition name="*.*" template="/WEB-INF/views/layout/mypage.jsp">
 		<put-attribute name="mypageAsset" value="/WEB-INF/inc/mypageAsset.jsp"></put-attribute>
