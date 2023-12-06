@@ -15,19 +15,14 @@ import com.project.apa.mapper.SearchMapper;
 public class SearchController {
 
 	@Autowired
-	private SearchMapper mapper;
+	private SearchDAO searchDAO;
 	
 	@GetMapping(value = "/list.do")
 	public String list(Model model) {
 
-		model.addAttribute("symtomlist", mapper.symtomlist());
+		model.addAttribute("symtomlist", searchDAO.symtomlist());
 
 		return "search.list";
 	}
-	
-	@PostMapping(value = "/search/tagfind.do")
-	public String tagfind(Model model) {
 
-		return "search.list";
-	}
 }

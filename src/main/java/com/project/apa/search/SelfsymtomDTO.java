@@ -6,4 +6,7 @@ import lombok.Data;
 public class SelfsymtomDTO {
 	private String selfsymtomseq;
 	private String selfsymtomname;
+	
+	private String diseasename;
+	private String departmentname;	
 }

@@ -19,7 +19,7 @@
 		grid-template-columns: repeat(8, 1fr);
 	}
 	.tag{
-		border: 1px solid #gray;
+		border: 1px solid #000000;
 		border-radius: 2px;
 	}
 </style>
@@ -34,7 +34,7 @@
 	
 	<script>
 			var lists = [];
-			var seqlist = [0,0,0,0,0,0,0,0];
+			var seqlist = [1,0,0,0,0,0,0,0];
 			var count = 0;
 			var onoff = false;
         	function selSystom(seq) {
@@ -68,7 +68,7 @@
 			}
         	function load(seqlist) {
         		$.ajax({
-    				type: 'GET',
+    				type: 'POST',
     				url: '/apa/search/tagfind.do',
     				data: {
     					seq1 : seqlist[0],

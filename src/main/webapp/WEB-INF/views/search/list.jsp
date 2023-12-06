@@ -75,12 +75,12 @@
 									</div>
 								</a>
 								<c:if test="${lv == '1'}">
-									<a href="/apa/reservation/select.do?id=${hosdto.id}">
+									<a href="#">
 										<button class="reservation-button">예약하기</button>
 									</a>
 								</c:if>
 								<c:if test="${lv == '' || lv == null}">
-									<a href="/apa/user/login.do">
+									<a href="#">
 										<button class="reservation-button">예약하기</button>
 									</a>
 								</c:if>
