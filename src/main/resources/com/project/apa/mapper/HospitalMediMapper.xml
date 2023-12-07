@@ -2,8 +2,14 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.apa.mapper.HospitalMediMapper">
-	
-	<select id="getPatientList" resultType="com.project.apa.api.hospital.medi.domain.PatientDTO">
+
+	<select id="getPatientList" parameterType="String"
+		resultType="com.project.apa.api.hospital.medi.domain.PatientDTO">
 		select * from tblUser
+	</select>
+
+	<select id="getTodayAppointmentList" parameterType="String"
+		resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
+		select * from tblAppointment where hospitalid = #{id}	
 	</select>
 </mapper>

@@ -3,7 +3,7 @@ package com.project.apa.api.hospital.medi.domain;
 import lombok.Data;
 
 @Data
-public class AppointmentDTO {
+public class AppointmentDetailDTO {
 	private String appointmentSeq;
 	private String hospitalId;
 	private String userSeq;

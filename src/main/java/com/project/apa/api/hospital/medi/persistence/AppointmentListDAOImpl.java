@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.apa.api.hospital.medi.domain.PatientDTO;
+import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
 import com.project.apa.mapper.HospitalMediMapper;
 
 @Repository
-public class PatientDAOImpl implements PatientDAO {
-	
+public class AppointmentListDAOImpl implements AppointmentListDAO {
+
 	@Autowired
 	private HospitalMediMapper hospitalMediMapper;
-	
-	@Override
-	public List<PatientDTO> getPatientList(String id) {
 
-		return hospitalMediMapper.getPatientList(id);
+	@Override
+	public List<AppointmentListDTO> getTodayAppointmentList(String id) {
+
+		return hospitalMediMapper.getTodayAppointmentList(id);
 	}
 }

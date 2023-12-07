@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- patient.jsp -->
+<!-- appointment.jsp -->
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -16,7 +16,7 @@
 				<!-- Card Header - Dropdown -->
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h5 class="m-0 font-weight-bold text-primary">내원환자</h5>
+					<h5 class="m-0 font-weight-bold text-primary">오늘의 예약222</h5>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
@@ -42,7 +42,7 @@
 						<tbody>
 
 							<tr>
-								<td>${patientList.size()}</td>
+								<td>1</td>
 							</tr>
 							<%-- <c:forEach items="${registerList}" var="dto" varStatus="status">
 								<tr

@@ -4,28 +4,49 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
 import com.project.apa.api.hospital.medi.domain.PatientDTO;
 import com.project.apa.api.hospital.medi.service.PatientService;
+import com.project.apa.api.hospital.medi.service.PracticeService;
 
 @RestController
-@RequestMapping("/api/hospital/medi")
+//@RequestMapping("/api/hospital/medi")
+@RequestMapping("/api/hospital/{id}/medi")
 public class RestHospitalMediController {
 
 	@Autowired
 	private PatientService patientService;
 
-//	@GetMapping(value = "/treatment")
-//	public String treatment() {
-//
-//		return "treatment";
-//	}
+	@Autowired
+	private PracticeService practiceService;
 
+	// 오늘의 진료 예약 목록 가져오기
+	@GetMapping(value = "/today/appointment")
+	public List<AppointmentListDTO> getTodayAppointmentList(@PathVariable String id) {
+
+		return practiceService.getTodayAppointmentList(id);
+	}
+
+	// 오늘의 진료 예약 상세 내역 가져오기
+
+	// 오늘의 진료 내역 목록 가져오기
+
+	// 오늘의 진료 상세 내역 가져오기
+
+	// 모든 진료 예약 목록 가져오기
+
+	// 모든 진료 예약 상세 내역 가져오기
+
+	//
+
+	// 내원환자 목록 가져오기
 	@GetMapping(value = "/patient")
-	public List<PatientDTO> getPatientList() {
+	public List<PatientDTO> getPatientList(@PathVariable String id) {
 
-		return patientService.getPatientList();
+		return patientService.getPatientList(id);
 	}
 }
