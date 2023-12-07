@@ -1,4 +1,4 @@
-package com.project.apa.search;
+package com.project.apa.api.search.model;
 
 import lombok.Data;
 

@@ -17,7 +17,7 @@
 			<input type="button" class="taglist-button" value="증상 더보기">
 		</div>
 		<hr>
-		<%-- <table id="hospital-list">
+		<table id="hospital-list">
 			<tbody>
 				<c:forEach items="${hosdto}" var="hosdto">
 					<tr>
@@ -89,7 +89,7 @@
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table> --%>
+		</table>
 	</div>
 </main>
 

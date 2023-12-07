@@ -18,10 +18,52 @@
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
 	}
+	.hospital-info-list{
+		border: 1px solid #000000;
+	}
 	.tag{
 		border: 1px solid #000000;
-		border-radius: 2px;
+		border-radius: 3px;
+		margin: 1px 3px;
 	}
+	.hospital-info-grid {
+		display: flex;
+	}
+	.box-content{
+		border: 1px solid #000000;
+		border-radius: 3px;
+		margin: 1px 3px;
+		padding: 1px 3px;
+		text-align: center;
+	}
+	.box-content-color{
+		background-color: #5bc1ac;
+	}
+	.docter-images {
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+	}
+	.review-grid{
+		display: flex;
+		justify-content: space-between;
+	}
+	.reservation-button {
+		border: 1px;
+		position: fixed;
+	    bottom: 10px;
+	    height: 4rem;
+	    width: 700px;
+	    border-radius: 8px;
+	   	font-weight: bold;
+	   	font-size: 25px;
+	   	box-shadow: 2px 2px 5px #000000;
+	   	margin: 0 auto;
+	   	left: 0;
+	   	right: 0;
+	   	z-index: 0;
+	}
+	
 </style>
 </head>
 <body id="section_1">
@@ -67,19 +109,21 @@
         		count++;
 			}
         	function load(seqlist) {
-        		$.ajax({
-    				type: 'POST',
-    				url: '/apa/search/tagfind.do',
-    				data: {
-    					seq1 : seqlist[0],
+        		let obj = {
+        				seq1 : seqlist[0],
     					seq2 : seqlist[1],
     					seq3 : seqlist[2],
     					seq4 : seqlist[3],
     					seq5 : seqlist[4],
     					seq6 : seqlist[5],
     					seq7 : seqlist[6],
-    					seq8 : seqlist[7]
-    				},
+    					seq8 : seqlist[7]	
+        			};
+        		$.ajax({
+    				type: 'POST',
+    				url: 'http://localhost:8090/apa/search/tagfind',
+    				headers: {'Content-Type': 'application/json'},
+    				data: JSON.stringify(obj),
     				dataType: 'json',
     				success: function(result) {
     					$('#hospital-list tbody').html('');
@@ -87,84 +131,84 @@
     						let temp = `
     								<tr>
     									<td>
-		    								<a href="/apa/find/view.do?id=\${item.id}">
-		    								<div class="hospital-info">
-			    								<h6 class="collapse-header">\${item.name}</h6>
-			    				                <p class="info-text">\${item.deptname}</p>
-			    				                <p class="info-text">\${item.address}</p>
+		    								<a href="/apa/search/view.do?seq=\${item.hospitalid}" >
+		    								<div class="hospital-info-list">
+			    								<h6>\${item.hospitalname}</h6>
+			    				                <p>임시</p>
+			    				                <p>\${item.hospitaladdress}</p>
 						    				</a>
-			    				                <div class="hospital-info-contentlist">		
-				    								<a href="/apa/find/view.do?id=\${item.id}">
-				    				                	<div>
+			    				                <div >		
+				    								<a href="#">
+				    				                	<div class="hospital-info-grid">
 				    				                	`;
 				    				                	if (item.face == 'y' || item.face == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">대면</p>
+								    							<p class="box-content box-content-color">대면</p>
 								    							`;
 				    				                	}
 				    				                	if (item.face == 'n' || item.face == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">대면</p>
+								    							<p class="box-content">대면</p>
 								    							`;
 				    				                	}
 				    				                	if (item.unface == 'y' || item.unface == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">비대면</p>
+								    							<p class="box-content box-content-color">비대면</p>
 								    							`;
 				    				                	}
 				    				                	if (item.unface == 'n' || item.unface == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">비대면</p>
+								    							<p class="box-content">비대면</p>
 								    							`;
 				    				                	}
-				    				                	if (item.call == 'y' || item.call == 'Y'){
+				    				                	if (item.housecall == 'y' || item.housecall == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">왕진</p>
+								    							<p class="box-content box-content-color">왕진</p>
 								    							`;
 				    				                	}
-				    				                	if (item.call == 'n' || item.call == 'N'){
+				    				                	if (item.housecall == 'n' || item.housecall == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">왕진</p>
+								    							<p class="box-content">왕진</p>
 								    							`;
 				    				                	}
-				    				                	if (item.check == 'y' || item.check == 'Y'){
+				    				                	if (item.ishealthcheck == 'y' || item.ishealthcheck == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">건강검진</p>
+								    							<p class="box-content box-content-color">건강검진</p>
 								    							`;
 				    				                	}
-				    				                	if (item.check == 'n' || item.check == 'N'){
+				    				                	if (item.ishealthcheck == 'n' || item.ishealthcheck == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">건강검진</p>
+								    							<p class="box-content">건강검진</p>
 								    							`;
 				    				                	}
-				    				                	if (item.vaccin == 'y' || item.vaccin == 'Y'){
+				    				                	if (item.vaccination == 'y' || item.vaccination == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">예방접종</p>
+								    							<p class="box-content box-content-color">예방접종</p>
 								    							`;
 				    				                	}
-				    				                	if (item.vaccin == 'n' || item.vaccin == 'N'){
+				    				                	if (item.vaccination == 'n' || item.vaccination == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">예방접종</p>
+								    							<p class="box-content">예방접종</p>
 								    							`;
 				    				                	}
-				    				                	if (item.night == 'y' || item.night == 'Y'){
+				    				                	if (item.ishospitalnightcare == 'y' || item.ishospitalnightcare == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">야간진료</p>
+								    							<p class="box-content box-content-color">야간진료</p>
 								    							`;
 				    				                	}
-				    				                	if (item.night == 'n' || item.night == 'N'){
+				    				                	if (item.ishospitalnightcare == 'n' || item.ishospitalnightcare == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">야간진료</p>
+								    							<p class="box-content">야간진료</p>
 								    							`;
 				    				                	}
-				    				                	if (item.holiday == 'y' || item.holiday == 'Y'){
+				    				                	if (item.ishospitalholiday == 'y' || item.ishospitalholiday == 'Y'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content hospital-info-content-color">휴일진료</p>
+								    							<p class="box-content box-content-color">휴일진료</p>
 								    							`;
 				    				                	}
-				    				                	if (item.holiday == 'n' || item.holiday == 'N'){
+				    				                	if (item.ishospitalholiday == 'n' || item.ishospitalholiday == 'N'){
 				    				                		temp+=`
-								    							<p class="hospital-info-content">휴일진료</p>
+								    							<p class="box-content">휴일진료</p>
 								    							`;
 				    				                	}
 						    							temp+=`
@@ -173,14 +217,14 @@
 						    						`;
 						    						if ('${lv}' == '1'){
 						    						temp += `
-						    							<a href="/apa/reservation/select.do?id=\${item.id}">
-								    							<button class="reservation-button"> 예약하기 </button>
+						    							<a href="#">
+								    							<button class=""> 예약하기 </button>
 						    							</a>	
 						    							`;
 						    						} else if ('${lv}' == '' || '${lv}' == null){
 						    						temp += `
-						    							<a href="/apa/user/login.do">
-								    							<button class="reservation-button"> 예약하기 </button>
+						    							<a href="#">
+								    							<button class=""> 예약하기 </button>
 						    							</a>
 						    							`;
 						    						}
@@ -209,7 +253,40 @@
     				$(".tag").css('display','inline');
     			}
     		});
+        	
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center: new kakao.maps.LatLng(37.49934, 127.0333), // 지도의 중심좌표
+					level: 3 // 지도의 확대 레벨
+				};
+		
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+	
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('${dto.hospitaladdress}', function(result, status) {
+	
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+	
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+	
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			}); 
         </script>
+        
+        
 
 </body>
 </html>

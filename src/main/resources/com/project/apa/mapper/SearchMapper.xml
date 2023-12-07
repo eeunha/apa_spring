@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.apa.mapper.SearchMapper">
-	<!-- 
-	<select id="symtomlist" resultType="com.project.apa.search.SelfsymtomDTO">
-		select * from tblselfsymtom
-	</select>
-	 -->
 	 
-	 <select id="findsystomlist" parameterType="String" resultType="String">
+	 <select id="findsystomlist" parameterType="com.project.apa.api.search.model.FindHospitalDTO" resultType="String">
 	 	select * from(
-			select d.departmentname from tblsymtomdisease sd
+			select d.departmentseq from tblsymtomdisease sd
 			    left outer join tblselfsymtom ss
 			        on sd.selfsymtomseq = ss.selfsymtomseq
 			    inner join tbltreatmentdisease td
 			        on sd.diseaseseq = td.diseaseseq
 			    inner join tbldepartment d
-			        on td.departmentseq = d.departmentseq
+		       	 on td.departmentseq = d.departmentseq
 			    where ss.selfsymtomseq in (#{seq1},#{seq2},#{seq3},#{seq4},#{seq5},#{seq6},#{seq7},#{seq8})
-			    group by d.departmentname, td.diseasename having count(*) = (select max(count(td.diseasename)) from tblsymtomdisease sd
+			    group by d.departmentseq, td.diseasename having count(*) = (select max(count(td.diseasename)) from tblsymtomdisease sd
 			    left outer join tblselfsymtom ss
 			        on sd.selfsymtomseq = ss.selfsymtomseq
 			    inner join tbltreatmentdisease td
 			        on sd.diseaseseq = td.diseaseseq
 			    where ss.selfsymtomseq in (#{seq1},#{seq2},#{seq3},#{seq4},#{seq5},#{seq6},#{seq7},#{seq8})
 			    group by td.diseasename))
-			    group by departmentname;
+			    group by departmentseq
 	 </select>
 	 
-	 <select id="findHospitalList" parameterType="String" resultType="com.project.apa.search.HospitalInfoDTO">
-	 select * from tblhospital h
-	    inner join tblhospitaloperation ho
-	        on h.hospitalid = ho.hospitalid
-	    inner join tblhospitaltreatment ht
-	        on h.hospitalid = ht.hospitalid
-	    where ht.departmentseq in(#{findsystomlist});
+	 <select id="findHospitalList" resultType="com.project.apa.api.search.model.HospitalInfoDTO">
+	    select 
+		    h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,
+		    h.hospitalemail, h.hospitaltel, h.hospitaljoindate,
+		    ho.face, ho.unface, ho.housecall, ho.vaccination, ho.ishealthcheck, ho.ishospitalnightcare,
+		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff 
+		from tblhospital h
+		    inner join tblhospitaloperation ho
+		        on h.hospitalid = ho.hospitalid
+		    inner join tblhospitaltreatment ht
+		        on h.hospitalid = ht.hospitalid
+		    where ht.departmentseq in
+			<foreach collection="list" item="findsystomlist" open="(" separator="," close=")">
+		    	#{findsystomlist}
+		    </foreach>
+		    GROUP by h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,
+		    h.hospitalemail, h.hospitaltel, h.hospitaljoindate,
+		    ho.face, ho.unface, ho.housecall, ho.vaccination, ho.ishealthcheck, ho.ishospitalnightcare,
+		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff
+		    order by h.hospitalid desc
 	 </select>
+	
+	
+	
 </mapper>
