@@ -19,19 +19,19 @@
                     <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
                         <ul class="social-icon">
                             <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-twitter"></a>
+                                <a href="/apa/auth/mylogin.do" class="social-icon-link bi-twitter"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-facebook"></a>
+                                <a href="/apa/auth/mymy.do" class="social-icon-link bi-facebook"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-instagram"></a>
+                                <a href="/apa/auth/myinfo.do" class="social-icon-link bi-instagram"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-youtube"></a>
+                                <a href="/apa/auth/mylogout.do" class="social-icon-link bi-youtube"></a>
                             </li>
 
                             <li class="social-icon-item">
