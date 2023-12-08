@@ -61,9 +61,24 @@
 	   	margin: 0 auto;
 	   	left: 0;
 	   	right: 0;
-	   	z-index: 0;
+	   	z-index: 999;
+	}
+	.review-progress-bar {
+	    width: 100%;
+	    height: 30px;
+	    background-color: #dedede;
+	    font-weight: 600;
+	    font-size: .8rem;
 	}
 	
+	.review-progress-bar .review-progress {
+	    width: 50%;
+	    height: 30px;
+	    padding: 0;
+	    text-align: center;
+	    background-color: #4F98FF;
+	    color: #111;
+	}
 </style>
 
 </head>

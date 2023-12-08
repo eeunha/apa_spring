@@ -38,6 +38,11 @@ public class InfoDAOImpl implements InfoDAO {
 	public List<ReviewDTO> reviewtaglist(String seq) {
 		return mapper.reviewtaglist(seq);
 	}
+
+	@Override
+	public String bookmarkcount(String seq) {
+		return mapper.bookmarkcount(seq);
+	}
 	
 	
 }

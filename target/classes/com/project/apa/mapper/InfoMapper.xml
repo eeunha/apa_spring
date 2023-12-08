@@ -59,4 +59,8 @@
 		    where a.hospitalid = #{seq}
 	 </select>
 	 
+	 <select id="bookmarkcount" parameterType="String" resultType="String">
+	 	select count(*) from tblbookmark where hospitalid = #{seq}
+	 </select>
+	 
 </mapper>

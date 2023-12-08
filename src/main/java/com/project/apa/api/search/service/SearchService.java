@@ -53,6 +53,10 @@ public class SearchService {
 	public List<ReviewDTO> reviewtaglist(String seq) {
 		return infodao.reviewtaglist(seq);
 	}
+
+	public String bookmarkcount(String seq) {
+		return infodao.bookmarkcount(seq);
+	}
 	
 
 }

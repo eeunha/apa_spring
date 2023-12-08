@@ -19,4 +19,6 @@ public interface InfoDAO {
 
 	List<ReviewDTO> reviewtaglist(String seq);
 
+	String bookmarkcount(String seq);
+
 }

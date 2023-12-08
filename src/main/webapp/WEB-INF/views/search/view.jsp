@@ -5,6 +5,9 @@
 	<div class="maindiv">
 		<div>
 			<h6>${dto.hospitalname}</h6>
+			<div class="social-icon-item">
+            	<div class="bookmark-icon-link bi-star-fill" style="color: yellow;"></div>
+			</div>
 			<div class="hospital-info-grid">
 				<c:if test="${dto.face == 'y' or dto.face == 'Y'}">
 					<p class="box-content box-content-color">대면</p>
@@ -108,19 +111,26 @@
 		</c:if>
 		<hr>
 		<div>
-			<c:forEach items="${reviewlist}" var="reviewlist">
-			<div class="review-grid">
-				<div>${reviewlist.userId}</div>
-				<div class="hospital-info-grid reviewtaglist">
-					<c:forEach items="${reviewtaglist}" var="reviewtaglist">
-						<c:if test="${reviewtaglist.reviewSeq == reviewlist.reviewSeq}">
-						<p class="box-content">${reviewtaglist.tagContent}</p>
-						</c:if>
-					</c:forEach>
-				</div>
+			<div class="review-progress-bar">       
+   				<div class="review-progress" style="width: ${positive}%";></div>
 			</div>
-				<p>${reviewlist.reviewContent}</p>
+			<div>
+				<c:forEach items="${reviewlist}" var="reviewlist">
+					<div class="review-grid">
+						<div>${reviewlist.userId}</div>
+						<div class="hospital-info-grid reviewtaglist">
+							<c:forEach items="${reviewtaglist}" var="reviewtaglist">
+								<c:if test="${reviewtaglist.reviewSeq == reviewlist.reviewSeq}">
+									<p class="box-content">${reviewtaglist.tagContent}</p>
+								</c:if>
+							</c:forEach>
+						</div>
+					</div>
+					<p>${reviewlist.reviewContent}</p>
 				</c:forEach>
+			</div>
 		</div>
 	</div>
 </main>
+<script>
+</script>

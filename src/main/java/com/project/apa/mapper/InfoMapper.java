@@ -18,4 +18,6 @@ public interface InfoMapper {
 	List<ReviewDTO> reviewlist(String seq);
 
 	List<ReviewDTO> reviewtaglist(String seq);
+
+	String bookmarkcount(String seq);
 }

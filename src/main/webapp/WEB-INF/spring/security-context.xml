@@ -18,9 +18,6 @@
 		
 		<security:intercept-url pattern="/search/tagfind" access="permitAll"/>
 		
-		<security:intercept-url pattern="/search/list.do" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/search/view.do" access="hasRole('ROLE_ADMIN')"/>
-		
 		<!-- 빌트인 로그인 페이지 호출 -->
 		<!-- <security:form-login/> -->
 		

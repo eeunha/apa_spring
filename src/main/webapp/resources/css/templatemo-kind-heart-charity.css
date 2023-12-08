@@ -1373,6 +1373,18 @@ blockquote::before {
   height: 35px;
   line-height: 38px;
 }
+.bookmark-icon-link {
+  background: var(--site-footer-bg-color);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  font-size: var(--copyright-font-size);
+  display: block;
+  margin-right: 5px;
+  text-align: center;
+  width: 35px;
+  height: 35px;
+  line-height: 38px;
+}
 
 .social-icon-link:hover {
   background: var(--primary-color);
