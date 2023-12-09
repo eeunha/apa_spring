@@ -20,13 +20,15 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<table id="register-list" class="list">
+					<table class="list">
 						<thead>
 							<c:if test="${appointmentList.size() != 0}">
 								<tr>
 									<th>번호</th>
 									<th>예약번호</th>
 									<th>접수자</th>
+									<th>환자</th>
+									<th>진료방식</th>
 									<th>예약일시</th>
 									<th>의사</th>
 									<th>상세증상</th>
@@ -37,13 +39,20 @@
 						</thead>
 
 						<tbody>
-							<c:forEach items="${appointmentList}" var="dto" varStatus="status">
+							<c:forEach items="${appointmentList}" var="dto">
 								<tr
-									onclick="location.href='/apa/hospital/diagnosis/register-view.do?mediSeq=${dto.mediSeq}';">
-									<td>${status.count}</td>
-									<td>${dto.mediSeq}</td>
+									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/today/appointment/${dto.appointmentSeq}';">
+									<td>${dto.rnum}</td>
+									<td>${dto.appointmentSeq}</td>
 									<td>${dto.userName}</td>
-									<td>${dto.treatmentDate}</td>
+									<c:if test="${dto.childName != null}">
+										<td>${dto.childName}</td>
+									</c:if>
+									<c:if test="${dto.childName == null}">
+										<td class="symptomNull">(접수자)</td>
+									</c:if>
+									<td>${dto.treatmentWay}</td>
+									<td>${dto.appointmentDate}</td>
 									<td>${dto.doctorName}</td>
 									<c:if test="${dto.symptom == null}">
 										<td class="symptomNull">(미작성)</td>
@@ -54,9 +63,9 @@
 									<td>${dto.regdate}</td>
 									<td>
 										<button type="button" name="btnApproval" id="btnApproval"
-											onclick="approvalRegister('${dto.mediSeq}');">승인</button>
+											onclick="approvalRegister('${dto.appointmentSeq}');">승인</button>
 										<button type="button" name="btnDecline" id="btnDecline"
-											onclick="declineRegister('${dto.mediSeq}');">거절</button>
+											onclick="declineRegister('${dto.appointmentSeq}');">거절</button> 
 									</td>
 								</tr>
 							</c:forEach>
@@ -72,3 +81,7 @@
 	</div>
 </div>
 <!-- /.container-fluid -->
+
+<script>
+
+</script>

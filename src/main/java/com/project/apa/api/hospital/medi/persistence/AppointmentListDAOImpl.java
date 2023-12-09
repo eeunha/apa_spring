@@ -1,5 +1,6 @@
 package com.project.apa.api.hospital.medi.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,16 @@ public class AppointmentListDAOImpl implements AppointmentListDAO {
 	private HospitalMediMapper hospitalMediMapper;
 
 	@Override
-	public List<AppointmentListDTO> getTodayAppointmentList(String id) {
+	public List<AppointmentListDTO> getTodayAppointmentList(HashMap<String, Object> map) {
 
-		return hospitalMediMapper.getTodayAppointmentList(id);
+		return hospitalMediMapper.getTodayAppointmentList(map);
+	}
+
+	@Override
+	public List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map) {
+		
+		System.out.println("DAO - id: " + map.get("id"));
+		
+		return hospitalMediMapper.getAllAppointmentList(map);
 	}
 }

@@ -8,8 +8,51 @@
 		select * from tblUser
 	</select>
 
-	<select id="getTodayAppointmentList" parameterType="String"
+	<!-- 오늘의 진료 - 예약 - 목록 -->
+	<select id="getTodayAppointmentList" parameterType="java.util.HashMap"
 		resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
-		select * from tblAppointment where hospitalid = #{id}	
+		<!-- select * from tblAppointment where hospitalid = #{id}	 -->
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select *
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		            <!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') --> 
+		            and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27' 
+		            and appointmentSeq in (select appointmentSeq from tblAppointmentStatus where status = '승인대기')
+		    ) a
+		) 
+		where rnum between ${start} and ${end}
+	</select>
+	
+	<!-- 모든 진료 - 예약 - 목록 -->
+	<select id="getAllAppointmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, treatmentWay, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, doctorName, symptom, regdate, 
+		            case
+		                when status = '승인대기' then '대기'
+		                when status = '예약거부' then '거절'
+		                else '승인'
+		            end as status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		    ) a
+		) 
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- 모든 진료 - 예약 - 상세보기 -->
+	<select id="getAllAppointmentDetail" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO">
+		select * from tblAppointment
 	</select>
 </mapper>

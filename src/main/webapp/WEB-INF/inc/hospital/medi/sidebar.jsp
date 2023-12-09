@@ -12,7 +12,7 @@
 	</a>
 
 	<!-- Nav Item - Dashboard -->
-	<li class="nav-item active"><a class="nav-link" href="/apa/hospital/medi/today/appointment">
+	<li class="nav-item active"><a class="nav-link" href="/apa/hospital/${id}/medi/today/appointment">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>내 진료</span>
 	</a></li>
 
@@ -32,8 +32,8 @@
 			data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-				<a class="collapse-item" href="/apa/hospital/medi/today/appointment">오늘의 예약 내역</a> <a
-					class="collapse-item" href="/apa/hospital/medi/today/treatment">오늘의 진료 내역</a>
+				<a class="collapse-item" href="/apa/hospital/${id}/medi/today/appointment">오늘의 예약 내역</a> <a
+					class="collapse-item" href="/apa/hospital/${id}/medi/today/treatment">오늘의 진료 내역</a>
 			</div>
 		</div></li>
 
@@ -46,8 +46,8 @@
 		<div id="collapseUtilities" class="collapse"
 			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="/apa/hospital/medi/all/appointment">모든 예약 내역</a> <a
-					class="collapse-item" href="/apa/hospital/medi/all/treatment">모든 진료 내역</a>
+				<a class="collapse-item" href="/apa/hospital/${id}/medi/all/appointment">모든 예약 내역</a> <a
+					class="collapse-item" href="/apa/hospital/${id}/medi/all/treatment">모든 진료 내역</a>
 			</div>
 		</div></li>
 
@@ -58,7 +58,7 @@
 	<div class="sidebar-heading">환자 관리</div>
 
 	<!-- Nav Item - Charts -->
-	<li class="nav-item"><a class="nav-link" href="/apa/hospital/medi/patient"> <i
+	<li class="nav-item"><a class="nav-link" href="/apa/hospital/${id}/medi/patient"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>내원환자</span></a></li>
 
 	<!-- Divider -->

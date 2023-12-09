@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- appointment.jsp -->
+<link href="/apa/resources/css/hospital-medi.css" rel="stylesheet">
+
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -16,41 +18,43 @@
 				<!-- Card Header - Dropdown -->
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h5 class="m-0 font-weight-bold text-primary">오늘의 예약222</h5>
+					<h5 class="m-0 font-weight-bold text-primary">모든 예약 내역</h5>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<table id="register-list" class="list">
+					<table id="appointment-all-list" class="list">
 						<thead>
-							<tr>
-								<th>번호</th>
-							</tr>
-							<%-- <c:if test="${registerList.size() != 0}">
+							<c:if test="${appointmentList.size() != 0}">
 								<tr>
 									<th>번호</th>
 									<th>예약번호</th>
 									<th>접수자</th>
+									<th>환자</th>
+									<th>진료방식</th>
 									<th>예약일시</th>
 									<th>의사</th>
 									<th>상세증상</th>
 									<th>신청일시</th>
-									<th>확인</th>
+									<th>상태</th>
 								</tr>
-							</c:if> --%>
+							</c:if>
 						</thead>
 
 						<tbody>
-
-							<tr>
-								<td>1</td>
-							</tr>
-							<%-- <c:forEach items="${registerList}" var="dto" varStatus="status">
+							<c:forEach items="${appointmentList}" var="dto">
 								<tr
-									onclick="location.href='/apa/hospital/diagnosis/register-view.do?mediSeq=${dto.mediSeq}';">
-									<td>${status.count}</td>
-									<td>${dto.mediSeq}</td>
+									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment/${dto.rnum}';">
+									<td>${dto.rnum}</td>
+									<td>${dto.appointmentSeq}</td>
 									<td>${dto.userName}</td>
-									<td>${dto.treatmentDate}</td>
+									<c:if test="${dto.childName != null}">
+										<td>${dto.childName}</td>
+									</c:if>
+									<c:if test="${dto.childName == null}">
+										<td class="symptomNull">(접수자)</td>
+									</c:if>
+									<td>${dto.treatmentWay}</td>
+									<td>${dto.appointmentDate}</td>
 									<td>${dto.doctorName}</td>
 									<c:if test="${dto.symptom == null}">
 										<td class="symptomNull">(미작성)</td>
@@ -59,18 +63,18 @@
 										<td>${dto.symptom}</td>
 									</c:if>
 									<td>${dto.regdate}</td>
-									<td>
-										<button type="button" name="btnApproval" id="btnApproval"
-											onclick="approvalRegister('${dto.mediSeq}');">승인</button>
-										<button type="button" name="btnDecline" id="btnDecline"
-											onclick="declineRegister('${dto.mediSeq}');">거절</button>
-									</td>
+									<td>${dto.status}</td>
 								</tr>
-							</c:forEach> --%>
+							</c:forEach>
 
-							<%-- <c:if test="${registerList.size() == 0}">
-								<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
+							<%-- <c:if test="${list.size() != 0}">
+								<!-- 페이지바 -->
+								<div id="pagebar">${pagebar}</div>
 							</c:if> --%>
+
+							<c:if test="${appointmentList.size() == 0}">
+								<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
+							</c:if>
 						</tbody>
 					</table>
 				</div>
