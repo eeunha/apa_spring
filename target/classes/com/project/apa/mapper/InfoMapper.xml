@@ -59,8 +59,16 @@
 		    where a.hospitalid = #{seq}
 	 </select>
 	 
-	 <select id="bookmarkcount" parameterType="String" resultType="String">
-	 	select count(*) from tblbookmark where hospitalid = #{seq}
+	 <select id="bookmarkcount" parameterType="String" resultType="com.project.apa.api.search.model.BookMarkDTO">
+	 	select * from tblbookmark where hospitalid = #{seq}
 	 </select>
 	 
+	 <insert id="bookmarkin" parameterType="com.project.apa.api.search.model.BookMarkDTO">
+		INSERT INTO tblbookmark (bookmarkseq, userseq, hospitalid) VALUES ((select max(bookmarkseq) from tblbookmark)+1, #{userseq}, #{hospitalid})
+	</insert>
+	
+	<delete id="bookmarkout" >
+		delete tblbookmark where userseq = #{userseq} and hospitalid=#{hospitalid}
+	</delete>
+	
 </mapper>

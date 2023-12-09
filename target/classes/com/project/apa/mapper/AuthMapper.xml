@@ -31,9 +31,11 @@
 		        on u.userseq = a.userseq
 		    where u.userid = #{userid}
 	</select>
-	<!-- 테스트
+	
 	<update id="encode" parameterType="com.project.apa.auth.model.MemberDTO">
 		update tbluser set userpw = #{userpw} where userseq = #{userseq}
 	</update>
-	 -->
+	
+	
+	
 </mapper>

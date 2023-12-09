@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.project.apa.api.search.model.BookMarkDTO;
 import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
 import com.project.apa.api.search.model.ReviewDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
 import com.project.apa.api.search.repository.InfoDAO;
+import com.project.apa.api.search.repository.ReservationDAO;
 import com.project.apa.api.search.repository.SearchDAO;
 
 @Service
@@ -21,6 +23,8 @@ public class SearchService {
 	private SearchDAO searchdao;
 	@Autowired
 	private InfoDAO infodao;
+	@Autowired
+	private ReservationDAO redao;
 
 	public List<SelfsymtomDTO> symtomlist() {
 		return searchdao.symtomlist();
@@ -54,8 +58,16 @@ public class SearchService {
 		return infodao.reviewtaglist(seq);
 	}
 
-	public String bookmarkcount(String seq) {
+	public List<BookMarkDTO> bookmarkcount(String seq) {
 		return infodao.bookmarkcount(seq);
+	}
+
+	public int bookmarkin(BookMarkDTO dto) {
+		return infodao.bookmarkin(dto);
+	}
+
+	public int bookmarkout(BookMarkDTO dto) {
+		return infodao.bookmarkout(dto);
 	}
 	
 

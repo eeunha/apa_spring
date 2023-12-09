@@ -15,28 +15,8 @@ import com.project.apa.api.search.service.SearchService;
 
 @RestController
 @RequestMapping("/search")
-public class RestSearchController {
+public class RestReservationController {
 	
 	@Autowired
 	private SearchService service;
-	
-	@PostMapping(value = "/tagfind")
-	public List<HospitalInfoDTO> tagfind(@RequestBody FindHospitalDTO dto) {
-
-		List<String> findsystomlist = service.findsystomlist(dto);
-		
-		return service.findHospitalList(findsystomlist);
-	}
-	
-	@PostMapping(value = "/bookmark")
-	public int bookmark(@RequestBody BookMarkDTO dto) {
-		
-		return service.bookmarkin(dto);
-	}
-	
-	@PostMapping(value = "/bookmarkout")
-	public int bookmarkout(@RequestBody BookMarkDTO dto) {
-		
-		return service.bookmarkout(dto);
-	}
 }

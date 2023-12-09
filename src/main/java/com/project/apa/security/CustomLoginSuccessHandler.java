@@ -23,6 +23,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		authentication.getAuthorities().forEach(authority -> {
 			
 			roleNames.add(authority.getAuthority());
+			
 		});
 		
 		if (roleNames.contains("ROLE_ADMIN")) {

@@ -1,5 +1,9 @@
 package com.project.apa.security;
 
+import java.io.Serializable;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		//DB 상에서 회원 정보 읽어서 > 인증 객체 대입
-		
 		//username == 아이디
 		MemberDTO dto = mapper.read(username);
 		//MemberDTO > 시큐리티에서 사용(변환) > CustomUser

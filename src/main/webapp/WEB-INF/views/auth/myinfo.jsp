@@ -16,6 +16,7 @@
 	 	<sec:authentication property="principal.dto"/>
 	 </div>
 	 <div class="message" title="사용자 이름">
+	 	<sec:authentication property="principal.dto.userseq"/>
 	 	<sec:authentication property="principal.dto.userid"/>
 	 	<sec:authentication property="principal.dto.username"/>
 	 </div>

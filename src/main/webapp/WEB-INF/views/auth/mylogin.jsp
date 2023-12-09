@@ -12,6 +12,9 @@
 	-->
 	<form action="/apa/login" method="POST">
 		<div>
+			<input type="text" name="checked" placeholder="Checked" required>
+		</div>
+		<div>
 			<input type="text" name="username" placeholder="ID" required>
 		</div>
 		<div>

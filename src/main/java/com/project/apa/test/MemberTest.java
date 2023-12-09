@@ -17,19 +17,19 @@ import com.project.apa.mapper.AuthMapper;
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class MemberTest {
 
-	/*
-	 * @Autowired private AuthMapper mapper;
-	 * 
-	 * @Autowired private PasswordEncoder encoder;
-	 * 
-	 * @Test public void testInsertMember() {
-	 * 
-	 * List<MemberDTO> list = mapper.mymy();
-	 * 
-	 * for (MemberDTO dto : list) { dto.setUserpw(encoder.encode(dto.getUserpw()));
-	 * System.out.println(dto.getUserpw()); mapper.encode(dto); }
-	 * 
-	 * }
-	 */
+	
+	  @Autowired private AuthMapper mapper;
+	  
+	  @Autowired private PasswordEncoder encoder;
+	  
+	  @Test public void testInsertMember() {
+	  
+	  List<MemberDTO> list = mapper.mymy();
+	  
+	  for (MemberDTO dto : list) { dto.setUserpw(encoder.encode(dto.getUserpw()));
+	  System.out.println(dto.getUserpw()); mapper.encode(dto); }
+	  
+	  }
+	 
 	
 }

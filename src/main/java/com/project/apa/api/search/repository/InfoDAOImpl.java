@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.apa.api.search.model.BookMarkDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
 import com.project.apa.api.search.model.ReviewDTO;
@@ -39,10 +40,22 @@ public class InfoDAOImpl implements InfoDAO {
 		return mapper.reviewtaglist(seq);
 	}
 
+	
+
 	@Override
-	public String bookmarkcount(String seq) {
+	public int bookmarkin(BookMarkDTO dto) {
+		return mapper.bookmarkin(dto);
+	}
+
+	@Override
+	public List<BookMarkDTO> bookmarkcount(String seq) {
 		return mapper.bookmarkcount(seq);
 	}
-	
+
+	@Override
+	public int bookmarkout(BookMarkDTO dto) {
+		return mapper.bookmarkout(dto);
+	}
+
 	
 }

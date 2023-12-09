@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
 <main>
 	<div class="maindiv">
 		<div>
-			<h6>${dto.hospitalname}</h6>
-			<div class="social-icon-item">
-            	<div class="bookmark-icon-link bi-star-fill" style="color: yellow;"></div>
+			<div class="review-grid">
+				<h2>${dto.hospitalname}</h2>
+						<div class="social-icon-item">
+			            	<button type="button" id="bookmark-button" class="bookmark-icon-link bi-star-fill" 
+								<c:forEach items="${bookmarkcount}" var="dto">
+									<c:if test="${dto.userseq == '1'}">
+										    style="color: yellow;"
+									</c:if>
+								</c:forEach>
+			            	></button>
+						</div>
 			</div>
 			<div class="hospital-info-grid">
 				<c:if test="${dto.face == 'y' or dto.face == 'Y'}">
@@ -97,19 +106,23 @@
 		</div>
 		<c:if test="${lv == '1'}">
 			<div style"width=100%">
-				<a href="#">
+				<a href="/apa/search/reservation/select.do?seq=${dto.hospitalid}">
 					<button class="reservation-button">예약하기</button>
 				</a>
 			</div>
 		</c:if>
 		<c:if test="${lv == '' || lv == null}">
 			<div class="button-div">
-				<a href="#">
+				<a href="/apa/search/reservation/select.do?seq=${dto.hospitalid}">
 					<button class="reservation-button">예약하기</button>
 				</a>
 			</div>
 		</c:if>
 		<hr>
+		<%-- <div class="message" title="사용자 이름">
+		 	<sec:authentication property="principal.dto.userid"/>
+		 	<sec:authentication property="principal.dto.username"/>
+		 </div> --%>
 		<div>
 			<div class="review-progress-bar">       
    				<div class="review-progress" style="width: ${positive}%";></div>
@@ -130,7 +143,53 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div id="seq" data-userseq="<sec:authentication property='principal.dto.userseq' />">
+		</div>
 	</div>
 </main>
 <script>
+	$("#bookmark-button").click(function() {
+		var color = $(this).css('color');
+		let obj = {
+				userseq : 1,
+				hospitalid : '${dto.hospitalid}'
+			};
+		if ($("#bookmark-button").css('color')==='rgb(255, 255, 0)'){
+			$.ajax({
+	 			type: 'POST',
+	 			url: 'http://localhost:8090/apa/search/bookmarkout',
+	 			headers: {'Content-Type': 'application/json'},
+				beforeSend : function(xhr){
+					xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+				},
+	 			data:JSON.stringify(obj),
+	 			dataType: 'json',
+	 			success: function(result) {
+	 				$("#bookmark-button").css('color','white');
+	 			},
+	 			error: function(a,b,c) {
+	 				console.log(a,b,c);
+	 			}
+	 		});
+		} else {
+			
+			$.ajax({
+	 			type: 'POST',
+	 			url: 'http://localhost:8090/apa/search/bookmark',
+	 			headers: {'Content-Type': 'application/json'},
+				beforeSend : function(xhr){
+					xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+				},
+	 			data:JSON.stringify(obj),
+	 			dataType: 'json',
+	 			success: function(result) {
+	 				$("#bookmark-button").css('color','yellow');
+	 			},
+	 			error: function(a,b,c) {
+	 				console.log(a,b,c);
+	 			}
+	 		});
+		}
+	});
+	
 </script>

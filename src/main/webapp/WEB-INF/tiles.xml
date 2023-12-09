@@ -15,6 +15,12 @@
 		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/auth/{1}.jsp"></put-attribute>
 	</definition>
+	<definition name="search.reservation.*" template="/WEB-INF/views/layout/search.jsp">
+		<put-attribute name="asset" value="/WEB-INF/inc/asset.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/inc/header.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/search/reservation/{1}.jsp"></put-attribute>
+	</definition>
 	<definition name="search.*" template="/WEB-INF/views/layout/search.jsp">
 		<put-attribute name="asset" value="/WEB-INF/inc/asset.jsp"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/inc/header.jsp"></put-attribute>
