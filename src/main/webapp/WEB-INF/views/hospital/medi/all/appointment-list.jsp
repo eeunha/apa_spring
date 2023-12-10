@@ -43,7 +43,7 @@
 						<tbody>
 							<c:forEach items="${appointmentList}" var="dto">
 								<tr
-									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment/${dto.rnum}';">
+									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}';">
 									<td>${dto.rnum}</td>
 									<td>${dto.appointmentSeq}</td>
 									<td>${dto.userName}</td>
@@ -66,17 +66,17 @@
 									<td>${dto.status}</td>
 								</tr>
 							</c:forEach>
-
-							<%-- <c:if test="${list.size() != 0}">
-								<!-- 페이지바 -->
-								<div id="pagebar">${pagebar}</div>
-							</c:if> --%>
-
-							<c:if test="${appointmentList.size() == 0}">
-								<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
-							</c:if>
 						</tbody>
+
 					</table>
+					<c:if test="${appointmentList.size() != 0}">
+						<!-- 페이지바 -->
+						<div class="pagebar">${pagebar}</div>
+					</c:if>
+
+					<c:if test="${appointmentList.size() == 0}">
+						<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
+					</c:if>
 				</div>
 			</div>
 		</div>

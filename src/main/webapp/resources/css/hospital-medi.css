@@ -104,10 +104,11 @@ button:hover {
 	color: tomato;
 }
 
-#pagebar {
+.pagebar {
 	text-align: center;
 	margin-top: 20px;
 	font-size: 1.1rem;
+	color: #858796 !important;
 }
 
 .symptomNull {

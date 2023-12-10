@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
 import com.project.apa.api.hospital.medi.domain.PatientDTO;
+import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 import com.project.apa.api.hospital.medi.service.PatientService;
 import com.project.apa.api.hospital.medi.service.PracticeService;
 
@@ -36,7 +37,7 @@ public class RestHospitalMediController {
 		map.put("id", id);
 		map.put("start", start);
 		map.put("end", end);
-		
+
 		return practiceService.getTodayAppointmentList(map);
 	}
 
@@ -49,26 +50,35 @@ public class RestHospitalMediController {
 	// 모든 진료 예약 목록 가져오기
 	@GetMapping(value = "/all/appointment")
 	public List<AppointmentListDTO> getAllAppointmentList(@PathVariable String id,
-			@RequestParam(defaultValue = "1") int start, @RequestParam(defaultValue = "10") int end) {
+			@RequestParam(defaultValue = "1") int page) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		map.put("start", start);
-		map.put("end", end);
+		map.put("page", page);
 
 		return practiceService.getAllAppointmentList(map);
 	}
 
 	// 모든 진료 예약 상세 내역 가져오기
-	@GetMapping(value = "/all/appointment/${appointmentSeq}")
-	public List<AppointmentDetailDTO> getAllAppointmentDetail(@PathVariable String id, @PathVariable int appointmentSeq) {
-		
+	@GetMapping(value = "/all/appointment/{appointmentSeq}")
+	public AppointmentDetailDTO getAllAppointmentDetail(@PathVariable int appointmentSeq) {
+
+		return practiceService.getAllAppointmentDetail(appointmentSeq);
+	}
+
+	// 모든 진료 내역 목록 가져오기
+	@GetMapping(value = "/all/treatment")
+	public List<TreatmentListDTO> getAllTreatmentList(@PathVariable String id,
+			@RequestParam(defaultValue = "1") int page) {
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		map.put("appointmentSeq", appointmentSeq);
+		map.put("page", page);
 		
-		return practiceService.getAllAppointmentDetail(map);
+		return practiceService.getAllTreatmentList(map);
 	}
+
+	// 모든 진료 내역 상세정보 가져오기
 
 	// 내원환자 목록 가져오기
 	@GetMapping(value = "/patient")

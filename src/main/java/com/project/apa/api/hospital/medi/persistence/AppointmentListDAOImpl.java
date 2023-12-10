@@ -23,9 +23,13 @@ public class AppointmentListDAOImpl implements AppointmentListDAO {
 
 	@Override
 	public List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map) {
-		
-		System.out.println("DAO - id: " + map.get("id"));
-		
+
 		return hospitalMediMapper.getAllAppointmentList(map);
+	}
+
+	@Override
+	public int getAllAppointmentCount(String id) {
+		
+		return hospitalMediMapper.getAllAppointmentCount(id);
 	}
 }
