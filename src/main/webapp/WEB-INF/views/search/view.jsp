@@ -7,15 +7,15 @@
 		<div>
 			<div class="review-grid">
 				<h2>${dto.hospitalname}</h2>
-						<div class="social-icon-item">
-			            	<button type="button" id="bookmark-button" class="bookmark-icon-link bi-star-fill" 
-								<c:forEach items="${bookmarkcount}" var="dto">
+				<div class="social-icon-item">
+					<button type="button" id="bookmark-button"
+						class="bookmark-icon-link bi-star-fill"
+						<c:forEach items="${bookmarkcount}" var="dto">
 									<c:if test="${dto.userseq == '1'}">
 										    style="color: yellow;"
 									</c:if>
-								</c:forEach>
-			            	></button>
-						</div>
+								</c:forEach>></button>
+				</div>
 			</div>
 			<div class="hospital-info-grid">
 				<c:if test="${dto.face == 'y' or dto.face == 'Y'}">
@@ -112,11 +112,66 @@
 			</div>
 		</c:if>
 		<c:if test="${lv == '' || lv == null}">
-			<div class="button-div">
-				<a href="/apa/search/reservation/select.do?seq=${dto.hospitalid}">
+			<!-- <div class="button-div"> -->
+			<!-- <a class="js-click-modal">
 					<button class="reservation-button">예약하기</button>
-				</a>
+				</a> -->
+			<div class="container">
+				<a class="reservation-button js-click-modal">예약하기</a>
+				<div class="reservation-modal">
+					<div>
+						<form action="/apa/search/reservation/select.do" method="POST">
+							<div class="hospital-info">
+								<div>
+									<c:if test="${dto.face == 'y' || dto.face == 'Y'}">
+										<div>
+											<div>
+												<button type="button" class="type-button" onclick="typechoice()" value="${dto.face}">대면</button>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${dto.unface == 'y' || dto.unface == 'Y'}">
+										<div>
+											<div>
+												<button type="button" class="type-button" onclick="typechoice()" value="${dto.unface}">비대면</button>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${dto.housecall == 'y' || dto.housecall == 'Y'}">
+										<div>
+											<div>
+												<button type="button" class="type-button" onclick="typechoice()" value="${dto.housecall}">왕진</button>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${dto.ishealthcheck == 'y' || dto.ishealthcheck == 'Y'}">
+										<div>
+											<div>
+												<button type="button" class="type-button" onclick="typechoice()" value="${dto.ishealthcheck}">건강검진</button>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${dto.vaccination == 'y' || dto.vaccination == 'Y'}">
+										<div>
+											<div>
+												<button type="button" class="type-button" onclick="typechoice()" value="${dto.vaccination}">예방접종</button>
+											</div>
+										</div>
+									</c:if>
+								</div>
+								<input type="hidden" id="choice-type" name="choicetype"></input>
+								<input type="hidden" name="seq" value="${dto.hospitalid}">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								<div class="reservation-modal-button-list">
+									<button type="submit" class="js-close-modal reservation-modal-button" disabled="disabled">다음으로</button>
+									<a class="js-close-modal reservation-modal-button">닫기</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
+			<!-- </div> -->
 		</c:if>
 		<hr>
 		<%-- <div class="message" title="사용자 이름">
@@ -124,8 +179,8 @@
 		 	<sec:authentication property="principal.dto.username"/>
 		 </div> --%>
 		<div>
-			<div class="review-progress-bar">       
-   				<div class="review-progress" style="width: ${positive}%";></div>
+			<div class="review-progress-bar">
+				<div class="review-progress" style="width: ${positive}%";></div>
 			</div>
 			<div>
 				<c:forEach items="${reviewlist}" var="reviewlist">
@@ -143,53 +198,79 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div id="seq" data-userseq="<sec:authentication property='principal.dto.userseq' />">
+		<div id="seq"
+			data-userseq="<sec:authentication property='principal.dto.userseq' />">
 		</div>
 	</div>
 </main>
 <script>
-	$("#bookmark-button").click(function() {
-		var color = $(this).css('color');
-		let obj = {
-				userseq : 1,
-				hospitalid : '${dto.hospitalid}'
-			};
-		if ($("#bookmark-button").css('color')==='rgb(255, 255, 0)'){
-			$.ajax({
-	 			type: 'POST',
-	 			url: 'http://localhost:8090/apa/search/bookmarkout',
-	 			headers: {'Content-Type': 'application/json'},
-				beforeSend : function(xhr){
-					xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
-				},
-	 			data:JSON.stringify(obj),
-	 			dataType: 'json',
-	 			success: function(result) {
-	 				$("#bookmark-button").css('color','white');
-	 			},
-	 			error: function(a,b,c) {
-	 				console.log(a,b,c);
-	 			}
-	 		});
-		} else {
-			
-			$.ajax({
-	 			type: 'POST',
-	 			url: 'http://localhost:8090/apa/search/bookmark',
-	 			headers: {'Content-Type': 'application/json'},
-				beforeSend : function(xhr){
-					xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
-				},
-	 			data:JSON.stringify(obj),
-	 			dataType: 'json',
-	 			success: function(result) {
-	 				$("#bookmark-button").css('color','yellow');
-	 			},
-	 			error: function(a,b,c) {
-	 				console.log(a,b,c);
-	 			}
-	 		});
-		}
+	function typechoice() {
+		$('.type-button').css('opacity', '0.4');
+		$(event.target).css('opacity', '1');
+		$('#choice-type').html('');
+		$('#choice-type').append('<input type="hidden" id="choicetype" name="choicetype" value= "">');
+		$('#choicetype').val($(event.target).text());
+		$('.reservation-modal-button').attr("disabled", false);
+	}
+	$('.js-click-modal').click(function() {
+		$('.container').addClass('modal-open');
+		$(".js-close-modal").css('opacity', '10');
+		$(".js-click-modal").css('opacity', '0');
 	});
-	
+
+	$('.js-close-modal').click(function() {
+		$('.container').removeClass('modal-open');
+		$(".js-close-modal").css('opacity', '0');
+		$(".js-click-modal").css('opacity', '10');
+	});
+	$("#bookmark-button").click(
+			function() {
+				var color = $(this).css('color');
+				let obj = {
+					userseq : 1,
+					hospitalid : '${dto.hospitalid}'
+				};
+				if ($("#bookmark-button").css('color') === 'rgb(255, 255, 0)') {
+					$.ajax({
+						type : 'POST',
+						url : 'http://localhost:8090/apa/search/bookmarkout',
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+						beforeSend : function(xhr) {
+							xhr.setRequestHeader('${_csrf.headerName}',
+									'${_csrf.token}');
+						},
+						data : JSON.stringify(obj),
+						dataType : 'json',
+						success : function(result) {
+							$("#bookmark-button").css('color', 'white');
+						},
+						error : function(a, b, c) {
+							console.log(a, b, c);
+						}
+					});
+				} else {
+
+					$.ajax({
+						type : 'POST',
+						url : 'http://localhost:8090/apa/search/bookmark',
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+						beforeSend : function(xhr) {
+							xhr.setRequestHeader('${_csrf.headerName}',
+									'${_csrf.token}');
+						},
+						data : JSON.stringify(obj),
+						dataType : 'json',
+						success : function(result) {
+							$("#bookmark-button").css('color', 'yellow');
+						},
+						error : function(a, b, c) {
+							console.log(a, b, c);
+						}
+					});
+				}
+			});
 </script>

@@ -11,6 +11,29 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+	.reservation-modal {
+	  background: #fff;
+	  width: 100%;
+	  height: 100%;
+	  margin: 0;
+	  padding: 0;
+	  transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
+	  top: 100%;
+	  position: fixed;
+	  left: 0;
+	  text-align: left;
+	}
+	.container.modal-open .reservation-modal {
+	  top: 50%;
+	  z-index: 999;
+	}
+	.js-close-modal {
+		opacity: 0;
+	}
+
+
+
+
 	.hide-tag{
 		display: none;
 	}
@@ -49,19 +72,46 @@
 		justify-content: space-between;
 	}
 	.reservation-button {
+		text-align:center;
+		font-size: 30px;
+		border-radius: 40px;
+		padding: 10px 25px;
+		display: inline-block;
+		transition: all .4s ease;
+		cursor: pointer;
 		border: 1px;
 		position: fixed;
-	    bottom: 10px;
-	    height: 4rem;
-	    width: 700px;
-	    border-radius: 8px;
-	   	font-weight: bold;
-	   	font-size: 25px;
-	   	box-shadow: 2px 2px 5px #000000;
-	   	margin: 0 auto;
-	   	left: 0;
-	   	right: 0;
-	   	z-index: 999;
+		bottom: 10px;
+		height: 4rem;
+		width: 700px;
+		font-weight: bold;
+		box-shadow: 2px 2px 5px #000000;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		z-index: 888;
+	}
+	.reservation-modal-button-list {
+		text-align:center;
+		left: 0;
+		right: 0;
+		position: fixed;
+		bottom: 10px;
+	}
+	.reservation-modal-button {
+		text-align:center;
+		font-size: 30px;
+		border-radius: 40px;
+		padding: 10px 25px;
+		display: inline-block;
+		transition: all .4s ease;
+		cursor: pointer;
+		border: 1px;
+		height: 4rem;
+		width: 350px;
+		font-weight: bold;
+		box-shadow: 2px 2px 5px #000000;
+		background-color: #ffffff;
 	}
 	.review-progress-bar {
 	    width: 100%;

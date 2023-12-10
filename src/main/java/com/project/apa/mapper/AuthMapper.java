@@ -12,8 +12,7 @@ import com.project.apa.auth.model.MemberDTO;
 public interface AuthMapper {
 	MemberDTO read(String username);
 	
-	  @Select ("select * from tbluser") List<MemberDTO> mymy();
-	  
+	  @Select ("select * from tbluser") 
+	  List<MemberDTO> mymy();
 	  void encode(MemberDTO dto);
-	 
 }

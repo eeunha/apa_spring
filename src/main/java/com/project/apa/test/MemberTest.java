@@ -22,13 +22,13 @@ public class MemberTest {
 	  
 	  @Autowired private PasswordEncoder encoder;
 	  
-	  @Test public void testInsertMember() {
-	  
+	  @Test
+	  public void testInsertMember() {
 	  List<MemberDTO> list = mapper.mymy();
-	  
-	  for (MemberDTO dto : list) { dto.setUserpw(encoder.encode(dto.getUserpw()));
-	  System.out.println(dto.getUserpw()); mapper.encode(dto); }
-	  
+	  for (MemberDTO dto : list) {
+		  dto.setUserpw(encoder.encode(dto.getUserpw()));
+	  System.out.println(dto.getUserpw());
+	  mapper.encode(dto); }
 	  }
 	 
 	
