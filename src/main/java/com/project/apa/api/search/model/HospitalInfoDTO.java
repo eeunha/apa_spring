@@ -22,6 +22,6 @@ public class HospitalInfoDTO {
 	private String opentime;
 	private String closetime;
 	private String restopentime;
-	private String restclosetiem;
+	private String restclosetime;
 	private String hospitaldayoff;
 }

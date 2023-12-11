@@ -20,9 +20,9 @@ public interface InfoMapper {
 
 	List<ReviewDTO> reviewtaglist(String seq);
 
-	int bookmarkin(BookMarkDTO dto);
-
 	List<BookMarkDTO> bookmarkcount(String seq);
+
+	int bookmarkin(BookMarkDTO dto);
 
 	int bookmarkout(BookMarkDTO dto);
 }

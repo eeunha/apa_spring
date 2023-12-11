@@ -11,6 +11,8 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+
+/* 위로 테스트 */
 	.reservation-modal {
 	  background: #fff;
 	  width: 100%;
@@ -30,10 +32,6 @@
 	.js-close-modal {
 		opacity: 0;
 	}
-
-
-
-
 	.hide-tag{
 		display: none;
 	}

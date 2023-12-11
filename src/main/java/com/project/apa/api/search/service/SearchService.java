@@ -69,6 +69,10 @@ public class SearchService {
 	public int bookmarkout(BookMarkDTO dto) {
 		return infodao.bookmarkout(dto);
 	}
+
+	public List<HospitalDoctorDTO> finddeptdoc(HospitalDoctorDTO dto) {
+		return redao.finddeptdoc(dto);
+	}
 	
 
 }

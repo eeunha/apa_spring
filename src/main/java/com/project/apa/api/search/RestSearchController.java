@@ -29,7 +29,7 @@ public class RestSearchController {
 	}
 	
 	@PostMapping(value = "/bookmark")
-	public int bookmark(@RequestBody BookMarkDTO dto) {
+	public int bookmark(@RequestBody BookMarkDTO dto) {	
 		
 		return service.bookmarkin(dto);
 	}

@@ -71,7 +71,7 @@
 			<p>영업시간: ${dto.opentime} ~ ${dto.closetime}</p>
 		</div>
 		<div>
-			<p>휴게시간: ${dto.restopentime} ~ ${dto.restclosetiem}</p>
+			<p>휴게시간: ${dto.restopentime} ~ ${dto.restclosetime}</p>
 		</div>
 		<div>
 			<p>주간 휴무일: ${dto.hospitaldayoff}</p>
@@ -159,10 +159,10 @@
 										</div>
 									</c:if>
 								</div>
-								<input type="hidden" id="choice-type" name="choicetype"></input>
-								<input type="hidden" name="seq" value="${dto.hospitalid}">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 								<div class="reservation-modal-button-list">
+									<div id="choice-type"></div>
+									<input type="hidden" name="seq" value="${dto.hospitalid}">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 									<button type="submit" class="js-close-modal reservation-modal-button" disabled="disabled">다음으로</button>
 									<a class="js-close-modal reservation-modal-button">닫기</a>
 								</div>
@@ -238,8 +238,7 @@
 							'Content-Type' : 'application/json'
 						},
 						beforeSend : function(xhr) {
-							xhr.setRequestHeader('${_csrf.headerName}',
-									'${_csrf.token}');
+							xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 						},
 						data : JSON.stringify(obj),
 						dataType : 'json',
@@ -255,12 +254,11 @@
 					$.ajax({
 						type : 'POST',
 						url : 'http://localhost:8090/apa/search/bookmark',
-						headers : {
+						headers : { 
 							'Content-Type' : 'application/json'
 						},
 						beforeSend : function(xhr) {
-							xhr.setRequestHeader('${_csrf.headerName}',
-									'${_csrf.token}');
+							xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 						},
 						data : JSON.stringify(obj),
 						dataType : 'json',

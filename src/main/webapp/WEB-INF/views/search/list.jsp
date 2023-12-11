@@ -154,6 +154,7 @@
  			data: JSON.stringify(obj),
  			dataType: 'json',
  			success: function(result) {
+				console.log(result);
  				$('#hospital-list tbody').html('');
  				$(result).each((index, item) => {
  						let temp = `
