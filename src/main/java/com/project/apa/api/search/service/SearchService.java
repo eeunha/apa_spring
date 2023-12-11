@@ -7,11 +7,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.project.apa.api.search.model.BookMarkDTO;
+import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
 import com.project.apa.api.search.model.ReviewDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
+import com.project.apa.api.search.model.UserInfoDTO;
 import com.project.apa.api.search.repository.InfoDAO;
 import com.project.apa.api.search.repository.ReservationDAO;
 import com.project.apa.api.search.repository.SearchDAO;
@@ -72,6 +74,14 @@ public class SearchService {
 
 	public List<HospitalDoctorDTO> finddeptdoc(HospitalDoctorDTO dto) {
 		return redao.finddeptdoc(dto);
+	}
+
+	public UserInfoDTO userlist(String userseq) {
+		return redao.userlist(userseq);
+	}
+
+	public List<ChildInfoDTO> childlist(String userseq) {
+		return redao.childlist(userseq);
 	}
 	
 

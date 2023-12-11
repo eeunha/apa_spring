@@ -11,7 +11,12 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
-
+	.rezuser-choice-hide{
+		display:none;
+	}
+	.oneclickhide{
+		display:none;
+	}
 /* 위로 테스트 */
 	.reservation-modal {
 	  background: #fff;

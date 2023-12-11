@@ -8,5 +8,11 @@
 			        on d.departmentseq = dept.departmentseq
 			where d.hospitalid  = #{hospitalId} and d.workstatus in ('y', 'Y') and dept.departmentname = #{departmentname}
 	 </select>
+	 <select id="userlist" resultType="com.project.apa.api.search.model.UserInfoDTO">
+	 	select * from tbluser where userseq = #{userseq}
+	 </select>
+	 <select id="childlist" resultType="com.project.apa.api.search.model.ChildInfoDTO">
+	 	select * from tblchild where userseq = #{userseq} and ischildunregister in('n','N')
+	 </select>
 	
 </mapper>

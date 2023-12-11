@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
+import com.project.apa.api.search.model.UserInfoDTO;
 import com.project.apa.api.search.service.SearchService;
 
 
@@ -19,7 +22,7 @@ public class ReservationController {
 	@Autowired
 	private SearchService service;
 	
-	@PostMapping(value = "/select.do")
+	@GetMapping(value = "/select.do")
 	public String select(Model model, String seq, String choicetype) {
 		
 		HospitalInfoDTO dto = service.hospitalInfo(seq);
@@ -27,8 +30,6 @@ public class ReservationController {
 		dto.setClosetime(dto.getClosetime().substring(11,16));
 		dto.setRestopentime(dto.getRestopentime().substring(11,16));
 		dto.setRestclosetime(dto.getRestclosetime().substring(11,16));
-		
-		System.out.println(choicetype);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("deptlist", service.deptlist(seq));
@@ -40,14 +41,35 @@ public class ReservationController {
 		return "search.reservation.select";
 	}
 	
-	@PostMapping(value = "/detail.do")
-	public String detail(Model model, String seq, String choicetype, String choicedoc, String choicedate, String choicetime) {
+	@GetMapping(value = "/detail.do")
+	public String detail(Model model, String seq, String choicetype, String choicedoc, String choicedate, String choicetime, String userseq) {
 
-		System.out.println(seq);
-		System.out.println(choicetype);
-		System.out.println(choicedoc);
-		System.out.println(choicedate);
-		System.out.println(choicetime);
+		UserInfoDTO userlist = service.userlist(userseq);
+		List<ChildInfoDTO> childlist = service.childlist(userseq);
+		
+		for (ChildInfoDTO dto : childlist) {
+			dto.setFirstssn(dto.getChildssn().substring(0,6));
+			dto.setLastssn(dto.getChildssn().substring(7));
+		}
+		
+		model.addAttribute("firstssn", userlist.getUserssn().substring(0,6));
+		model.addAttribute("lastssn", userlist.getUserssn().substring(7));
+		model.addAttribute("firsttel", userlist.getUsertel().substring(0,3));
+		model.addAttribute("middeltel", userlist.getUsertel().substring(4,8));
+		model.addAttribute("lastltel", userlist.getUsertel().substring(9));
+		model.addAttribute("childfirsttel", userlist.getUsertel().substring(0,3));
+		model.addAttribute("childmiddeltel", userlist.getUsertel().substring(4,8));
+		model.addAttribute("childlastltel", userlist.getUsertel().substring(9));
+		
+		
+		
+		model.addAttribute("hospitalid", seq);
+		model.addAttribute("choicetype", choicetype);
+		model.addAttribute("choicedoc", choicedoc);
+		model.addAttribute("choicedate", choicedate);
+		model.addAttribute("choicetime", choicetime);
+		model.addAttribute("userlist", userlist);
+		model.addAttribute("childlist", childlist);
 		
 		return "search.reservation.detail";
 	}

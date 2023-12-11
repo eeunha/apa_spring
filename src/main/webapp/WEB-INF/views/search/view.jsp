@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
 <main>
 	<div class="maindiv">
 		<div>
@@ -120,7 +118,7 @@
 				<a class="reservation-button js-click-modal">예약하기</a>
 				<div class="reservation-modal">
 					<div>
-						<form action="/apa/search/reservation/select.do" method="POST">
+						<form action="/apa/search/reservation/select.do" method="GET">
 							<div class="hospital-info">
 								<div>
 									<c:if test="${dto.face == 'y' || dto.face == 'Y'}">
@@ -171,13 +169,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- </div> -->
 		</c:if>
 		<hr>
-		<%-- <div class="message" title="사용자 이름">
-		 	<sec:authentication property="principal.dto.userid"/>
-		 	<sec:authentication property="principal.dto.username"/>
-		 </div> --%>
 		<div>
 			<div class="review-progress-bar">
 				<div class="review-progress" style="width: ${positive}%";></div>
@@ -198,12 +191,14 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div id="seq"
-			data-userseq="<sec:authentication property='principal.dto.userseq' />">
+		<div id="seq" data-userseq="<sec:authentication property='principal.dto.userseq' />">
 		</div>
 	</div>
 </main>
 <script>
+	$(document).ajaxSend(function(e, xhr, options) {
+	xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+	});
 	function typechoice() {
 		$('.type-button').css('opacity', '0.4');
 		$(event.target).css('opacity', '1');

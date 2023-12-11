@@ -4,12 +4,9 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"> -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
 <style>
 .card {
 	box-shadow: 0px 0px 4px 0px #000000;
@@ -108,7 +105,7 @@ thead tr:nth-child(3) th {
 <body>
 	<!-- /reservation/subject.jsp -->
 	<div class="maindiv">
-		<form action="/apa/search/reservation/detail.do" method="POST">
+		<form action="/apa/search/reservation/detail.do" method="GET">
 			<div class="hospital-info">
 				<c:if test="${choicetype ne '건강검진'}">
 					<h1 class="lineseedkr">진료 과목 선택</h1>
@@ -131,23 +128,12 @@ thead tr:nth-child(3) th {
 						<div class="col-lg-10">
 							<div class="card border-0">
 								<div class="card-header bg-dark">
-									<div
-										class="mx-0 mb-0 row justify-content-sm-center justify-content-start px-1">
-										<input type="text" id="dp1" class="datepicker"
-											placeholder="원하시는 진료 날짜를 선택하세요." name="choicedate" readonly><span
-											class="fa fa-calendar"></span>
+									<div class="mx-0 mb-0 row justify-content-sm-center justify-content-start px-1">
+										<input type="text" id="dp1" class="datepicker" placeholder="원하시는 진료 날짜를 선택하세요." name="choicedate" readonly>
+										<span class="fa fa-calendar"></span>
 									</div>
 								</div>
 								<div class="card-body p-3 p-sm-5" id="card-body">
-									<!-- <div class="row text-center mx-0">
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">9:00AM</div></div>
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">9:30AM</div></div>
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">9:45AM</div></div>
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">10:00AM</div></div>
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">10:30AM</div></div>
-              <div class="col-md-2 col-4 my-1 px-2"><div class="cell py-1">10:45AM</div></div>
-            </div> -->
-
 								</div>
 							</div>
 						</div>
@@ -157,6 +143,7 @@ thead tr:nth-child(3) th {
 				<div class="time-choice" id="time-choice"></div>
 				<input type="hidden" name="seq" value="${dto.hospitalid}"> 
 				<input type="hidden" name="choicetype" value="${choicetype}"> 
+				<input type="hidden" name="userseq" value="1"> 
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<button type="submit">다음으로</button>
 			</div>

@@ -19,29 +19,21 @@
 					<tr class="rezuser-choice-hide">
 						<th>자녀 선택</th>
 						<td colspan="2">
-							<c:forEach items="${childdto}" var="list">
-								${list.childName}<input type="radio" name="rezchildseq" value="${list.childSeq}" disabled="disabled">
+							<c:forEach items="${childlist}" var="list">
+								${list.childname}<input type="radio" class="choice-child" name="rezchildseq" value="${list.childseq}" disabled="disabled">
 							</c:forEach>
-						</td>
-					</tr>
-					<tr class="rezuser-choice-hide">
-						<th>자녀 전화번호</th>
-						<td colspan="2">
-							<input type="text" class="detail-child-info" value="010" style="width: 45px" disabled="disabled"> -
-							<input type="text" class="detail-child-info" value="" style="width: 60px" disabled="disabled"> -
-							<input type="text" class="detail-child-info" value="" style="width: 60px" disabled="disabled">
 						</td>
 					</tr>
 					<tr class="rezuser-choice-hide">
 						<th>자녀 주민등록번호</th>
 						<td colspan="2">
-							<input type="text" class="detail-child-info" value="" style="width: 90px" disabled="disabled">- 
-							<input type="text" class="detail-child-info" value="" style="width: 90px" disabled="disabled">
+							<input type="text" class="child-Firstssn" value="" style="width: 90px" disabled="disabled">- 
+							<input type="text" class="child-lastssn" value="" style="width: 90px" disabled="disabled">
 						</td>
 					</tr>
 					<tr>
 						<th>본인 이름</th>
-						<td colspan="2"><input type="text" value="${dto.userName}" style="width: 80px" required></td>
+						<td colspan="2"><input type="text" value="${userlist.username}" style="width: 80px" required></td>
 					</tr>
 					<tr>
 						<th>주민등록번호</th>
@@ -59,15 +51,8 @@
 						</td>
 					</tr>
 					<tr>
-						<th>이메일</th>
-						<td colspan="2">
-							<input type="text" value="${emailid}"  style="width: 120px" required>@
-							<input type="text" value="${emailaddress}"  style="width: 120px" required>
-						</td>
-					</tr>
-					<tr>
 						<th>주소</th>
-						<td colspan="2"><input type="text" value="${dto.userAddress}"  style="width: 400px" required></td>
+						<td colspan="2"><input type="text" value="${userlist.useraddress}"  style="width: 400px" required></td>
 						
 					</tr>					
 					<tr>
@@ -102,18 +87,19 @@
 						</tr>
 					</c:if>
 				</table>
-				<input type="hidden" name="choicehospital" value="${dto.hospitalid}">
+				<input type="hidden" name="hospitalid" value="${hospitalid}">
 				<input type="hidden" name="choicetype" value="${choicetype}">
 				<input type="hidden" name="choicedoc" value="${choicedoc}">
 				<input type="hidden" name="choicedate" value="${choicedate}">
 				<input type="hidden" name="choicetime" value="${choicetime}">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<button type="submit" class="reservation-button"> 예약하기 </button>
+				<button type="submit" class="reservation-datail-button"> 예약하기 </button>
 			</div>			
 		</div>
 		</form>
 	</div>
-
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<script>
 		$('.timepicker').timepicker({
 		    timeFormat: 'HH:mm',
@@ -126,6 +112,27 @@
 		    dropdown: true,
 		    scrollbar: true
 		});
+		$(".choice-child").change(function() {
+			let childseq = $(event.target).val();
+			$.ajax({
+				type : 'POST',
+				url : 'http://localhost:8090/apa/search/reservation/child',
+				headers : { 
+					'Content-Type' : 'application/json'
+				},
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+				},
+				data : childseq,
+				dataType : 'json',
+				success : function(result) {
+					$("child-Firstssn").val(result);
+				},
+				error : function(a, b, c) {
+					console.log(a, b, c);
+				}
+			});
+		}); 
 		$(".rezuser-choice-user").click(function() {
 			$(".rezuser-choice-hide").slideUp();
 			$('.rezuser-choice-hide input').attr("disabled", true);
@@ -144,7 +151,7 @@
 		});
 		$(".rezuser-choice-child").click(function() {
 			if ($(".rezuser-choice-hide").is(":visible")){
-				$(".rezuser-choice-hide").slideUp()
+				$(".rezuser-choice-hide").slideUp();
 				$('.rezuser-choice-hide input').attr("disabled", true);
 				$('.rezuser-choice-hide input').attr("required", false);
 			} else {
