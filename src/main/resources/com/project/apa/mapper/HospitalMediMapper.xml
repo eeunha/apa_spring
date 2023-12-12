@@ -65,6 +65,20 @@
 		where appointmentSeq = #{appointmentSeq}
 	</select>
 	
+	<!-- 모든 진료 - 예약 - 승인 -->
+	<update id="approveAppointment" parameterType="Integer">
+		update tblAppointmentStatus 
+		set appointmentStatusSeq = ${appointmentSeq}, appointmentSeq = ${appointmentSeq}, status = '진료대기' 
+		where appointmentSeq = ${appointmentSeq}
+	</update>
+	
+	<!-- 모든 진료 - 예약 - 거부 -->
+	<update id="declineAppointment" parameterType="Integer">
+		update tblAppointmentStatus 
+		set appointmentStatusSeq = ${appointmentSeq}, appointmentSeq = ${appointmentSeq}, status = '예약거부' 
+		where appointmentSeq = ${appointmentSeq}
+	</update>
+	
 	<!-- 모든 진료 - 진료 - 목록 -->
 	<select id="getTreatmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
 		select * 
@@ -91,4 +105,53 @@
 		where hospitalId = #{id}
 			and status in ('진료대기', '진료중', '진료완료')
 	</select>
+	
+	<!-- 모든 진료 - 진료 - 상세보기 -->
+	<select id="getAllTreatmentDetail" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO">
+		select *
+		from vwTreatmentDetail
+		where appointmentSeq = #{appointmentSeq}
+	</select>
+	
+	<!-- 모든 진료 - 진료 - 환자호출 -->
+	<update id="callPatient" parameterType="Integer">
+		update tblAppointmentStatus 
+		set appointmentStatusSeq = ${appointmentSeq}, appointmentSeq = ${appointmentSeq}, status = '진료중' 
+		where appointmentSeq = ${appointmentSeq}
+	</update>
+	
+	<!-- 진료내역서 초기 정보 가져오기 -->
+	<select id="getInitMediRecord" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.RecordDTO">
+		select a.appointmentSeq, a.hospitalId, h.hospitalName, d.doctorName
+		from tblAppointment a
+    		inner join tblHospital h on a.hospitalId = h.hospitalId
+    		inner join tblDoctor d on a.doctorSeq = d.doctorSeq
+		where a.appointmentSeq = #{appointmentSeq}
+	</select>
+	
+	<!-- 진료내역서 작성 -->
+	<insert id="writeMediRecord" parameterType="java.util.HashMap">
+		insert into tblRecord (recordSeq, appointmentSeq, diagnosis, diseaseCode, recordContent)
+		values (seqRecord.nextVal, #{appointmentSeq}, #{diagnosis}, #{diseaseCode}, #{recordContent})
+	</insert>
+	
+	<!-- 해당 예약번호의 약 제조 대기 번호 가져오기 -->
+	<select id="getDispenseListSeq" parameterType="String" resultType="String">
+		select dispenseListSeq
+		from tblDispenseList
+		where appointmentSeq = #{appointmentSeq}
+	</select>
+	
+	<!-- 진료내역서 작성 시 약 제조 진행상태 테이블에 추가 -->
+	<insert id="insertDispenseStatus" parameterType="String">
+		insert into tblDispenseStatus (dispenseStatusSeq, dispenseListSeq, dispenseStatus)
+		values (seqDispenseStatus.nextVal, #{dispenseListSeq}, '제조대기')
+	</insert>
+	
+	<!-- 진료내역서 작성 시 진료상태 변경 -->
+	<update id="changeTreatmentStatus" parameterType="String">
+		update tblAppointmentStatus 
+		set status = '진료완료' 
+		where appointmentSeq = ${appointmentSeq}
+	</update>
 </mapper>

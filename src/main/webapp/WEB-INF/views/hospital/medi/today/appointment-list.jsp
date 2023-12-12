@@ -82,6 +82,42 @@
 </div>
 <!-- /.container-fluid -->
 
+
 <script>
 
+	//화면 초기화
+	init();
+	
+	//수정하기
+	function init(){
+		$.ajax({
+			type: 'GET',
+			url: '/apa/api/hospital/${dto.hospitalId}/medi/today/appointment',
+			data: 'department_id=' + id,
+			dataType: 'json',
+			success: function(result) {
+				
+				$('#list tbody').html(''); //기존 내용 삭제
+				
+				//값 출력하기
+				$(result).each((index, item) => {
+					
+					let temp = `
+						<tr>
+							<td>\${item.employee_id}</td>
+							<td>\${item.name}</td>
+							<td>\${item.job_id}</td>
+							<td>\${item.hire_date}</td>
+						</tr>
+					`;
+					
+					$('#list tbody').append(temp);
+				});
+				
+			},
+			error: function(a, b, c) {
+				console.log(a, b, c);
+			}
+		});
+	}
 </script>

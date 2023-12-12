@@ -4,6 +4,82 @@
 
 <!-- treatment.jsp -->
 
+<style>
+.sidebar-clicked {
+	background-color: #dddfeb;
+}
+
+button {
+	border: none;
+	border-radius: 5px;
+	color: #858796;
+	font-size: 1.1rem;
+	width: 100px;
+	height: 40px;
+	margin-right: 10px;
+}
+
+button:hover {
+	background-color: #CCC;
+}
+
+#btnArea {
+	margin: 10px auto;
+	margin-top: 30px;
+}
+
+#diagnosisTitle {
+	font-weight: bold;
+	margin: 70px 0 20px 20px;
+}
+
+#detailTitle, #detail-treatmentseq {
+	font-weight: bold;
+	margin: 20px 0 20px 20px;
+}
+
+#detail-treatmentseq {
+	border-bottom: 1px solid #ccc;
+	margin-right: 20px;
+	padding-bottom: 10px;
+}
+
+table {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+table tr {
+	height: 40px;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+table tr:last-child {
+	border-bottom: none;
+}
+
+table tr th {
+	width: 150px;
+	border-right: 1px solid #e3e6f0;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+table tr td {
+	padding-left: 10px;
+	padding-right: 20px;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+}
+
+.symptomNull {
+	color: #CCC;
+}
+</style>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -16,12 +92,13 @@
 				<!-- Card Header - Dropdown -->
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h5 class="m-0 font-weight-bold text-primary">진료 내역 상세 보기</h5>
+					<h5 class="m-0 font-weight-bold text-primary">진료 상세 내역&nbsp;&nbsp;&nbsp;&nbsp;</h5>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
 					<div id="container">
-						<div id="detail-treatmentseq">예약 번호: ${dto.appointmentSeq}</div>
+						<%-- <h5 id="detail-treatmentseq">예약 번호: ${dto.appointmentSeq}</h5> --%>
+						<h5 id="detail-treatmentseq">[ 예약 번호: ${dto.appointmentSeq} ]</h5>
 						<h5 id="detailTitle">진료 정보</h5>
 						<table>
 							<c:if test="${dto.childSeq == null}">
@@ -58,7 +135,7 @@
 								</tr>
 								<tr>
 									<th>환자와의 관계</th>
-									<td>${dto.userChild}</td>
+									<td>${dto.userRelation}</td>
 								</tr>
 								<tr>
 									<th>접수자 전화번호</th>
@@ -81,10 +158,11 @@
 									<td>${dto.childSSN}</td>
 								</tr>
 							</c:if>
-
+							<tr>
+							</tr>
 							<tr>
 								<th>예약일시</th>
-								<td>${dto.treatmentDate}</td>
+								<td>${dto.appointmentDate}</td>
 							</tr>
 							<tr>
 								<th>진료방식</th>
@@ -100,7 +178,18 @@
 							</tr>
 							<tr>
 								<th>상세증상</th>
-								<td>${dto.symptom}</td>
+								<c:if test="${dto.symptom != null}">
+									<td>
+										${dto.symptom}
+									</td>
+								</c:if>
+								<c:if test="${dto.symptom == null}">
+									<td class="symptomNull">
+										(미작성)
+									</td>
+								</c:if>
+							</tr>
+							<tr>
 							</tr>
 							<tr>
 								<th>신청일시</th>
@@ -114,10 +203,15 @@
 						</table>
 
 						<!-- 대면, 비대면만 진료내역서를 작성한다. 아닌 경우에는 진료내역서를 출력하지 않는다. -->
-						<c:if test="${dto.status == '진료완료'}">
+						<c:if
+							test="${(dto.treatmentWay == '대면' || dto.treatmentWay == '비대면') && dto.status == '진료완료'}">
 							<h5 id="diagnosisTitle">진료내역서</h5>
 
 							<table>
+								<tr>
+									<th>진료내역서 번호</th>
+									<td>${dto.recordSeq}</td>
+								</tr>
 								<tr>
 									<th>병원명</th>
 									<td>${dto.hospitalName}</td>
@@ -127,20 +221,16 @@
 									<td>${dto.doctorName}</td>
 								</tr>
 								<tr>
-									<th>진료예약번호</th>
-									<td>${dto.appointmentSeq}</td>
-								</tr>
-								<tr>
 									<th>진단명</th>
-									<td>${writeDto.mediName}</td>
+									<td>${dto.diagnosis}</td>
 								</tr>
 								<tr>
 									<th>질병코드</th>
-									<td>${writeDto.mediCode}</td>
+									<td>${dto.diseaseCode}</td>
 								</tr>
 								<tr>
 									<th>진료내용</th>
-									<td>${writeDto.mediContent}</td>
+									<td>${dto.recordContent}</td>
 								</tr>
 
 							</table>
@@ -150,12 +240,12 @@
 							<c:if test="${dto.status != '진료완료'}">
 								<c:if test="${dto.status == '진료대기'}">
 									<button type="button"
-										onclick="callPatient(${dto.appointmentSeq});">환자호출</button>
+										onclick="callPatient();">환자호출</button>
 								</c:if>
 
 								<c:if test="${dto.status == '진료중'}">
 									<button type="button"
-										onclick="completeDiagnosis(${dto.appointmentSeq});">진료완료</button>
+										onclick="completeDiagnosis();">진료완료</button>
 								</c:if>
 							</c:if>
 
@@ -170,3 +260,39 @@
 	</div>
 </div>
 <!-- /.container-fluid -->
+
+<script>
+
+	function callPatient() {
+		if (confirm('환자를 호출하시겠습니까?')) {
+			$.ajax({
+				type:'PUT',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}',
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						alert('환자를 호출하였습니다.');
+						
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment'; //목록으로 돌아가기
+						
+					} else {
+						alert('0');
+					}
+				}, 
+				error: function(a, b, c) {
+					console.log(a, b, c);
+					console.error(a.responseText);
+				}
+			});
+		}	
+	}
+	
+	function completeDiagnosis() {
+		
+		if (confirm('진료를 완료하시겠습니까? 확인을 누르시면 진료내역서를 작성합니다.')) {
+
+			location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record';
+		}
+	}
+
+</script>

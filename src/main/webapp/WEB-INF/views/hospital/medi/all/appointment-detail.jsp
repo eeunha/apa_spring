@@ -3,8 +3,74 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- appointment.jsp -->
-<link href="/apa/resources/css/hospital-medi.css" rel="stylesheet">
+<style>
+.sidebar-clicked {
+	background-color: #dddfeb;
+}
 
+button {
+	border: none;
+	border-radius: 5px;
+	color: #858796;
+	font-size: 1.1rem;
+	width: 100px;
+	height: 40px;
+	margin-right: 10px;
+}
+
+button:hover {
+	background-color: #CCC;
+}
+
+#btnArea {
+	margin: 10px auto;
+	margin-top: 30px;
+}
+
+#detail-appointmentseq {
+	font-weight: bold;
+	margin: 20px 0 20px 20px;
+}
+
+table {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+table tr {
+	height: 40px;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+table tr:last-child {
+	border-bottom: none;
+}
+
+table tr th {
+	width: 150px;
+	border-right: 1px solid #e3e6f0;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+table tr td {
+	padding-left: 10px;
+	padding-right: 20px;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+}
+
+.symptomNull {
+	color: #CCC;
+}
+
+.waiting {
+	color: tomato;
+}
+</style>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -18,14 +84,12 @@
 				<!-- Card Header - Dropdown -->
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h5 class="m-0 font-weight-bold text-primary">예약 내역 상세 보기</h5>
+					<h5 class="m-0 font-weight-bold text-primary">예약 상세 내역</h5>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
 					<div id="container">
-						<div id="detail-appointmentseq">
-							예약 번호: ${dto.appointmentSeq}
-						</div>
+						<h5 id="detail-appointmentseq">예약 번호: ${dto.appointmentSeq}</h5>
 						<table>
 							<c:if test="${dto.childSeq == null}">
 								<tr>
@@ -101,28 +165,41 @@
 								<th>의사</th>
 								<td>${dto.doctorName}</td>
 							</tr>
+
 							<tr>
 								<th>상세증상</th>
-								<td>${dto.symptom}</td>
+								<c:if test="${dto.symptom != null}">
+									<td>${dto.symptom}</td>
+								</c:if>
+								<c:if test="${dto.symptom == null}">
+									<td class="symptomNull">(미작성)</td>
+								</c:if>
 							</tr>
+
+							<tr></tr>
+
 							<tr>
 								<th>신청일시</th>
 								<td>${dto.regdate}</td>
 							</tr>
-							<tr></tr>
 							<tr>
 								<th>예약 상태</th>
-								<td>${dto.status}</td>
+								<c:if test="${dto.status == '대기'}">
+									<td class="waiting">${dto.status}</td>
+								</c:if>
+								<c:if test="${dto.status != '대기'}">
+									<td>${dto.status}</td>
+								</c:if>
 							</tr>
 
 						</table>
 
 						<div id="btnArea">
 							<c:if test="${dto.status == '대기'}">
-								<button type="button" name="btnApproval" id="btnApproval"
-									onclick="approvalRegister('${dto.appointmentSeq}');">승인</button>
+								<button type="button" name="btnApprove" id="btnApprove"
+									onclick="approveAppointment();">승인</button>
 								<button type="button" name="btnDecline" id="btnDecline"
-									onclick="declineRegister('${dto.appointmentSeq}');">거절</button>
+									onclick="declineAppointment();">거절</button>
 							</c:if>
 							<button type="button"
 								onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';">뒤로가기</button>
@@ -134,3 +211,59 @@
 	</div>
 </div>
 <!-- /.container-fluid -->
+
+<script>
+	function approveAppointment() {
+		
+		if (confirm('예약을 승인하시겠습니까?')) {
+			$.ajax({
+				type:'PUT',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
+				contentType: 'application/json',
+	            data: JSON.stringify({ action: 'approve' }),
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						
+						alert('예약을 승인하였습니다.');
+						
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';//목록으로 이동
+						
+					} else {
+						alert('0');
+					}
+				}, 
+				error: function(a, b, c) {
+					console.log(a, b, c);
+					console.error(a.responseText);
+				}
+			});
+		}
+	}
+	
+	function declineAppointment() {
+		if(confirm('예약을 거절하시겠습니까?')) {
+			$.ajax({
+				type:'PUT',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
+				contentType: 'application/json',
+	            data: JSON.stringify({ action: 'decline' }),
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						alert('예약을 거절하였습니다.');
+						
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment'; //목록으로 돌아가기
+						
+					} else {
+						alert('0');
+					}
+				}, 
+				error: function(a, b, c) {
+					console.log(a, b, c);
+					console.error(a.responseText);
+				}
+			});
+		}
+	}
+</script>

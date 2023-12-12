@@ -14,8 +14,6 @@
 <link href="/apa/resources/css/sb-admin-2.css" rel="stylesheet">
 <link href="/apa/resources/css/main.css" rel="stylesheet">
 
-<!-- hospital/medi - css -->
-<link href="/apa/resources/css/hospital-main.css" rel="stylesheet">
 
 <!-- Bootstrap core JavaScript-->
 <script src="/apa/resources/vendor/jquery/jquery.min.js"></script>

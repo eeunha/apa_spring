@@ -3,8 +3,123 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- appointment.jsp -->
-<link href="/apa/resources/css/hospital-medi.css" rel="stylesheet">
+<!-- <link href="/apa/resources/css/hospital-medi.css" rel="stylesheet"> -->
 
+<style>
+.sidebar-clicked {
+	background-color: #dddfeb;
+}
+
+button, input[type=date] {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	color: #858796;
+}
+
+input[type=date] {
+	margin-right: 10px;
+}
+
+button:hover {
+	background-color: #CCC;
+}
+
+.list tr {
+	height: 40px;
+}
+
+.list tbody tr:hover {
+	cursor: pointer;
+	background-color: #dddfeb;
+}
+
+.list th {
+	text-align: center;
+	border-right: 1px solid #CCC;
+}
+
+.list tr:first-child th {
+	background-color: #edf0f7;
+}
+
+.list td {
+	border-bottom: 1px solid #edf0f7;
+	border-right: 1px solid #edf0f7;
+	text-align: center;
+}
+
+.list th:last-child, .list td:last-child
+	{
+	border-right: none;
+}
+
+.null-msg {
+	text-align: center;
+}
+
+.list th:nth-child(1) {
+	width: 50px;
+}
+
+.list th:nth-child(2) {
+	width: 100px;
+}
+
+.list th:nth-child(3) {
+	width: 100px;
+}
+
+.list th:nth-child(4) {
+	width: 100px;
+}
+
+.list th:nth-child(5) {
+	width: 100px;
+}
+
+.list th:nth-child(6) {
+	width: 230px;
+}
+
+.list th:nth-child(7) {
+	width: 100px;
+}
+
+.list th:nth-child(8) {
+	width: 600px;
+}
+
+.list th:nth-child(9) {
+	width: 250px;
+}
+
+#appointment-all-list th:nth-child(10) {
+	width: 70px;
+}
+
+#appointment-all-list td:nth-child(8) {
+	padding-left: 10px;
+	text-align: left;
+}
+
+.waiting {
+	color: tomato;
+}
+
+.pagebar {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 1.1rem;
+}
+
+.pagebar > a {
+	color: #858796;
+}
+
+.gray-font {
+	color: #CCC;
+}
+</style>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -51,19 +166,27 @@
 										<td>${dto.childName}</td>
 									</c:if>
 									<c:if test="${dto.childName == null}">
-										<td class="symptomNull">(접수자)</td>
+										<td class="gray-font">(접수자)</td>
 									</c:if>
 									<td>${dto.treatmentWay}</td>
 									<td>${dto.appointmentDate}</td>
 									<td>${dto.doctorName}</td>
 									<c:if test="${dto.symptom == null}">
-										<td class="symptomNull">(미작성)</td>
+										<td class="gray-font">(미작성)</td>
 									</c:if>
 									<c:if test="${dto.symptom != null}">
 										<td>${dto.symptom}</td>
 									</c:if>
 									<td>${dto.regdate}</td>
-									<td>${dto.status}</td>
+									<c:if test="${dto.status == '대기'}">
+										<td class="waiting">${dto.status}</td>
+									</c:if>
+									<c:if test="${dto.status == '승인'}">
+										<td>${dto.status}</td>
+									</c:if>
+									<c:if test="${dto.status == '거절'}">
+										<td class="gray-font">${dto.status}</td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>

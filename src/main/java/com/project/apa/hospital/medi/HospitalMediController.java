@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
 import com.project.apa.api.hospital.medi.domain.PatientDTO;
+import com.project.apa.api.hospital.medi.domain.RecordDTO;
+import com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 import com.project.apa.api.hospital.medi.service.PatientService;
 import com.project.apa.api.hospital.medi.service.PracticeService;
@@ -25,7 +27,6 @@ import com.project.apa.api.hospital.medi.service.PracticeService;
  *
  */
 @Controller
-//@RequestMapping("/hospital/medi") // 찐으로는 병원아이디 노출 시키지 말기
 @RequestMapping("/hospital/{id}/medi")
 public class HospitalMediController {
 
@@ -113,7 +114,34 @@ public class HospitalMediController {
 
 		return "hospital.medi.all.treatment-list";
 	}
+	
+	/**
+	 * 병원 - 내 진료 - 모든 진료 - 진료 상세보기
+	 * @param model
+	 * @param appointmentSeq
+	 * @return 
+	 */
+	@GetMapping(value = "/all/treatment/{appointmentSeq}")
+	public String getAllTreatmentDetail(Model model, @PathVariable int appointmentSeq) {
+		
+		TreatmentDetailDTO dto = practiceService.getAllTreatmentDetail(appointmentSeq);
 
+		model.addAttribute("dto", dto);
+
+		return "hospital.medi.all.treatment-detail";
+	}
+
+	@GetMapping(value = "/all/treatment/{appointmentSeq}/record")
+	public String writeMediRecord(Model model, @PathVariable int appointmentSeq) {
+
+		//기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
+		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
+		
+		model.addAttribute("dto", dto);
+		
+		return "hospital.medi.all.medi-record";
+	}
+	
 	@GetMapping(value = "/patient")
 	public String getPatientList(Model model, @PathVariable String id) {
 

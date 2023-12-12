@@ -2,15 +2,19 @@ package com.project.apa.api.hospital.medi.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
+import com.project.apa.api.hospital.medi.domain.RecordDTO;
+import com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 import com.project.apa.api.hospital.medi.persistence.AppointmentDetailDAO;
 import com.project.apa.api.hospital.medi.persistence.AppointmentListDAO;
+import com.project.apa.api.hospital.medi.persistence.RecordDAO;
 import com.project.apa.api.hospital.medi.persistence.TreatmentDetailDAO;
 import com.project.apa.api.hospital.medi.persistence.TreatmentListDAO;
 
@@ -28,6 +32,9 @@ public class PracticeServiceImpl implements PracticeService {
 
 	@Autowired
 	private TreatmentDetailDAO treatmentDetailDAO;
+
+	@Autowired
+	private RecordDAO recordDAO;
 
 	// 오늘의 진료 - 예약 - 목록
 	@Override
@@ -121,6 +128,19 @@ public class PracticeServiceImpl implements PracticeService {
 		return appointmentDetailDAO.getAllAppointmentDetail(appointmentSeq);
 	}
 
+	// 모든 진료 - 예약 - 승인
+	@Override
+	public int approveAppointment(int appointmentSeq) {
+
+		return appointmentDetailDAO.approveAppointment(appointmentSeq);
+	}
+
+	@Override
+	public int declineAppointment(int appointmentSeq) {
+
+		return appointmentDetailDAO.declineAppointment(appointmentSeq);
+	}
+
 	// 모든 진료 - 진료 - 목록
 	@Override
 	public List<TreatmentListDTO> getAllTreatmentList(HashMap<String, Object> map) {
@@ -156,7 +176,7 @@ public class PracticeServiceImpl implements PracticeService {
 		end = begin + pageSize - 1;
 
 		totalCount = treatmentListDAO.getAllTreatmentCount((String) map.get("id"));
-		
+
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
 		StringBuilder sb = new StringBuilder();
@@ -169,9 +189,8 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n == 1) {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
-			sb.append(
-					String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
-							(String) map.get("id"), n - 1));
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
+					(String) map.get("id"), n - 1));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -196,5 +215,71 @@ public class PracticeServiceImpl implements PracticeService {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * 모든 진료 내역을 상세보는 메소드입니다.
+	 */
+	@Override
+	public TreatmentDetailDTO getAllTreatmentDetail(int appointmentSeq) {
+
+		return treatmentDetailDAO.getAllTreatmentDetail(appointmentSeq);
+	}
+
+	/**
+	 * 환자를 호출하는 메소드입니다.
+	 */
+	@Override
+	public int callPatient(int appointmentSeq) {
+
+		return treatmentDetailDAO.callPatient(appointmentSeq);
+	}
+
+	/**
+	 * 진료 내역서의 초기 정보를 가져오는 메소드입니다.
+	 */
+	@Override
+	public RecordDTO getInitMediRecord(int appointmentSeq) {
+
+		return recordDAO.getInitMediRecord(appointmentSeq);
+	}
+
+	/**
+	 * 진료 내역서를 작성하는 메소드입니다.
+	 */
+	@Override
+	public int writeMediRecord(Map<String, String> data) {
+		
+		// 진료내역서 작성
+		int result1 = recordDAO.writeMediRecord(data);
+		
+		String appointmentSeq = data.get("appointmentSeq");
+		
+		if (result1 != 1) {
+			System.out.println("진료내역서 작성 실패");
+			return 0;
+		}
+		
+		// 약 제조 대기 테이블에 추가
+		//약 제조 대기 테이블에서 약 제조번호 찾기
+		String dispenseListSeq = recordDAO.getDispenseListSeq(appointmentSeq);
+		
+		// 약 진행상태를 '제조대기'로 추가
+		int result2 = recordDAO.insertDispenseStatus(dispenseListSeq);
+		
+		if (result2 != 1) {
+			System.out.println("약 제조 상태 변경 실패");
+			return 0;
+		}
+		
+		// 진료상태 변경
+		int result3 = recordDAO.changeTreatmentStatus(appointmentSeq);
+		
+		if (result3 != 1) {
+			System.out.println("진료상태 변경 실패");
+			return 0;
+		}
+
+		return 1;
 	}
 }
