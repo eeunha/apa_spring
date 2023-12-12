@@ -26,4 +26,6 @@ public interface InfoDAO {
 
 	int bookmarkout(BookMarkDTO dto);
 
+	HospitalInfoDTO basichospitalInfo();
+
 }

@@ -45,22 +45,13 @@ public class ReservationController {
 	public String detail(Model model, String seq, String choicetype, String choicedoc, String choicedate, String choicetime, String userseq) {
 
 		UserInfoDTO userlist = service.userlist(userseq);
-		List<ChildInfoDTO> childlist = service.childlist(userseq);
 		
-		for (ChildInfoDTO dto : childlist) {
-			dto.setFirstssn(dto.getChildssn().substring(0,6));
-			dto.setLastssn(dto.getChildssn().substring(7));
-		}
 		
 		model.addAttribute("firstssn", userlist.getUserssn().substring(0,6));
 		model.addAttribute("lastssn", userlist.getUserssn().substring(7));
 		model.addAttribute("firsttel", userlist.getUsertel().substring(0,3));
 		model.addAttribute("middeltel", userlist.getUsertel().substring(4,8));
 		model.addAttribute("lastltel", userlist.getUsertel().substring(9));
-		model.addAttribute("childfirsttel", userlist.getUsertel().substring(0,3));
-		model.addAttribute("childmiddeltel", userlist.getUsertel().substring(4,8));
-		model.addAttribute("childlastltel", userlist.getUsertel().substring(9));
-		
 		
 		
 		model.addAttribute("hospitalid", seq);
@@ -69,7 +60,7 @@ public class ReservationController {
 		model.addAttribute("choicedate", choicedate);
 		model.addAttribute("choicetime", choicetime);
 		model.addAttribute("userlist", userlist);
-		model.addAttribute("childlist", childlist);
+		model.addAttribute("childlist", service.childlist(userseq));
 		
 		return "search.reservation.detail";
 	}

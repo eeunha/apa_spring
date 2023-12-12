@@ -40,7 +40,14 @@
 	.hide-tag{
 		display: none;
 	}
+	.dept-hide-tag{
+		display: none;
+	}
 	#tagList{
+		display: grid;
+		grid-template-columns: repeat(8, 1fr);
+	}
+	#deptList{
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
 	}
@@ -48,6 +55,17 @@
 		border: 1px solid #000000;
 	}
 	.tag{
+		padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+		background-color: #fff;
+		color: #000;
+		border: 1px solid #000000;
+		border-radius: 3px;
+		margin: 1px 3px;
+	}
+	.dept-tag{
+		padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+		background-color: #fff;
+		color: #000;
 		border: 1px solid #000000;
 		border-radius: 3px;
 		margin: 1px 3px;
@@ -131,6 +149,24 @@
 	    text-align: center;
 	    background-color: #4F98FF;
 	    color: #111;
+	}
+	.clicked {
+		background-color: #5bc1ac;
+		color: #fff;
+		border: #5bc1ac;
+	}
+	.more-button {
+		border: 0;
+		background-color: #fff;
+		font-size: 18px;
+	}
+	.more-button-div {
+		text-align: center;
+	}
+	.hospital-info-list {
+		border: 0;
+		margin: 3px 5px;
+		
 	}
 </style>
 

@@ -8,5 +8,6 @@ public class SelfsymtomDTO {
 	private String selfsymtomname;
 	
 	private String diseasename;
+	private String departmentseq;
 	private String departmentname;	
 }

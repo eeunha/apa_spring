@@ -43,6 +43,31 @@
 		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff
 		    order by h.hospitalid desc
 	 </select>
+	 <select id="findHospitalList2" resultType="com.project.apa.api.search.model.HospitalInfoDTO">
+	    select 
+		    h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,
+		    h.hospitalemail, h.hospitaltel, h.hospitaljoindate,
+		    ho.face, ho.unface, ho.housecall, ho.vaccination, ho.ishealthcheck, ho.ishospitalnightcare,
+		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff 
+		from tblhospital h
+		    inner join tblhospitaloperation ho
+		        on h.hospitalid = ho.hospitalid
+		    inner join tblhospitaltreatment ht
+		        on h.hospitalid = ht.hospitalid
+		    where ht.departmentseq in ${deptseq}
+		    GROUP by h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,
+		    h.hospitalemail, h.hospitaltel, h.hospitaljoindate,
+		    ho.face, ho.unface, ho.housecall, ho.vaccination, ho.ishealthcheck, ho.ishospitalnightcare,
+		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff
+		    order by h.hospitalid desc
+	 </select>
+	 <select id="finddept" parameterType="com.project.apa.api.search.model.HospitalInfoDTO" resultType="com.project.apa.api.search.model.SelfsymtomDTO">
+	 	select d.departmentseq ,d.departmentname
+		    from tblhospitaltreatment ht
+		        inner join tbldepartment d
+		            on ht.departmentseq = d.departmentseq
+		    where ht.hospitalid = #{hospitalid}
+	 </select>
 	
 	
 	

@@ -114,6 +114,7 @@
 		});
 		$(".choice-child").change(function() {
 			let childseq = $(event.target).val();
+			let obj={childseq};
 			$.ajax({
 				type : 'POST',
 				url : 'http://localhost:8090/apa/search/reservation/child',
@@ -125,8 +126,11 @@
 				},
 				data : childseq,
 				dataType : 'json',
-				success : function(result) {
-					$("child-Firstssn").val(result);
+				success : function(result){
+					console.log(result);
+					console.log(result.firstssn);
+					$(".child-Firstssn").val(result.firstssn);
+					$(".child-lastssn").val(result.lastssn); 					
 				},
 				error : function(a, b, c) {
 					console.log(a, b, c);

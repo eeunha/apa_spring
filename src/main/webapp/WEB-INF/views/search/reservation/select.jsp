@@ -101,6 +101,9 @@ thead tr:nth-child(3) th {
 .datepicker::placeholder {
 	color: black;
 }
+.justify-content-start{
+	margin-top: 8px;
+}
 </style>
 <body>
 	<!-- /reservation/subject.jsp -->

@@ -16,4 +16,6 @@ public interface ReservationMapper {
 
 	List<ChildInfoDTO> childlist(String userseq);
 
+	ChildInfoDTO childinfo(String childseq);
+
 }

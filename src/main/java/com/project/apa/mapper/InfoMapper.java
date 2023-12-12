@@ -2,6 +2,8 @@ package com.project.apa.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.project.apa.api.search.model.BookMarkDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
@@ -25,4 +27,6 @@ public interface InfoMapper {
 	int bookmarkin(BookMarkDTO dto);
 
 	int bookmarkout(BookMarkDTO dto);
+	
+	HospitalInfoDTO basichospitalInfo();
 }

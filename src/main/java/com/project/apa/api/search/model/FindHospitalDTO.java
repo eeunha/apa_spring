@@ -12,4 +12,5 @@ public class FindHospitalDTO {
 	private String seq6;
 	private String seq7;
 	private String seq8;
+	private String deptseq;
 }

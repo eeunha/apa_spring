@@ -14,4 +14,10 @@ public interface SearchDAO {
 
 	List<HospitalInfoDTO> findHospitalList(List<String> findsystomlist);
 
+	List<SelfsymtomDTO> deptlist();
+
+	List<HospitalInfoDTO> findHospitalList2(String deptseq);
+
+	List<SelfsymtomDTO> finddept(HospitalInfoDTO dto);
+
 }

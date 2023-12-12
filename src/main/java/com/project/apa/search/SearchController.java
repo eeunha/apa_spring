@@ -23,7 +23,9 @@ public class SearchController {
 	public String list(Model model) {
 
 		model.addAttribute("symtomlist", service.symtomlist());
-
+		model.addAttribute("deptlist", service.deptlist());
+		/* model.addAttribute("dto", service.basichospitalInfo()); */
+		
 		return "search.list";
 	}
 	

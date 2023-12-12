@@ -83,6 +83,28 @@ public class SearchService {
 	public List<ChildInfoDTO> childlist(String userseq) {
 		return redao.childlist(userseq);
 	}
-	
+
+	public ChildInfoDTO childinfo(String childseq) {
+			ChildInfoDTO dto = redao.childinfo(childseq);
+			dto.setFirstssn(dto.getChildssn().substring(0,6));
+			dto.setLastssn(dto.getChildssn().substring(7));
+		return dto;
+	}
+
+	public List<SelfsymtomDTO> deptlist() {
+		return searchdao.deptlist();
+	}
+
+	public List<HospitalInfoDTO> findHospitalList2(String deptseq) {
+		return searchdao.findHospitalList2(deptseq);
+	}
+
+	public HospitalInfoDTO basichospitalInfo() {
+		return infodao.basichospitalInfo();
+	}
+
+	public List<SelfsymtomDTO> finddept(HospitalInfoDTO dto) {
+		return searchdao.finddept(dto);
+	}
 
 }

@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.apa.mapper.InfoMapper">
 	 
+	 <select id="basichospitalInfo" resultType="com.project.apa.api.search.model.HospitalInfoDTO">
+	 	select 
+		    h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,
+		    h.hospitalemail, h.hospitaltel, h.hospitaljoindate,
+		    ho.face, ho.unface, ho.housecall, ho.vaccination, ho.ishealthcheck, ho.ishospitalnightcare,
+		    ho.ishospitalholiday, ho.opentime, ho.closetime, ho.restopentime, ho.restclosetime, ho.hospitaldayoff 
+		from tblhospital h
+		    inner join tblhospitaloperation ho
+		        on h.hospitalid = ho.hospitalid
+	 </select>
+	 
 	 <select id="hospitalInfo" parameterType="String" resultType="com.project.apa.api.search.model.HospitalInfoDTO">
 	 	select 
 		    h.hospitalid, h.hospitalpw, h.hospitalname, h.hospitalssn, h.hospitaladdress,

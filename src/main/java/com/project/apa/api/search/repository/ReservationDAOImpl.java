@@ -29,4 +29,9 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public List<ChildInfoDTO> childlist(String userseq) {
 		return mapper.childlist(userseq);
 	}
+
+	@Override
+	public ChildInfoDTO childinfo(String childseq) {
+		return mapper.childinfo(childseq);
+	}
 }

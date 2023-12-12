@@ -40,8 +40,6 @@ public class InfoDAOImpl implements InfoDAO {
 		return mapper.reviewtaglist(seq);
 	}
 
-	
-
 	@Override
 	public int bookmarkin(BookMarkDTO dto) {
 		return mapper.bookmarkin(dto);
@@ -55,6 +53,11 @@ public class InfoDAOImpl implements InfoDAO {
 	@Override
 	public int bookmarkout(BookMarkDTO dto) {
 		return mapper.bookmarkout(dto);
+	}
+
+	@Override
+	public HospitalInfoDTO basichospitalInfo() {
+		return mapper.basichospitalInfo();
 	}
 
 	

@@ -14,4 +14,6 @@ public interface ReservationDAO {
 
 	List<ChildInfoDTO> childlist(String userseq);
 
+	ChildInfoDTO childinfo(String childseq);
+
 }

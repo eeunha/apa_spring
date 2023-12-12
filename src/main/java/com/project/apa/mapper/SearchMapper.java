@@ -17,5 +17,12 @@ public interface SearchMapper {
 	
 	List<HospitalInfoDTO> findHospitalList(List<String> findsystomlist);
 
+	@Select("select * from tbldepartment")
+	List<SelfsymtomDTO> deptlist();
+
+	List<HospitalInfoDTO> findHospitalList2(String deptseq);
+
+	List<SelfsymtomDTO> finddept(HospitalInfoDTO dto);
+
 
 }

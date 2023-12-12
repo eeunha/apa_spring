@@ -14,5 +14,8 @@
 	 <select id="childlist" resultType="com.project.apa.api.search.model.ChildInfoDTO">
 	 	select * from tblchild where userseq = #{userseq} and ischildunregister in('n','N')
 	 </select>
+	 <select id="childinfo" resultType="com.project.apa.api.search.model.ChildInfoDTO">
+	 	select * from tblchild where childseq = #{childseq}
+	 </select>
 	
 </mapper>

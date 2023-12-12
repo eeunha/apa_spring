@@ -27,5 +27,20 @@ public class SearchDAOImpl implements SearchDAO {
 		return mapper.findHospitalList(findsystomlist);
 	}
 
+	@Override
+	public List<SelfsymtomDTO> deptlist() {
+		return mapper.deptlist();
+	}
+
+	@Override
+	public List<HospitalInfoDTO> findHospitalList2(String deptseq) {
+		return mapper.findHospitalList2(deptseq);
+	}
+
+	@Override
+	public List<SelfsymtomDTO> finddept(HospitalInfoDTO dto) {
+		return mapper.finddept(dto);
+	}
+
 	
 }
