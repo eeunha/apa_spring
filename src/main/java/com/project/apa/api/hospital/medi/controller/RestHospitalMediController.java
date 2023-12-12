@@ -109,9 +109,21 @@ public class RestHospitalMediController {
 
 	// 모든 진료 내역 - 환자 호출하기
 	@PutMapping(value = "/all/treatment/{appointmentSeq}")
-	public int callPatient(@PathVariable int appointmentSeq) {
+	public int handleTreatmentDetail(@PathVariable int appointmentSeq, @RequestBody HashMap<String, String> data) {
 
-		return practiceService.callPatient(appointmentSeq);
+		String action = data.get("action");
+
+		System.out.println("action: " + action);
+
+		// 환자를 호출할 경우
+		if (action.equals("call")) {
+
+			return practiceService.callPatient(appointmentSeq);
+		}
+
+		// 진료완료를 할 경우(예방접종, 건강검진만)
+		return practiceService.completeTreatment(appointmentSeq + "");
+		
 	}
 
 	// 진료내역서 작성하기 + 진료완료처리

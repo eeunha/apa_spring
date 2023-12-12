@@ -163,7 +163,7 @@ button {
 									<td>${dto.departmentName}</td>
 
 									<c:if test="${dto.symptom == null}">
-										<td class=""gray-font"">(미작성)</td>
+										<td class="gray-font">(미작성)</td>
 									</c:if>
 									<c:if test="${dto.symptom != null}">
 										<td>${dto.symptom}</td>

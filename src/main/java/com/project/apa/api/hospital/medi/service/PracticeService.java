@@ -37,5 +37,7 @@ public interface PracticeService {
 
 	int writeMediRecord(Map<String, String> data);
 
+	int completeTreatment(String string);
+
 
 }

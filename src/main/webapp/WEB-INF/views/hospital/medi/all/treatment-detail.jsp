@@ -245,7 +245,7 @@ table tr td {
 
 								<c:if test="${dto.status == '진료중'}">
 									<button type="button"
-										onclick="completeDiagnosis();">진료완료</button>
+										onclick="completeDiagnosis('${dto.treatmentWay}');">진료완료</button>
 								</c:if>
 							</c:if>
 
@@ -268,12 +268,14 @@ table tr td {
 			$.ajax({
 				type:'PUT',
 				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}',
+				contentType: 'application/json',
+				data: JSON.stringify({action: 'call'}),
 				dataType: 'json',
 				success: result => {
 					if (result == 1) {
-						alert('환자를 호출하였습니다.');
+						alert('환자를 호출하였습니다. 이전 페이지로 이동합니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');
@@ -287,12 +289,45 @@ table tr td {
 		}	
 	}
 	
-	function completeDiagnosis() {
+	function completeDiagnosis(treatmentWay) {
 		
-		if (confirm('진료를 완료하시겠습니까? 확인을 누르시면 진료내역서를 작성합니다.')) {
-
-			location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record';
+		if (treatmentWay == '대면' || treatmentWay == '비대면') {
+			
+			if (confirm('진료를 완료하시겠습니까? 확인을 누르시면 진료내역서를 작성합니다.')) {
+				
+				location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record';
+			}
+			
+		} else { // 예방접종과 건강검진은 진료내역서 미작성
+		
+			if (confirm('진료를 완료하시겠습니까?')) {
+				
+				// 진행상태만 진료완료로 변경하기
+				$.ajax({
+					type: 'PUT',
+					url: '/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointment}',
+					contentType: 'application/json',
+					data: JSON.stringify({action: 'complete'}),
+					dataType: 'json',
+					success: result => {
+						if (result == 1) {
+							alert('진료를 완료하였습니다.');
+							
+							location.href='/apa/api/hospital/${dto.hospitalId}/medi/all/treatment'; //목록으로 이동
+							
+						} else {
+							alert('0');
+						}
+					},
+					error: (a, b, c) => {
+						console.log(a, b, c);
+					}
+				});
+				
+			}
 		}
+		
+		
 	}
 
 </script>
