@@ -1,7 +1,6 @@
-package com.project.apa.mapper;
+package com.project.apa.api.user.service;
 
 import java.util.List;
-
 import com.project.apa.api.user.domain.UserDTO;
 import com.project.apa.api.user.domain.UserDetailRecordDTO;
 import com.project.apa.api.user.domain.UserRecordDTO;
@@ -10,7 +9,7 @@ import com.project.apa.api.user.domain.UserAppointmentDTO;
 import com.project.apa.api.user.domain.UserBookmarkDTO;
 import com.project.apa.api.user.domain.UserChildDTO;
 
-public interface UserMapper {
+public interface UserService {
 
 	UserDTO getUser(String seq);
 
@@ -45,5 +44,5 @@ public interface UserMapper {
 	List<UserBookmarkDTO> getUserBookmark(String seq);
 
 	int deleteBookmark(String seq);
-	
+ 
 }

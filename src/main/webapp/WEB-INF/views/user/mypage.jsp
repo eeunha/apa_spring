@@ -131,8 +131,6 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<form name="form" method="POST" action="/apa/user/info/edit.do"
-						onsubmit="return checkAll()">
 						<div id="my-info">
 							<div id="my-info-name">
 								<div class="my-info-name-child">이름</div>
@@ -147,65 +145,287 @@
 							</div>
 							<div id="my-info-input">
 								<div class="my-info-input-child">
-									<input type="text" name="name" value="${dto.userName}"
-										id="name" maxlength="10">
+									<input type="text" name="name" id="name" maxlength="10">
 								</div>
 								<div class="my-info-input-child">
-									<input type="text" value="${seq}" id="id" disabled>
+									<input type="text" name="id" id="id" disabled>
 								</div>
 								<div class="my-info-input-child">
-									<input type="password" name="pw" value="${dto.userPw}" id="pw"
-										maxlength="16">
+									<input type="password" name="pw" id="pw" maxlength="16">
 								</div>
 								<div class="my-info-input-child">
-									<input type="password" name="pw-confirm" id="pw-confirm"
-										maxlength="16s"><input type="text" id="message"
-										disabled>
+									<input type="password" name="pw-confirm" id="pw-confirm" maxlength="16"><input type="text" id="message" disabled>
 								</div>
 								<div class="my-info-input-child">
-									<input type="text" value="${dto.userSSNs}" size="7" id="ssn1"
-										disabled> - <input type="text" value="${maskingSSN}"
-										size="9" id="ssn2" disabled>
+									<input type="text" size="7" name="ssn1" id="ssn1" disabled> - 
+									<input type="text" size="9" name="ssn2" id="ssn2" disabled>
 								</div>
 								<div class="my-info-input-child">
-									<input type="text" name="tel1" value="${dto.userTels}" size="4"
-										maxlength="3"> - <input type="text" name="tel2"
-										value="${dto.userTelm}" size="4" maxlength="4"> - <input
-										type="text" name="tel3" value="${dto.userTele}" size="4"
-										maxlength="4">
+									<input type="text" name="tel1" id="tel1" size="4" maxlength="3"> - 
+									<input type="text" name="tel2" id="tel2" size="4" maxlength="4"> - 
+									<input type="text" name="tel3" id="tel3" size="4" maxlength="4">
 								</div>
 								<div class="my-info-input-child">
-									<input type="text" name="email" value="${dto.userEmail}"
-										required>
+									<input type="text" name="email" id="email" required>
 								</div>
 								<div class="my-info-input-child">
-									<input type="text" name="address" value="${dto.userAddress}"
-										id="address" required maxlength="70">
+									<input type="text" name="address" id="address" required maxlength="70">
 								</div>
 								<div class="my-info-input-child">
-									<input type="password" name="inputCurrentPw"
-										id="inputCurrentPw" required maxlength="16">
+									<input type="password" name="inputCurrentPw" id="inputCurrentPw" required maxlength="16">
 								</div>
 							</div>
 						</div>
-						<input type="hidden" name="id" value="${dto.userId}" id="id">
-						<input type="hidden" name="currentPw" value="${dto.userPw}"
-							id="currentPw"> <input type="hidden" name="ssn1"
-							value="${dto.userSSNs}" size="7" id="ssn1"> <input
-							type="hidden" name="ssn2" value="${dto.userSSNe}" size="9"
-							id="ssn2"> <input type="hidden" name="seq"
-							value="${dto.userSeq}">
+						<%-- <input type="hidden" name="id" value="${dto.userId}" id="id"> --%>
+						<input type="hidden" name="currentPw" id="currentPw">
+						<input type="hidden" name="seq" value="${seq}" id="seq">
 						<div id="info-update-btn">
-							<button id="update-btn">수정하기</button>
+							<button id="update-btn" onsubmit="return checkAll()" onclick="edit(${seq})">수정하기</button>
 						</div>
-					</form>
 
-					<form method="GET" action="/apa/user/info/edit.do" id="delete-form">
-						<button id="delete-user" type="button">회원 탈퇴</button>
-						<input type="hidden" name="seq" value="${dto.userSeq}">
-					</form>
+						<button id="delete-user" type="button" onclick="del(${seq})">회원 탈퇴</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	const pw = document.getElementById('pw');
+	const pwConfirm = document.getElementById('pw-confirm');
+	const message = document.getElementById('message');
+	const btn = document.getElementById('update-btn');
+	const currentPw = document.getElementById('currentPw');
+	const inputCurrentPw = document.getElementById('inputCurrentPw');
+	const myPage = document.getElementById('myPage');
+	const myInfo = document.getElementById('myInfo');
+	const myChild = document.getElementById('myChild');
+	const myMedi = document.getElementById('myMedi');
+	const myBookmark = document.getElementById('myBookmark');
+	const myBox = document.getElementById('myBox');
+	const myReview = document.getElementById('myReview');
+	const userSeq = $('input[name=seq]').val();
+	
+	loadLink(userSeq);
+	
+	function loadLink(seq) {
+	    myPage.setAttribute('href', '/apa/user/' + seq + '/mypage.do');
+	    
+	    myInfo.setAttribute('href', '/apa/user/' + seq + '/mypage.do');
+	    myInfo.style.backgroundColor = '#DDDFEB';
+	    
+	    myChild.setAttribute('href', '/apa/user/' + seq + '/mychild.do');
+	    myMedi.setAttribute('href', '/apa/user/' + seq + '/mymedi.do');
+	    myBookmark.setAttribute('href', '/apa/user/' + seq + '/mybookmark.do');
+	    myBox.setAttribute('href', '/apa/user/' + seq + '/mybox.do');
+	    myReview.setAttribute('href', '/apa/user/' + seq + '/myreview.do');
+	}
+	
+	load(${seq});
+	
+	function load(seq) {
+
+		$.ajax({
+			type: 'GET',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
+			dataType: 'json',
+			success: dto => {
+				$('input[name=seq]').val(dto.userSeq),
+				$('input[name=id]').val(dto.userId),
+				$('input[name=name]').val(dto.userName),
+				$('input[name=pw]').val(dto.userPw),
+				$('input[name=ssn1]').val(dto.userSSNs),
+				$('input[name=ssn2]').val(dto.maskingSSN),
+				$('input[name=tel1]').val(dto.userTels),
+				$('input[name=tel2]').val(dto.userTelm),
+				$('input[name=tel3]').val(dto.userTele),
+				$('input[name=email]').val(dto.userEmail),
+				$('input[name=address]').val(dto.userAddress),				
+				$('input[name=currentPw]').val(dto.userPw)				
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});		
+		
+	}
+	
+	// 비밀번호와 비밀번호 확인이 일치하는지 검사하는 함수를 만듭니다.
+	function checkPassword() {
+		
+		if (pwConfirm.value.length == 0) {
+	        message.value = '';
+	        btn.type = "submit";			    	
+	    } else if (pw.value != pwConfirm.value) {
+	        message.value = '비밀번호가 일치하지 않습니다.';
+	        message.style.color = "tomato";
+	        btn.type = "button";
+	    } else {
+	        message.value = '비밀번호가 일치합니다.';
+	        message.style.color = "#5BC1AC";
+	        btn.type = "submit";
+	    }
+		
+		
+	}
+	
+	function currentPwCheck() {
+
+		if (currentPw.value != inputCurrentPw.value) {
+			btn.type = "button";
+		} else {
+			btn.type = "submit";
+		}
+		
+	}
+	
+	
+	function changePassword() {
+		
+		if (pw.value != currentPw.value) {
+				
+			pwConfirm.setAttribute('required', '');
+			
+		} else if (pw.value == currentPw.value) {
+			
+			pwConfirm.removeAttribute('required');					
+			
+		}
+		
+	}
+	
+	// 이벤트 리스너를 추가하여 'pw-confirm'의 값이 변경될 때마다 함수를 실행합니다.
+	pwConfirm.addEventListener('keyup', checkPassword);
+	pw.addEventListener('keyup', changePassword);
+	inputCurrentPw.addEventListener('keyup', currentPwCheck);
+	
+	
+	document.getElementById('delete-user').addEventListener('click', function() {
+	    if(confirm('정말로 탈퇴하시겠습니까?')) {
+	        // 사용자가 확인을 선택한 경우, 폼을 제출합니다.
+	        document.getElementById('delete-form').submit();
+	    } else {
+	        // 사용자가 취소를 선택한 경우, 이전 페이지로 돌아갑니다.
+	    }
+	});
+	
+	
+	function checkAll(){
+	    if (!validatePassword(form.id.value, form.pw.value, form['pw-confirm'].value)){
+	        return false;
+	    } else if(!checkMail(form.email.value)){
+	        return false;
+	    } else if(!checkName(form.name.value)){
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function checkExistData(value, dataName){
+	    if(value == ""){
+	        alert(dataName + "입력해주세요!");
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function validatePassword(id, pw, pwchecked) {
+	    if(!checkExistData(pw, "비밀번호를"))
+	        return false;
+	    var pwRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+	    if(!pwRegExp.test(pw)){
+	        alert("비밀번호는 영문 대소문자와 특수문자, 숫자 4~12자리로 입력해야합니다!");
+	        form.pw.value = "";
+	        form.pw.focus();
+	        return false;
+	    }
+	
+	    if(id == pw){
+	        alert("아이디와 비밀번호는 같을 수 없습니다!");
+	        form.pw.value = "";
+	        form['pw-confirm'].value = "";
+	        form['pw-confirm'].focus();
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function checkMail(email){
+	    if(!checkExistData(email, "이메일을"))
+	        return false;
+	    var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+	    if(!emailRegExp.test(email)){
+	        alert("이메일 형식이 올바르지 않습니다!");
+	        form.email.value = "";
+	        form.email.focus();
+	        return false;
+	    }
+	    return true;
+	
+	}
+	
+	function checkName(name){
+	    if(!checkExistData(name, "이름을"))
+	        return false;
+	
+	    var nameRegExp = /^[가-힣]{2,10}$/;
+	    if(!nameRegExp.test(name)){
+	        alert("이름이 올바르지 않습니다.");
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function edit(seq) {
+		
+		let obj = {
+			userSeq: $('input[name=seq]').val(),
+			userName: $('input[name=name]').val(),
+			userPw: $('input[name=pw]').val(),
+			userTels: $('input[name=tel1]').val(),
+			userTelm: $('input[name=tel2]').val(),
+			userTele: $('input[name=tel3]').val(),
+			userEmail: $('input[name=email]').val(),
+			userAddress: $('input[name=address]').val()
+		};
+		
+		$.ajax({
+			type: 'PUT',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
+			headers: {'Content-Type': 'application/json'},
+			data: JSON.stringify(obj),
+			dataType: 'json',
+			success: result => {
+				alert("정상적으로 수정하였습니다.");
+				if (result == 1) {
+					load(seq);
+				} else {
+					alert('failed');
+				}
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});
+		
+	}
+	
+	function del(seq) {
+		
+		$.ajax({
+			type: 'PATCH',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
+			dataType: 'json',
+			success: result => {
+				if (result == 1) {
+					location.href = '/apa/main.do';
+				} else {
+					alert('failed');
+				}
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});
+		
+	}
+</script>

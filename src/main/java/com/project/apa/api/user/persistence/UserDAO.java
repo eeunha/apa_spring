@@ -1,4 +1,4 @@
-package com.project.apa.mapper;
+package com.project.apa.api.user.persistence;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.project.apa.api.user.domain.UserAppointmentDTO;
 import com.project.apa.api.user.domain.UserBookmarkDTO;
 import com.project.apa.api.user.domain.UserChildDTO;
 
-public interface UserMapper {
+public interface UserDAO {
 
 	UserDTO getUser(String seq);
 
