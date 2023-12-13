@@ -95,7 +95,8 @@ button {
 
 #pagebar {
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 	font-size: 1.1rem;
 }
 
@@ -128,6 +129,20 @@ button {
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
+				
+					<c:if test="${treatmentList.size() != 0}">
+						<div class="sel-treatment-order-area">
+							<div class="sel-treatment-order-inner-area">
+								<select id="sel-order">
+									<option value="appintmentSeq">예약번호순</option>
+									<option value="newRegDate">최근 신청순</option>
+									<option value="treatmentDate">예약날짜순</option>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+					</c:if>
+					
 					<table id="history-list" class="list">
 						<thead>
 							<c:if test="${treatmentList.size() != 0}">

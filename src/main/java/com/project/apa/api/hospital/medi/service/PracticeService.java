@@ -13,7 +13,7 @@ import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 
 public interface PracticeService {
 
-	List<AppointmentListDTO> getTodayAppointmentList(HashMap<String, Object> map);
+	Map<String, Object> getTodayAppointmentList(HashMap<String, Object> map);
 
 	List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map);
 
@@ -38,6 +38,8 @@ public interface PracticeService {
 	int writeMediRecord(Map<String, String> data);
 
 	int completeTreatment(String string);
+
+	String getTodayAppointmentListPageBar(HashMap<String, Object> map);
 
 
 }

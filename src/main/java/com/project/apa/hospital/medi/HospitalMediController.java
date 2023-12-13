@@ -21,7 +21,7 @@ import com.project.apa.api.hospital.medi.service.PatientService;
 import com.project.apa.api.hospital.medi.service.PracticeService;
 
 /**
- * 병원 - 내 진료 페이지 렌더링 용 Controller
+ * 병원의 내 진료 페이지 내부의 렌더링을 위한 컨트롤러입니다.
  * 
  * @author Eunha
  *
@@ -44,31 +44,36 @@ public class HospitalMediController {
 	// 오늘의 진료 - 예약 - 목록
 	@GetMapping(value = "/today/appointment")
 	public String getToadyAppointmentList(Model model, @PathVariable String id,
-			@RequestParam(defaultValue = "1") int start, @RequestParam(defaultValue = "10") int end) {
+			@RequestParam(defaultValue = "1") int page) {
 
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("start", start);
-		map.put("end", end);
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+//		map.put("page", page);
+//
+//		List<AppointmentListDTO> appointmentList = practiceService.getTodayAppointmentList(map);
+//
+//		// 페이지바 생성하기
+//		String pagebar = practiceService.getTodayAppointmentListPageBar(map);
+//		
+//		model.addAttribute("pagebar", pagebar);
+//		model.addAttribute("appointmentList", appointmentList);
 
-		List<AppointmentListDTO> appointmentList = practiceService.getTodayAppointmentList(map);
-
-		model.addAttribute("appointmentList", appointmentList);
-
-		return "hospital.medi.today.appointment";
+		return "hospital.medi.today.appointment-list";
 	}
 
 	// 오늘의 진료 - 진료 - 목록
 	@GetMapping(value = "/today/treatment")
 	public String getTodayTreatmentList(Model model) {
 
-		return "hospital.medi.today.treatment";
+		return "hospital.medi.today.treatment-list";
 	}
 
 	// 모든 진료 - 예약 - 목록
 	@GetMapping(value = "/all/appointment")
 	public String getAllAppointmentList(Model model, @PathVariable String id,
 			@RequestParam(defaultValue = "1") int page) {
+
+		System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -85,6 +90,13 @@ public class HospitalMediController {
 		return "hospital.medi.all.appointment-list";
 	}
 
+	/**
+	 * 모든 진료 예약 세부 내역 페이지를 렌더링하는 메소드입니다.
+	 * 
+	 * @param model
+	 * @param appointmentSeq
+	 * @return
+	 */
 	@GetMapping(value = "/all/appointment/{appointmentSeq}")
 	public String getAllAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
 
@@ -106,24 +118,25 @@ public class HospitalMediController {
 
 		List<TreatmentListDTO> treatmentList = practiceService.getAllTreatmentList(map);
 
-		//페이지바
+		// 페이지바
 		String pagebar = practiceService.getAllTreatmentListPageBar(map);
-		
+
 		model.addAttribute("treatmentList", treatmentList);
 		model.addAttribute("pagebar", pagebar);
 
 		return "hospital.medi.all.treatment-list";
 	}
-	
+
 	/**
 	 * 병원 - 내 진료 - 모든 진료 - 진료 상세보기
+	 * 
 	 * @param model
 	 * @param appointmentSeq
-	 * @return 
+	 * @return
 	 */
 	@GetMapping(value = "/all/treatment/{appointmentSeq}")
 	public String getAllTreatmentDetail(Model model, @PathVariable int appointmentSeq) {
-		
+
 		TreatmentDetailDTO dto = practiceService.getAllTreatmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
@@ -134,14 +147,14 @@ public class HospitalMediController {
 	@GetMapping(value = "/all/treatment/{appointmentSeq}/record")
 	public String writeMediRecord(Model model, @PathVariable int appointmentSeq) {
 
-		//기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
+		// 기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
-		
+
 		model.addAttribute("dto", dto);
-		
+
 		return "hospital.medi.all.medi-record";
 	}
-	
+
 	@GetMapping(value = "/patient")
 	public String getPatientList(Model model, @PathVariable String id) {
 

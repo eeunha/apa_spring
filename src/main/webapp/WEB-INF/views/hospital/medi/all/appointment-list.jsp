@@ -48,8 +48,7 @@ button:hover {
 	text-align: center;
 }
 
-.list th:last-child, .list td:last-child
-	{
+.list th:last-child, .list td:last-child {
 	border-right: none;
 }
 
@@ -93,11 +92,11 @@ button:hover {
 	width: 250px;
 }
 
-#appointment-all-list th:nth-child(10) {
+.list th:nth-child(10) {
 	width: 70px;
 }
 
-#appointment-all-list td:nth-child(8) {
+.list td:nth-child(8) {
 	padding-left: 10px;
 	text-align: left;
 }
@@ -108,7 +107,8 @@ button:hover {
 
 .pagebar {
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 	font-size: 1.1rem;
 }
 
@@ -118,6 +118,31 @@ button:hover {
 
 .gray-font {
 	color: #CCC;
+}
+
+#search {
+	border: 1px solid #CCC;
+}
+
+.sel-appointment-order-area {
+	display: flex;
+}
+
+.sel-appointment-order-inner-area {
+	margin-left: auto;
+	margin-bottom: 10px;
+}
+
+#sel-appointment-order {
+	border: 1px solid #CCC;
+}
+
+#title-area {
+	display: flex;
+}
+
+#sel {
+	margin-left: 30px;
 }
 </style>
 
@@ -134,9 +159,33 @@ button:hover {
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h5 class="m-0 font-weight-bold text-primary">모든 예약 내역</h5>
+					<div>
+						<input type="text" name="search" id="search">
+						<button type="button">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
+					<c:if test="${appointmentList.size() == 0}">
+						<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
+					</c:if>
+
+					<c:if test="${appointmentList.size() != 0}">
+						<div class="sel-appointment-order-area">
+							<div class="sel-appointment-order-inner-area">
+								<select id="sel-appointment-order">
+									<option value="appintmentSeq">예약번호순</option>
+									<option value="newRegDate">최근 신청순</option>
+									<option value="treatmentDate">예약날짜순</option>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+					</c:if>
+
+
 					<table id="appointment-all-list" class="list">
 						<thead>
 							<c:if test="${appointmentList.size() != 0}">
@@ -192,14 +241,12 @@ button:hover {
 						</tbody>
 
 					</table>
+
 					<c:if test="${appointmentList.size() != 0}">
 						<!-- 페이지바 -->
 						<div class="pagebar">${pagebar}</div>
 					</c:if>
 
-					<c:if test="${appointmentList.size() == 0}">
-						<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
-					</c:if>
 				</div>
 			</div>
 		</div>

@@ -13,4 +13,6 @@ public interface AppointmentListDAO {
 
 	int getAllAppointmentCount(String id);
 
+	int getTodayAppointmentCount(String id);
+
 }

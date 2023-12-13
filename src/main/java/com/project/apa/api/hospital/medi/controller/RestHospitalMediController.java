@@ -22,6 +22,12 @@ import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 import com.project.apa.api.hospital.medi.service.PatientService;
 import com.project.apa.api.hospital.medi.service.PracticeService;
 
+/**
+ * 병원 - 내 진료에서 사용되는 데이터를 가져오는 REST API 컨트롤러입니다.
+ * 
+ * @author Eunha
+ *
+ */
 @RestController
 @RequestMapping("/api/hospital/{id}/medi")
 public class RestHospitalMediController {
@@ -34,13 +40,15 @@ public class RestHospitalMediController {
 
 	// 오늘의 진료 예약 목록 가져오기
 	@GetMapping(value = "/today/appointment")
-	public List<AppointmentListDTO> getTodayAppointmentList(@PathVariable String id,
-			@RequestParam(defaultValue = "1") int start, @RequestParam(defaultValue = "10") int end) {
+	public Map<String, Object> getTodayAppointmentList(@PathVariable(name = "id") String id,
+			@RequestParam(defaultValue = "1") int page) {
+
+		System.out.println("id: " + id);
+		System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		map.put("start", start);
-		map.put("end", end);
+		map.put("page", page);
 
 		return practiceService.getTodayAppointmentList(map);
 	}
@@ -123,15 +131,15 @@ public class RestHospitalMediController {
 
 		// 진료완료를 할 경우(예방접종, 건강검진만)
 		return practiceService.completeTreatment(appointmentSeq + "");
-		
+
 	}
 
 	// 진료내역서 작성하기 + 진료완료처리
 	@PutMapping(value = "/all/treatment/{appointmentSeq}/record")
 	public int writeMediRecord(Model model, @RequestBody HashMap<String, String> data) {
 
-		//일단 형변환 없이 String으로 진행해보자.
-		
+		// 일단 형변환 없이 String으로 진행해보자.
+
 		return practiceService.writeMediRecord(data);
 	}
 

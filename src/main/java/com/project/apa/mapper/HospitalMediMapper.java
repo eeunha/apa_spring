@@ -45,4 +45,6 @@ public interface HospitalMediMapper {
 	int insertDispenseStatus(String dispenseListSeq);
 
 	String getDispenseListSeq(String appointmentSeq);
+
+	int getTodayAppointmentCount(String id);
 }

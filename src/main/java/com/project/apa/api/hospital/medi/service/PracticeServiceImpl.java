@@ -39,9 +39,104 @@ public class PracticeServiceImpl implements PracticeService {
 
 	// 오늘의 진료 - 예약 - 목록
 	@Override
-	public List<AppointmentListDTO> getTodayAppointmentList(HashMap<String, Object> map) {
+	public Map<String, Object> getTodayAppointmentList(HashMap<String, Object> map) {
 
-		return appointmentListDAO.getTodayAppointmentList(map);
+		int page = (int) map.get("page");
+
+		int end = page * 10;
+		int begin = end - 9;
+
+		map.put("begin", begin);
+		map.put("end", end);
+
+		List<AppointmentListDTO> orgList = appointmentListDAO.getTodayAppointmentList(map);
+		List<AppointmentListDTO> shortenList = new ArrayList<>();
+
+		// 상세증상 줄이기
+		for (AppointmentListDTO dto : orgList) {
+			String symptom = dto.getSymptom();
+
+			if (symptom != null && symptom.length() > 20) {
+				symptom = symptom.substring(0, 20) + "...";
+				dto.setSymptom(symptom);
+			}
+			shortenList.add(dto);
+		}
+
+//		return appointmentListDAO.getTodayAppointmentList(map);
+//		return shortenList;
+		
+		Map<String, Object> result = new HashMap<>();
+	    result.put("list", shortenList);
+	    result.put("pagebar", getTodayAppointmentListPageBar(map)); // 페이지바 정보 추가
+
+	    return result;
+	}
+
+	// 오늘의 진료 - 예약 - 목록 - 페이지바
+	@Override
+	public String getTodayAppointmentListPageBar(HashMap<String, Object> map) {
+
+		int nowPage = 0;
+		// 해당 병원의 총 오늘의 예약 수
+		int totalCount = 0;
+		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
+		int totalPage = 0; // 총 페이지 수
+		int begin = 0; // 페이징 시작 위치
+		int end = 0; // 페이징 끝 위치
+		int n = 0; // 현재 페이지
+		int loop = 0;
+		int blockSize = 10; // 한번에 보여줄 페이지 개수
+
+		nowPage = (int) map.get("page");
+
+		begin = ((nowPage - 1) * pageSize) + 1;
+		end = begin + pageSize - 1;
+
+		totalCount = appointmentListDAO.getTodayAppointmentCount((String) map.get("id"));
+
+		//System.out.println("totalCount: " + totalCount);
+
+		totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+		StringBuilder sb = new StringBuilder();
+
+		loop = 1; // 루프 변수(10바퀴)
+
+		n = ((nowPage - 1) / blockSize) * blockSize + 1; // 출력 페이지 번호
+
+		// 이전 10페이지
+		if (n == 1) {
+			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
+		} else {
+			sb.append(
+					String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
+							(String) map.get("id"), n - 1));
+		}
+
+		while (!(loop > blockSize || n > totalPage)) {
+
+			if (n == nowPage) {
+				sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a>&nbsp;&nbsp;", n));
+			} else {
+				sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d'>%d</a>&nbsp;&nbsp;",
+						(String) map.get("id"), n, n));
+			}
+
+			loop++;
+			n++;
+		}
+
+		// 다음 10페이지
+		if (n > totalPage) {
+			sb.append(" <a href='#!';>[다음 페이지]</a> ");
+		} else {
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[다음 페이지]</a> ",
+					(String) map.get("id"), n));
+		}
+
+		return sb.toString();
+
 	}
 
 	// 모든 진료 - 예약 - 목록
@@ -250,13 +345,13 @@ public class PracticeServiceImpl implements PracticeService {
 
 		return treatmentDetailDAO.callPatient(appointmentSeq);
 	}
-	
+
 	/**
 	 * 건강검진이나 예방접종의 경우, 진료완료 처리만 진행하는 메소드 입니다.
 	 */
 	@Override
 	public int completeTreatment(String appointmentSeq) {
-  
+
 		return recordDAO.changeTreatmentStatus(appointmentSeq);
 	}
 

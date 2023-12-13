@@ -20,6 +20,12 @@ public class AppointmentListDAOImpl implements AppointmentListDAO {
 
 		return hospitalMediMapper.getTodayAppointmentList(map);
 	}
+	
+	@Override
+	public int getTodayAppointmentCount(String id) {
+		
+		return hospitalMediMapper.getTodayAppointmentCount(id);
+	}
 
 	@Override
 	public List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map) {
