@@ -46,18 +46,8 @@ public class HospitalMediController {
 	public String getToadyAppointmentList(Model model, @PathVariable String id,
 			@RequestParam(defaultValue = "1") int page) {
 
-//		HashMap<String, Object> map = new HashMap<>();
-//		map.put("id", id);
-//		map.put("page", page);
-//
-//		List<AppointmentListDTO> appointmentList = practiceService.getTodayAppointmentList(map);
-//
-//		// 페이지바 생성하기
-//		String pagebar = practiceService.getTodayAppointmentListPageBar(map);
-//		
-//		model.addAttribute("pagebar", pagebar);
-//		model.addAttribute("appointmentList", appointmentList);
-
+		model.addAttribute("page", page);
+		
 		return "hospital.medi.today.appointment-list";
 	}
 

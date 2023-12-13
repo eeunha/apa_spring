@@ -13,7 +13,7 @@
 	height: 40px;
 }
 
-.list tbody tr:hover {
+.list tr:hover {
 	cursor: pointer;
 	background-color: #dddfeb;
 }
@@ -44,7 +44,8 @@
 button {
 	border: none;
 	border-radius: 5px;
-	color: #858796 cursor: pointer;
+	color: #858796;
+	cursor: pointer;
 }
 
 .null-msg {
@@ -83,11 +84,11 @@ button {
 }
 
 .list th:nth-child(5) {
-	width: 100px;
+	width: 110px;
 }
 
 .list th:nth-child(6) {
-	width: 220px;
+	width: 230px;
 }
 
 .list th:nth-child(7) {
@@ -99,7 +100,7 @@ button {
 }
 
 .list th:nth-child(9) {
-	width: 250px;
+	width: 260px;
 }
 
 .list th:nth-child(10) {
@@ -162,41 +163,7 @@ button {
 
 					<table class="list">
 						<thead></thead>
-
-						<tbody>
-							<c:forEach items="${appointmentList}" var="dto">
-								<tr
-									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/today/appointment/${dto.appointmentSeq}';">
-									<td>${dto.rnum}</td>
-									<td>${dto.appointmentSeq}</td>
-									<td>${dto.userName}</td>
-									<c:if test="${dto.childName != null}">
-										<td>${dto.childName}</td>
-									</c:if>
-									<c:if test="${dto.childName == null}">
-										<td class="gray-font">(접수자)</td>
-									</c:if>
-									<td>${dto.treatmentWay}</td>
-									<td>${dto.appointmentDate}</td>
-									<td>${dto.doctorName}</td>
-									<c:if test="${dto.symptom == null}">
-										<td class="gray-font">(미작성)</td>
-									</c:if>
-									<c:if test="${dto.symptom != null}">
-										<td>${dto.symptom}</td>
-									</c:if>
-									<td>${dto.regdate}</td>
-									<td>
-										<button type="button" name="btnApproval" id="btnApproval"
-											onclick="approvalRegister('${dto.appointmentSeq}');">승인</button>
-										<button type="button" name="btnDecline" id="btnDecline"
-											onclick="declineRegister('${dto.appointmentSeq}');">거절</button>
-									</td>
-								</tr>
-							</c:forEach>
-
-
-						</tbody>
+						<tbody></tbody>
 					</table>
 
 					<!-- 페이지바 -->
@@ -210,24 +177,22 @@ button {
 
 
 <script>
+
 	const hospitalId = 'yonse';
 	
 	//화면 초기화
-	init();
+	load(${page});
 	
-	//수정하기
-	function init(){
+	function load(pageNum){
 		$.ajax({
 			type: 'GET',
 			url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment',
 			contentType: 'application/json',
-			data: {page: 1},
+			data: {page: pageNum},
 			dataType: 'json',
 			success: result => {
 				
 				//기존 내용 삭제
-				//$('.card-body').html(''); 
-				
 				$('.sel-appointment-order-area').html(''); 
 				$('.list thead').html(''); 
 				$('.list tbody').html('');
@@ -274,35 +239,130 @@ button {
 					
 					$(result.list).each((index, item) => {
 						
-						console.log(item);
-						console.log(item.rnum);
-						
 						// tbody
-						const tbodyData = ``;
+						let tbodyData = `
+							<tr onclick="location.href='/apa/hospital/\${item.hospitalId}/medi/today/appointment/\${item.appointmentSeq}';">
+								<td>\${item.rnum}</td>
+								<td>\${item.appointmentSeq}</td>
+								<td>\${item.userName}</td>`;
+						
+						if (item.childName != null) {
+							tbodyData += `
+								<td>\${item.childName}</td>
+							`;
+						} else {
+							tbodyData += `
+								<td class="gray-font">(접수자)</td>
+							`;
+						}
+						
+						tbodyData += `
+							<td>\${item.treatmentWay}</td>
+							<td>\${item.appointmentDate}</td>
+							<td>\${item.doctorName}</td>
+						`;
+						
+						if (item.symptom == null) {
+							tbodyData += `
+								<td class="gray-font">(미작성)</td>
+							`;
+						} else {
+							tbodyData += `
+								<td>\${item.symptom}</td>
+							`;
+						}
+						
+						tbodyData += `
+								<td>\${item.regdate}</td>
+								<td>
+									<button type="button" name="btnApproval" id="btnApproval"
+										onclick="approveAppointment('\${item.appointmentSeq}');">승인</button>
+									<button type="button" name="btnDecline" id="btnDecline"
+										onclick="declineAppointment('\${item.appointmentSeq}');">거절</button>
+								</td>
+							</tr>
+						`;
+						
+						$('.list thead').append(tbodyData);
 						
 					});
 					
-					
 					// pagebar
 					$('.pagebar').html(result.pagebar);
-					
 					
 				} else {
 					
 					//예약이 없을 경우
 					
-					const nullMessage = `
-						<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>
-					`;
+					const nullMessage = `<h4 class="null-msg">오늘 신청된 예약이 없습니다.</h4>`;
 					
 					$('.card-body').append(nullMessage);
 					
 				}
-				
 			},
 			error: (a, b, c) => {
 				console.log(a, b, c);
 			}
 		});
 	}
+		
+	function approveAppointment(appointmentSeq) {
+		//console.log(event);
+		
+		if (confirm('예약을 승인하시겠습니까?')) {
+			$.ajax({
+				type:'PUT',
+				url: '/apa/api/hospital/' + hospitalId + '/medi/appointment/' + appointmentSeq,
+				contentType: 'application/json',
+				data: JSON.stringify({ action: 'approve' }),
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						
+						alert('예약을 승인하였습니다.');
+						
+						load(1);
+						
+					} else {
+						alert('0');
+					}
+				}, 
+				error: function(a, b, c) {
+					console.log(a, b, c);
+					console.error(a.responseText);
+				}
+			});
+		}
+		
+		event.stopPropagation();
+	}
+		
+	function declineAppointment(appointmentSeq) {
+		if(confirm('예약을 거절하시겠습니까?')) {
+			$.ajax({
+				type:'PUT',
+				url: '/apa/api/hospital/' + hospitalId + '/medi/appointment/' + appointmentSeq,
+				contentType: 'application/json',
+	            data: JSON.stringify({ action: 'decline' }),
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						alert('예약을 거절하였습니다.');
+						
+						load(1);
+						
+					} else {
+						alert('0');
+					}
+				}, 
+				error: function(a, b, c) {
+					console.log(a, b, c);
+					console.error(a.responseText);
+				}
+			});
+		}
+		
+		event.stopPropagation();
+	}
+	
 </script>

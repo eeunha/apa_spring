@@ -78,16 +78,18 @@ public class RestHospitalMediController {
 		return practiceService.getAllAppointmentDetail(appointmentSeq);
 	}
 
-	// 모든 진료 예약 승인/거절
-	@PutMapping(value = "/all/appointment/{appointmentSeq}")
+	// 진료 예약 승인/거절
+	@PutMapping(value = "/appointment/{appointmentSeq}")
+//	public int handleAppointment(@PathVariable int appointmentSeq, @RequestParam String data) {
 	public int handleAppointment(@PathVariable int appointmentSeq, @RequestBody Map<String, String> data) {
 
 		String action = data.get("action");
-
-		System.out.println("action: " + action);
+//
+//		System.out.println("data: " + data);
 
 		// 승인할 경우
 		if (action.equals("approve")) {
+//		if (data.equals("approve")) {
 
 			return practiceService.approveAppointment(appointmentSeq);
 		}

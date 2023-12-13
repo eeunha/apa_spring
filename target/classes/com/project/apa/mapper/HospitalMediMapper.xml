@@ -31,10 +31,11 @@
 	<!-- 오늘의 진료 예약 총 개수 -->
 	<select id="getTodayAppointmentCount" parameterType="String" resultType="Integer">
 		select count(*)
-		from tblAppointment
+		from vwAppointmentList
 		where hospitalId = #{id}
 			<!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
 			and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27'
+			and status = '승인대기'
 	</select>
 	
 	<!-- 모든 진료 - 예약 - 목록 -->
