@@ -22,22 +22,28 @@
 	.oneclickhide{
 		display:none;
 	}
-/* 위로 테스트 */
+	.type-button{
+		border: 1px solid #edf0f7;
+		border-radius: 50px;
+		background-color: #edf0f7;
+		width: 50%;
+		height: 20%;
+		margin: 10px 0;
+	}
 	.reservation-modal {
-	  background: #fff;
-	  width: 50%;
+	  width: 100%;
 	  height: 100%;
-	  margin: 0px auto;
-	  padding: 0;
+	  padding: 20px 0;
 	  transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
+	  background-color : rgba(255,255,255);
 	  top: 100%;
 	  position: fixed;
-	  left: auto;
-	  right: auto;
-	  text-align: left;
+	  left: 0;
+	  text-align: center;
+	  z-index: 200;
 	}
 	.container.modal-open .reservation-modal {
-	  top: 50%;
+	  top: 60%;
 	  z-index: 999;
 	}
 	.js-close-modal {
@@ -115,7 +121,7 @@
 	}
 	.reservation-button {
 		color: #000000;
-		background-color: #edf0f7;
+		background-color: #fff;
 		text-align:center;
 		font-size: 30px;
 		border-radius: 40px;
@@ -129,7 +135,7 @@
 		height: 4rem;
 		width: 700px;
 		font-weight: bold;
-		box-shadow: 2px 2px 5px #000000;
+		box-shadow: 1px 1px 5px #000000;
 		margin: 0 auto;
 		left: 0;
 		right: 0;
@@ -152,17 +158,22 @@
 		cursor: pointer;
 		border: 1px;
 		height: 4rem;
-		width: 350px;
+		width: 330px;
+		margin: 0 20px;
 		font-weight: bold;
 		box-shadow: 2px 2px 5px #000000;
 		background-color: #ffffff;
 	}
 	.review-progress-bar {
-	    width: 100%;
+	    width: 50%;
 	    height: 30px;
 	    background-color: #dedede;
 	    font-weight: 600;
 	    font-size: .8rem;
+	    border: 1px solid #ffffff;
+	    border-radius: 50px;
+	    display: inherit;
+	    
 	}
 	
 	.review-progress-bar .review-progress {
@@ -172,6 +183,8 @@
 	    text-align: center;
 	    background-color: #4F98FF;
 	    color: #111;
+	    border: 1px solid #ffffff;
+	    border-radius: 50px;
 	}
 	.clicked {
 		background-color: #5bc1ac;
@@ -195,6 +208,7 @@
 	.hospital-info-info{
 		margin: 0;
 	}
+
 </style>
 
 </head>

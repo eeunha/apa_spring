@@ -149,9 +149,10 @@
 										</div>
 									</c:if>
 									<c:if test="${dto.housecall == 'y' || dto.housecall == 'Y'}">
-										<div>
+										<div style="">
 											<div>
-												<button type="button" class="type-button" onclick="typechoice()" value="${dto.housecall}">왕진</button>
+												<button type="button" id="housecall" class="type-button" onclick="typechoice()" value="${dto.housecall}">왕진</button>
+												<p class="hide-tag" style="margin: 0 0;">왕진 문의는 ${dto.hospitalname}(${dto.hospitaltel})으로 주시면 감사하겠습니다.</p>
 											</div>
 										</div>
 									</c:if>
@@ -185,9 +186,18 @@
 		</c:if>
 		<hr>
 		<div>
-			<c:if test="${positive != 0 or negative != 0}">
-			<div class="review-progress-bar">
-				<div class="review-progress" style="width: ${positive}%";></div>
+			<div style="display: flex; justify-content: space-between;">
+				<h5>리뷰</h5>
+				<c:if test="${positive != 0 or negative != 0}">
+				<div class="review-progress-bar">
+					<c:if test="${positive >= 10}">
+					<div class="review-progress" style="width: ${positive}%;">좋아요(${positive}%)</div>
+					</c:if>
+					<c:if test="${100 - positive >= 10}">
+					<div style="width: ${100 - positive}%; text-align: center; ">싫어요(${100 - positive}%)</div>
+					</c:if>
+				</c:if>
+				</div>
 			</div>
 			<div style="padding-top: 15px;">
 				<c:forEach items="${reviewlist}" var="reviewlist">
@@ -204,7 +214,6 @@
 					<p>${reviewlist.reviewContent}</p>
 				</c:forEach>
 			</div>
-			</c:if>
 			<c:if test="${positive == 0 and negative == 0}">
 				<h4 style="text-align: center; margin-top: 30px;">등록된 리뷰가 없습니다.</h4>
 			</c:if>
@@ -224,17 +233,26 @@
 		$('#choice-type').append('<input type="hidden" id="choicetype" name="choicetype" value= "">');
 		$('#choicetype').val($(event.target).text());
 		$('.reservation-modal-button').attr("disabled", false);
+		console.log($(event.target).text());
+		if ($(event.target).text() === '왕진') {
+			$('#housecall').text('왕진 문의는 ${dto.hospitalname}(${dto.hospitaltel})으로 주시면 감사하겠습니다.');
+			$('.reservation-modal-button').attr("disabled", true);
+		}else{
+			$('#housecall').text('왕진');			
+		}
 	}
 	$('.js-click-modal').click(function() {
 		$('.container').addClass('modal-open');
 		$(".js-close-modal").css('opacity', '10');
 		$(".js-click-modal").css('opacity', '0');
+		$(".reservation-modal").toggleClass("emphasized");
 	});
 
 	$('.js-close-modal').click(function() {
 		$('.container').removeClass('modal-open');
 		$(".js-close-modal").css('opacity', '0');
 		$(".js-click-modal").css('opacity', '10');
+		$(".reservation-modal").toggleClass("emphasized");
 	});
 	$("#bookmark-button").click(
 			function() {
