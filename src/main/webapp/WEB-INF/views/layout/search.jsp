@@ -11,6 +11,11 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+	.bookmark-icon-link{
+		background: #fff;
+		color: #000000;
+		border: 1px solid #fff; 
+	}
 	.rezuser-choice-hide{
 		display:none;
 	}
@@ -20,14 +25,15 @@
 /* 위로 테스트 */
 	.reservation-modal {
 	  background: #fff;
-	  width: 100%;
+	  width: 50%;
 	  height: 100%;
-	  margin: 0;
+	  margin: 0px auto;
 	  padding: 0;
 	  transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
 	  top: 100%;
 	  position: fixed;
-	  left: 0;
+	  left: auto;
+	  right: auto;
 	  text-align: left;
 	}
 	.container.modal-open .reservation-modal {
@@ -62,6 +68,11 @@
 		border-radius: 3px;
 		margin: 1px 3px;
 	}
+	.hospital-name-dept{
+		display: flex;
+	}
+	.hospital-info-list{
+	}
 	.dept-tag{
 		padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 		background-color: #fff;
@@ -71,28 +82,40 @@
 		margin: 1px 3px;
 	}
 	.hospital-info-grid {
+		margin-top: 10px;
 		display: flex;
 	}
+	.hospital-info-flex {
+		display: flex;
+	    align-items: flex-end;
+	    justify-content: space-between;
+	}
 	.box-content{
-		border: 1px solid #000000;
+		border: 1px solid #5bc1ac;
 		border-radius: 3px;
 		margin: 1px 3px;
 		padding: 1px 3px;
 		text-align: center;
 	}
+	.dept-box-content{
+		border: 1px solid #fff;
+	}
 	.box-content-color{
 		background-color: #5bc1ac;
+		color: #fff;
 	}
 	.docter-images {
 		width: 150px;
 		height: 150px;
-		border-radius: 50%;
+		border-radius: 3px;
 	}
 	.review-grid{
 		display: flex;
 		justify-content: space-between;
 	}
 	.reservation-button {
+		color: #000000;
+		background-color: #edf0f7;
 		text-align:center;
 		font-size: 30px;
 		border-radius: 40px;
@@ -164,9 +187,13 @@
 		text-align: center;
 	}
 	.hospital-info-list {
-		border: 0;
-		margin: 3px 5px;
-		
+		border: 1px solid #c5c5c5;
+		border-radius: 10px;
+		padding: 10px 20px;
+		margin: 3px 5px;	
+	}
+	.hospital-info-info{
+		margin: 0;
 	}
 </style>
 

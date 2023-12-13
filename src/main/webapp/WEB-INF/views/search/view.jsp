@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+</style>
 <main>
 	<div class="maindiv">
 		<div>
@@ -10,11 +12,12 @@
 						class="bookmark-icon-link bi-star-fill"
 						<c:forEach items="${bookmarkcount}" var="dto">
 									<c:if test="${dto.userseq == '1'}">
-										    style="color: yellow;"
+										    style="color: gold;"
 									</c:if>
 								</c:forEach>></button>
 				</div>
 			</div>
+			<div class="hospital-info-flex">
 			<div class="hospital-info-grid">
 				<c:if test="${dto.face == 'y' or dto.face == 'Y'}">
 					<p class="box-content box-content-color">대면</p>
@@ -63,41 +66,51 @@
 					<p class="box-content">주말진료</p>
 				</c:if>
 			</div>
+			<div>
+				<p class="hospital-info-info bi-telephone"> ${dto.hospitaltel}</p>
+				<p class="hospital-info-info bi-mailbox"> ${dto.hospitalemail}</p>
+			</div>				
+			</div>				
 		</div>
 		<hr>
-		<div>
-			<p>영업시간: ${dto.opentime} ~ ${dto.closetime}</p>
-		</div>
-		<div>
-			<p>휴게시간: ${dto.restopentime} ~ ${dto.restclosetime}</p>
-		</div>
-		<div>
-			<p>주간 휴무일: ${dto.hospitaldayoff}</p>
-		</div>
+		<div style="display: flex; justify-content: space-around; text-align: center; padding-top: 15px;">
+			<div>
+				<h6>영업시간</h6>
+				<p>${dto.opentime} ~ ${dto.closetime}</p>
+			</div>
+			<div>
+				<h6>휴게시간</h6>
+				<p>${dto.restopentime} ~ ${dto.restclosetime}</p>
+			</div>
+			<div>
+				<h6>주간 휴무일</h6>
+				<p>${dto.hospitaldayoff}</p>
+			</div>
+		</div>  
 		<hr>
-		<div>
+		<div style="display:flex; justify-content: space-evenly; padding-top: 25px;">
 			<c:forEach items="${deptlist}" var="list">
-				<div style="display: flex; padding-left: 0;">
-					<p style="width: 100px;">${list.departmentname}</p>
-					<div style="display: flex;">
+			<div class="hospital-dept-doclist">
+				<div style="padding-left: 0;">
+					<div style="display:flex;">
 						<c:forEach items="${doclist}" var="doc">
 							<c:if test="${list.departmentname == doc.departmentname}">
-								<img class="docter-images"
-									src="/apa/resources/images/doc/${doc.doctorImage}">
-								<p class="" style="margin-right: 30px;">${doc.doctorName}</p>
+								<div style="display:block; margin-left: 5px;">
+									<img class="docter-images"
+										src="/apa/resources/images/doc/${doc.doctorImage}">
+									<div style="text-align: center; padding-top: 8px;">${list.departmentname}</div>
+									<p class="" style="margin-top: 5px; text-align: center;">${doc.doctorName}</p>
+								</div>
 							</c:if>
 						</c:forEach>
 					</div>
 				</div>
-			</c:forEach>
+			</div>
+			</c:forEach> 
 		</div>
-		<hr>
+		<hr>	
 		<div>
-			<p class="hospital-info-info">${dto.hospitalemail}</p>
-			<p class="hospital-info-info">${dto.hospitaltel}</p>
-		</div>
-		<hr>
-		<div>
+			<h5>병원 위치</h5>
 			<p class="hospital-info-info">${dto.hospitaladdress}</p>
 			<div id="map" style="width: auto; height: 400px;"></div>
 			<!-- 지도를 담을 영역 만들기 -->
@@ -119,7 +132,7 @@
 				<div class="reservation-modal">
 					<div>
 						<form action="/apa/search/reservation/select.do" method="GET">
-							<div class="hospital-info">
+							<div class="hospital-info-type">
 								<div>
 									<c:if test="${dto.face == 'y' || dto.face == 'Y'}">
 										<div>
@@ -172,10 +185,11 @@
 		</c:if>
 		<hr>
 		<div>
+			<c:if test="${positive != 0 or negative != 0}">
 			<div class="review-progress-bar">
 				<div class="review-progress" style="width: ${positive}%";></div>
 			</div>
-			<div>
+			<div style="padding-top: 15px;">
 				<c:forEach items="${reviewlist}" var="reviewlist">
 					<div class="review-grid">
 						<div>${reviewlist.userId}</div>
@@ -190,6 +204,10 @@
 					<p>${reviewlist.reviewContent}</p>
 				</c:forEach>
 			</div>
+			</c:if>
+			<c:if test="${positive == 0 and negative == 0}">
+				<h4 style="text-align: center; margin-top: 30px;">등록된 리뷰가 없습니다.</h4>
+			</c:if>
 		</div>
 		<div id="seq" data-userseq="<sec:authentication property='principal.dto.userseq' />">
 		</div>
@@ -238,7 +256,7 @@
 						data : JSON.stringify(obj),
 						dataType : 'json',
 						success : function(result) {
-							$("#bookmark-button").css('color', 'white');
+							$("#bookmark-button").css('color', 'black');
 						},
 						error : function(a, b, c) {
 							console.log(a, b, c);
@@ -258,7 +276,7 @@
 						data : JSON.stringify(obj),
 						dataType : 'json',
 						success : function(result) {
-							$("#bookmark-button").css('color', 'yellow');
+							$("#bookmark-button").css('color', 'gold');
 						},
 						error : function(a, b, c) {
 							console.log(a, b, c);

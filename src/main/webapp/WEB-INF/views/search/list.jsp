@@ -150,10 +150,14 @@
  									<td>
    								<a href="/apa/search/view.do?seq=\${item.hospitalid}" >
    								<div class="hospital-info-list">
+   								<div class="hospital-name-dept">
     								<h6>\${item.hospitalname}</h6>
-    								<div id="hospital-info-deptlist-\${deptcount}"></div>
+    								<div class="hospital-info-grid">
     								`;
-    								$.ajax({
+    								$(item.deptlist).each((index, item) => {
+    									temp+=`<p class="box-content dept-box-content">\${item.departmentname}</p>`;
+    								});
+    								/* $.ajax({
 							 			type: 'POST',
 							 			url: 'http://localhost:8090/apa/search/deptfind',
 							 			headers: {'Content-Type': 'application/json'},
@@ -162,18 +166,20 @@
 										},
 							 			data: JSON.stringify(obj2),
 							 			dataType: 'json',
-							 			success: function(result2) {
+							 			success: function(result) {
 							 				var depttag = document.getElementsById("hospital-info-deptlist"+deptcount);
 							 				console.log(depttag);
-							 				$(result2).each((index, item2) => {
-							 					$(depttag).append(`<p>\${item2.departmentname}</p>`);
+							 				$(result).each((index, item) => {
+							 					$(depttag).append(`<p>\${item.departmentname}</p>`);
 							 				});
 							 			},
 						 				error: function(a,b,c) {
 						 					console.log(a,b,c);
 						 				}
-						 			});
-    				    	temp += `<p>\${item.hospitaladdress}</p>
+						 			}); */
+    				    	temp += `</div>
+    				    		</div>
+    				    	<p>\${item.hospitaladdress}</p>
 			    				</a>
     				                <div >
 	    				                	<div class="hospital-info-grid">

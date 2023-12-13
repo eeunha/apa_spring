@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.apa.api.search.model.HospitalInfoDTO;
 import com.project.apa.api.search.model.ReviewDTO;
 import com.project.apa.api.search.service.SearchService;
 
@@ -44,10 +45,19 @@ public class SearchController {
 				negative++;
 			}
 		}
-		positive = 101-((positive+negative)/positive);
+		if (positive == 0 && negative == 0) {
+			positive = 0;
+		}else {
+			positive = (positive*100/(positive+negative));			
+		}
+		HospitalInfoDTO hospitallist = service.hospitalInfo(seq);
+		hospitallist.setOpentime(hospitallist.getOpentime().substring(11,16));
+		hospitallist.setClosetime(hospitallist.getClosetime().substring(11,16));
+		hospitallist.setRestopentime(hospitallist.getRestopentime().substring(11,16));
+		hospitallist.setRestclosetime(hospitallist.getRestclosetime().substring(11,16));
 		
 		
-		model.addAttribute("dto", service.hospitalInfo(seq));
+		model.addAttribute("dto", hospitallist);
 		model.addAttribute("deptlist", service.deptlist(seq));
 		model.addAttribute("doclist", service.doclist(seq));
 		model.addAttribute("reviewlist", service.reviewlist(seq));

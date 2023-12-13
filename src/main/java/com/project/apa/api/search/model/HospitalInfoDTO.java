@@ -1,5 +1,7 @@
 package com.project.apa.api.search.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -24,4 +26,6 @@ public class HospitalInfoDTO {
 	private String restopentime;
 	private String restclosetime;
 	private String hospitaldayoff;
+	
+	private List<SelfsymtomDTO> deptlist;
 }

@@ -232,9 +232,10 @@ thead tr:nth-child(3) th {
 			var opentime = '${dto.opentime}';
 			var closetime = '${dto.closetime}';
 			var openH = Number(opentime.substring(0,2));
-			var openM = Number(opentime.substring(3));
+			var openM = Number(opentime.substring(3,4));
 			var closeH = Number(closetime.substring(0,2));
-			var closeM = Number(closetime.substring(3));
+			var closeM = Number(closetime.substring(3,4));
+			
 			$('#card-body').html('');
 			let temp =``;
 			for(openH; openH<closeH; openH++){
