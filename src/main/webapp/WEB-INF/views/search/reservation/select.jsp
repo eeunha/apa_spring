@@ -124,7 +124,7 @@ thead tr:nth-child(3) th {
 </style>
 <body>
 	<!-- /reservation/subject.jsp -->
-	<div class="maindiv">
+	<div class="maindiv" style="height: 1200px;">
 		<form action="/apa/search/reservation/detail.do" method="GET">
 			<div class="hospital-info ">
 				<c:if test="${choicetype ne '건강검진'}">
