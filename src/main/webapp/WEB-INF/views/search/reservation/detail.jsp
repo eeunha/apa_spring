@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
 	<!-- /reservation/select.jsp -->	
-	<div class="rez-body-top">
+	<div class="maindiv">
 		<form action="#" method="POST">
 		<div class="detail-userinfo-list">
 			<div class="userinfo-list">

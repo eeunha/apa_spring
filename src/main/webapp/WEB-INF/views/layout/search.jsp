@@ -11,6 +11,9 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+	#hospital-list{
+		width: 100%;
+	}
 	.bookmark-icon-link{
 		background: #fff;
 		color: #000000;
@@ -77,7 +80,10 @@
 	.hospital-name-dept{
 		display: flex;
 	}
-	.hospital-info-list{
+	.hospital-info-dept{
+		background-color: #fff;
+		color: #000;
+		border: 1px solid #000000;
 	}
 	.dept-tag{
 		padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
@@ -114,6 +120,10 @@
 		width: 150px;
 		height: 150px;
 		border-radius: 3px;
+		opacity: 0.6;
+	}
+	.docter-images:hover {
+		opacity: 1;
 	}
 	.review-grid{
 		display: flex;
@@ -140,6 +150,9 @@
 		left: 0;
 		right: 0;
 		z-index: 888;
+	}
+	.select-opacity {
+		opacity: 0.4;
 	}
 	.reservation-modal-button-list {
 		text-align:center;
@@ -173,15 +186,18 @@
 	    border: 1px solid #ffffff;
 	    border-radius: 50px;
 	    display: inherit;
-	    
 	}
-	
+	.review-progress-negative{
+		padding-top: 5px;
+		text-align: center;
+	}
 	.review-progress-bar .review-progress {
 	    width: 50%;
 	    height: 30px;
 	    padding: 0;
+		padding-top: 5px;
 	    text-align: center;
-	    background-color: #4F98FF;
+	    background-color: #5bc1ac;
 	    color: #111;
 	    border: 1px solid #ffffff;
 	    border-radius: 50px;
@@ -207,6 +223,12 @@
 	}
 	.hospital-info-info{
 		margin: 0;
+	}
+	#doctor-choice{
+		display: flex;
+		justify-content: space-evenly;
+		text-align: center;
+		margin: 0 100px;
 	}
 
 </style>

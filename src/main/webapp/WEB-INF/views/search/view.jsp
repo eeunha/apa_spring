@@ -194,7 +194,7 @@
 					<div class="review-progress" style="width: ${positive}%;">좋아요(${positive}%)</div>
 					</c:if>
 					<c:if test="${100 - positive >= 10}">
-					<div style="width: ${100 - positive}%; text-align: center; ">싫어요(${100 - positive}%)</div>
+					<div class="review-progress-negative" style="width: ${100 - positive}%;">싫어요(${100 - positive}%)</div>
 					</c:if>
 				</c:if>
 				</div>
@@ -261,7 +261,7 @@
 					userseq : 1,
 					hospitalid : '${dto.hospitalid}'
 				};
-				if ($("#bookmark-button").css('color') === 'rgb(255, 255, 0)') {
+				if ($("#bookmark-button").css('color') === 'rgb(255, 215, 0)') {
 					$.ajax({
 						type : 'POST',
 						url : 'http://localhost:8090/apa/search/bookmarkout',

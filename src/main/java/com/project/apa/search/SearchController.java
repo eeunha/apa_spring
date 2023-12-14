@@ -50,7 +50,6 @@ public class SearchController {
 		}else {
 			positive = (positive*100/(positive+negative));			
 		}
-		positive=60;
 		HospitalInfoDTO hospitallist = service.hospitalInfo(seq);
 		hospitallist.setOpentime(hospitallist.getOpentime().substring(11,16));
 		hospitallist.setClosetime(hospitallist.getClosetime().substring(11,16));

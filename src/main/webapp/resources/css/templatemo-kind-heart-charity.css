@@ -332,7 +332,8 @@ strong {
 }
 
 .custom-btn:hover {
-  background: var(--primary-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
   color: var(--white-color);
 }
 

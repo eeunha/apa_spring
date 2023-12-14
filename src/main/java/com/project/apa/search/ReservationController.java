@@ -53,6 +53,12 @@ public class ReservationController {
 		model.addAttribute("middeltel", userlist.getUsertel().substring(4,8));
 		model.addAttribute("lastltel", userlist.getUsertel().substring(9));
 		
+		System.out.println(seq);
+		System.out.println(choicetype);
+		System.out.println(choicedoc);
+		System.out.println(choicedate);
+		System.out.println(choicetime);
+		System.out.println(userlist);
 		
 		model.addAttribute("hospitalid", seq);
 		model.addAttribute("choicetype", choicetype);
