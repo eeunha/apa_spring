@@ -72,15 +72,15 @@ button {
 }
 
 #history-list th:nth-child(6) {
-	width: 600px;
-}
-
-#history-list th:nth-child(7) {
 	width: 100px;
 }
 
+#history-list th:nth-child(7) {
+	width: 600px;
+}
+
 #history-list th:nth-child(8) {
-	width: 180px;
+	width: 190px;
 }
 
 #history-list th:nth-child(9) {
@@ -88,7 +88,7 @@ button {
 }
 
 
-#history-list td:nth-child(6) {
+#history-list td:nth-child(7) {
 	padding-left: 15px;
 	text-align: left;
 }
@@ -111,6 +111,24 @@ button {
 .status {
 	color: tomato;
 }
+
+#search {
+	border: 1px solid #CCC;
+}
+
+.sel-treatment-order-area {
+	display: flex;
+}
+
+.sel-treatment-order-inner-area {
+	margin-left: auto;
+	margin-bottom: 10px;
+}
+
+#sel-treatment-order {
+	border: 1px solid #CCC;
+}
+
 </style>
 
 <!-- Begin Page Content -->
@@ -126,6 +144,12 @@ button {
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h5 class="m-0 font-weight-bold text-primary">모든 진료 내역</h5>
+					<div>
+						<input type="text" name="search" id="search">
+						<button type="button">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
@@ -152,8 +176,8 @@ button {
 									<th>환자</th>
 									<th>진료방식</th>
 									<th>진료과목</th>
-									<th>상세증상</th>
 									<th>의사</th>
+									<th>상세증상</th>
 									<th>진료일시</th>
 									<th>진행상태</th>
 								</tr>
@@ -176,6 +200,7 @@ button {
 									</td>
 									<td>${dto.treatmentWay}</td>
 									<td>${dto.departmentName}</td>
+									<td>${dto.doctorName}</td>
 
 									<c:if test="${dto.symptom == null}">
 										<td class="gray-font">(미작성)</td>
@@ -184,7 +209,6 @@ button {
 										<td>${dto.symptom}</td>
 									</c:if>
 
-									<td>${dto.doctorName}</td>
 									<td>${dto.appointmentDate}</td>
 									<c:if test="${dto.status == '진료대기'}">
 										<td>${dto.status}</td>

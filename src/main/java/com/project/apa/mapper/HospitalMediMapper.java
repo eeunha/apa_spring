@@ -20,7 +20,7 @@ public interface HospitalMediMapper {
 
 	List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map);
 
-	AppointmentDetailDTO getAllAppointmentDetail(int appointmentSeq);
+	AppointmentDetailDTO getAppointmentDetail(int appointmentSeq);
 
 	int getAllAppointmentCount(String id);
 
@@ -47,4 +47,8 @@ public interface HospitalMediMapper {
 	String getDispenseListSeq(String appointmentSeq);
 
 	int getTodayAppointmentCount(String id);
+
+	List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map);
+
+	int getTodayTreatmentCount(String id);
 }

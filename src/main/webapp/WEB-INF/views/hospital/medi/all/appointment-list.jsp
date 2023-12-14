@@ -141,9 +141,6 @@ button:hover {
 	display: flex;
 }
 
-#sel {
-	margin-left: 30px;
-}
 </style>
 
 <!-- Begin Page Content -->

@@ -24,4 +24,14 @@ public class TreatmentListDAOImpl implements TreatmentListDAO {
 	public int getAllTreatmentCount(String id) {
 		return hospitalMediMapper.getAllTreatmentCount(id);
 	}
+	
+	@Override
+	public List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map) {
+		return hospitalMediMapper.getTodayTreatmentList(map);
+	}
+	
+	@Override
+	public int getTodayTreatmentCount(String id) {
+		return hospitalMediMapper.getTodayTreatmentCount(id);
+	}
 }

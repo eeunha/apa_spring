@@ -43,8 +43,8 @@ public class RestHospitalMediController {
 	public Map<String, Object> getTodayAppointmentList(@PathVariable(name = "id") String id,
 			@RequestParam(defaultValue = "1") int page) {
 
-		System.out.println("id: " + id);
-		System.out.println("page: " + page);
+//		System.out.println("id: " + id);
+//		System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -53,10 +53,23 @@ public class RestHospitalMediController {
 		return practiceService.getTodayAppointmentList(map);
 	}
 
-	// 오늘의 진료 예약 상세 내역 가져오기
+	// 오늘의 진료 예약 상세 내역 가져오기 => 
 
 	// 오늘의 진료 내역 목록 가져오기
+	@GetMapping(value = "/today/treatment")
+	public Map<String, Object> getTodayTreatmentList(@PathVariable(name = "id") String id,
+			@RequestParam(defaultValue = "1") int page) {
 
+		System.out.println("id: " + id);
+		System.out.println("page: " + page);
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		
+		return practiceService.getTodayTreatmentList(map);
+	}
+	
 	// 오늘의 진료 상세 내역 가져오기
 
 	// 모든 진료 예약 목록 가져오기
@@ -73,9 +86,9 @@ public class RestHospitalMediController {
 
 	// 모든 진료 예약 상세 내역 가져오기
 	@GetMapping(value = "/all/appointment/{appointmentSeq}")
-	public AppointmentDetailDTO getAllAppointmentDetail(@PathVariable int appointmentSeq) {
+	public AppointmentDetailDTO getAppointmentDetail(@PathVariable int appointmentSeq) {
 
-		return practiceService.getAllAppointmentDetail(appointmentSeq);
+		return practiceService.getAppointmentDetail(appointmentSeq);
 	}
 
 	// 진료 예약 승인/거절

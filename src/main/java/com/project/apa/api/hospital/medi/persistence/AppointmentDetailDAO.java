@@ -5,7 +5,7 @@ import com.project.apa.api.hospital.medi.domain.AppointmentStatusDTO;
 
 public interface AppointmentDetailDAO {
 
-	AppointmentDetailDTO getAllAppointmentDetail(int appointmentSeq);
+	AppointmentDetailDTO getAppointmentDetail(int appointmentSeq);
 
 	int approveAppointment(int appointmentSeq);
 

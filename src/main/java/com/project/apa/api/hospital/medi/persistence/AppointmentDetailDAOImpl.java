@@ -17,9 +17,9 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 	private HospitalMediMapper hospitalMediMapper;
 
 	@Override
-	public AppointmentDetailDTO getAllAppointmentDetail(int appointmentSeq) {
+	public AppointmentDetailDTO getAppointmentDetail(int appointmentSeq) {
 		
-		return hospitalMediMapper.getAllAppointmentDetail(appointmentSeq);
+		return hospitalMediMapper.getAppointmentDetail(appointmentSeq);
 	}
 	
 	@Override

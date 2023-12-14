@@ -38,6 +38,37 @@
 			and status = '승인대기'
 	</select>
 	
+	<!-- 오늘의 진료 - 진료 - 목록 -->
+	<select id="getTodayTreatmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, 
+		            to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, treatmentWay, departmentName, 
+		            doctorName, symptom, regdate, status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		            and status in ('진료대기', '진료중', '진료완료')
+		            and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27'
+		        order by appointmentDate, appointmentSeq
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
+	<!-- 오늘의 진료 총 개수 -->
+	<select id="getTodayTreatmentCount" parameterType="String" resultType="Integer">
+		select count(*)
+		from vwAppointmentList
+		where hospitalid = #{id}
+		    and status in ('진료대기', '진료중', '진료완료')
+		    and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27'
+		<!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
+	</select>
+	
 	<!-- 모든 진료 - 예약 - 목록 -->
 	<select id="getAllAppointmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
 		select * 
@@ -68,7 +99,7 @@
 	</select>
 	
 	<!-- 모든 진료 - 예약 - 상세보기 -->
-	<select id="getAllAppointmentDetail" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO">
+	<select id="getAppointmentDetail" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO">
 		select * 
 		from vwAppointmentDetail
 		where appointmentSeq = #{appointmentSeq}

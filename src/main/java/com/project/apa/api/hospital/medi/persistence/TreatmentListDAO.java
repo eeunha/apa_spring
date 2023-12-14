@@ -11,4 +11,8 @@ public interface TreatmentListDAO {
 
 	int getAllTreatmentCount(String id);
 
+	List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map);
+
+	int getTodayTreatmentCount(String id);
+
 }

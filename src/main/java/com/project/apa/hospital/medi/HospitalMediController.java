@@ -43,27 +43,43 @@ public class HospitalMediController {
 
 	// 오늘의 진료 - 예약 - 목록
 	@GetMapping(value = "/today/appointment")
-	public String getToadyAppointmentList(Model model, @PathVariable String id,
-			@RequestParam(defaultValue = "1") int page) {
+	public String getToadyAppointmentList(Model model, @RequestParam(defaultValue = "1") int page) {
 
 		model.addAttribute("page", page);
-		
+
 		return "hospital.medi.today.appointment-list";
+	}
+
+	// 오늘의 진료 - 예약 - 상세보기
+	@GetMapping(value = "/today/appointment/{appointmentSeq}")
+	public String getTodayAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
+
+		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
+
+		model.addAttribute("dto", dto);
+
+		return "hospital.medi.today.appointment-detail";
 	}
 
 	// 오늘의 진료 - 진료 - 목록
 	@GetMapping(value = "/today/treatment")
-	public String getTodayTreatmentList(Model model) {
+	public String getTodayTreatmentList(Model model, @RequestParam(defaultValue = "1") int page) {
 
+		model.addAttribute("page", page);
+		
 		return "hospital.medi.today.treatment-list";
 	}
 
+	// 오늘의 진료 - 진료 - 상세보기
+	
+	
+	
 	// 모든 진료 - 예약 - 목록
 	@GetMapping(value = "/all/appointment")
 	public String getAllAppointmentList(Model model, @PathVariable String id,
 			@RequestParam(defaultValue = "1") int page) {
 
-		System.out.println("page: " + page);
+//		System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -88,9 +104,9 @@ public class HospitalMediController {
 	 * @return
 	 */
 	@GetMapping(value = "/all/appointment/{appointmentSeq}")
-	public String getAllAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
+	public String getAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
 
-		AppointmentDetailDTO dto = practiceService.getAllAppointmentDetail(appointmentSeq);
+		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
 

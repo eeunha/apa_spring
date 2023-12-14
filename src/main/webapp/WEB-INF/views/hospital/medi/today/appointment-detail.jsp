@@ -70,6 +70,11 @@ table tr td {
 .waiting {
 	color: tomato;
 }
+
+#detail-appointmentseq {
+	font-weight: bold;
+	margin: 20px 0 20px 20px;
+}
 </style>
 
 <!-- Begin Page Content -->
@@ -148,7 +153,9 @@ table tr td {
 									<td>${dto.childSSN}</td>
 								</tr>
 							</c:if>
+							
 							<tr></tr>
+							
 							<tr>
 								<th>예약일시</th>
 								<td>${dto.appointmentDate}</td>
@@ -165,7 +172,6 @@ table tr td {
 								<th>의사</th>
 								<td>${dto.doctorName}</td>
 							</tr>
-
 							<tr>
 								<th>상세증상</th>
 								<c:if test="${dto.symptom != null}">
@@ -175,9 +181,9 @@ table tr td {
 									<td class="symptomNull">(미작성)</td>
 								</c:if>
 							</tr>
-
+							
 							<tr></tr>
-
+							
 							<tr>
 								<th>신청일시</th>
 								<td>${dto.regdate}</td>
@@ -195,14 +201,12 @@ table tr td {
 						</table>
 
 						<div id="btnArea">
-							<c:if test="${dto.status == '대기'}">
-								<button type="button" name="btnApprove" id="btnApprove"
-									onclick="approveAppointment();">승인</button>
-								<button type="button" name="btnDecline" id="btnDecline"
-									onclick="declineAppointment();">거절</button>
-							</c:if>
+							<button type="button" name="btnApproval" id="btnApproval"
+								onclick="approveAppointment();">승인</button>
+							<button type="button" name="btnDecline" id="btnDecline"
+								onclick="declineAppointment();">거절</button>
 							<button type="button"
-								onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';">뒤로가기</button>
+								onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/today/appointment';">뒤로가기</button>
 						</div>
 					</div>
 				</div>
@@ -227,7 +231,7 @@ table tr td {
 						
 						alert('예약을 승인하였습니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';//목록으로 이동
+						location.href='/apa/hospital/${dto.hospitalId}/medi/today/appointment';//목록으로 이동
 						
 					} else {
 						alert('0');
@@ -253,7 +257,7 @@ table tr td {
 					if (result == 1) {
 						alert('예약을 거절하였습니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${dto.hospitalId}/medi/today/appointment'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');

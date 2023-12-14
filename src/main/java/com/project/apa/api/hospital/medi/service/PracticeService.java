@@ -17,7 +17,7 @@ public interface PracticeService {
 
 	List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map);
 
-	AppointmentDetailDTO getAllAppointmentDetail(int appointmentSeq);
+	AppointmentDetailDTO getAppointmentDetail(int appointmentSeq);
 
 	String getAllAppointmentListPageBar(HashMap<String, Object> map);
 
@@ -41,5 +41,7 @@ public interface PracticeService {
 
 	String getTodayAppointmentListPageBar(HashMap<String, Object> map);
 
+	Map<String, Object> getTodayTreatmentList(HashMap<String, Object> map);
 
+	String getTodayTreatmentListPageBar(HashMap<String, Object> map);
 }
