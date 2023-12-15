@@ -11,6 +11,142 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+.detail-userinfo-button{
+		text-align:center;
+		padding-right:10px;
+		width: 80px;
+		height: 35px;
+		border: 1px solid #ffffff;
+		border-radius: 0.6rem;
+		background-color: #f0f0f0;
+	}
+	form {
+		padding: 0px auto;
+	}
+	.detail-userinfo-list{
+		position: relative;
+	    flex-direction: column;
+	    min-width: 0;
+	    word-wrap: break-word;
+	    background-clip: border-box;
+	    margin: 50px 350px;
+	    margin-top: 100;
+	    text-align: left;
+	    max-width: 1320px;
+	    margin-left: auto;
+	    margin-right: auto;
+	}
+	.detail-userinfo{
+		display: block;
+		padding-left: 50px;
+		padding-bottom: 5px;
+	}
+	.detail-userinfo info{
+		border: 1px solid #999999;
+		border-radius: 0.35rem;
+	}
+	.detail-userinfo-table{ 
+		margin: 20px auto;
+	}
+	.detail-userinfo-table th{
+		padding-right: 50px;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		border: 1px solid #999999;
+		border-radius: 0.35rem;
+		padding: 10px 20px;
+	}
+	.detail-userinfo-table td {
+		border: 1px solid #999999;
+		border-radius: 0.35rem;
+		padding: 10px 10px;
+	}
+	.detail-userinfo-table input{
+		padding: 4px 10px;
+		margin: 0 5px;
+	}
+	.detail-userinfo-detail{
+		width: 550px;
+		height: 100px;
+		margin: 0 5px;
+	}
+	.oneclickservice > div {
+		display: flex;
+	}
+	.help-tip{
+		text-align: center;
+		cursor: default;	
+		margin: 5px 5px;
+	}
+	
+	.help-tip:hover p{	
+		display:block;	
+		transform-origin: 100% 0%;
+		-webkit-animation: fadeIn 0.3s ease-in-out;	
+		animation: fadeIn 0.3s ease-in-out;	
+	}
+	.help-tip p{	
+		display: none;	
+		text-align: left;		
+		background-color: #f1f1f1;	
+		padding: 20px;	
+		width: 300px;
+		position: absolute;	
+		border-radius: 3px;	
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);	
+		color: #000000;	
+		font-size: 13px;	
+		line-height: 1.4;
+		bottom: -12px;
+	}
+	.help-tip p:before{	
+		position: absolute;	
+		content: '';	
+		width:0;	
+		height: 0;
+		border:6px solid transparent;	
+		border-bottom-color:#f1f1f1;
+		top:-12px;	
+	}
+	.help-tip p:after{	
+		width:100%;	
+		height:40px;	
+		content:'';
+		position: absolute;	
+		top:-40px;	
+		left:0;	
+	}
+	.oneclickhide{
+		display:none;
+	}
+	.rezuser-choice-hide{
+		display:none;
+	}
+	.reservation-button{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		width: 480px;
+		height: 50px;
+		border: 1px solid #fff;
+		border-radius: 0.6rem;
+		background-color: #f0f0f0;
+		margin-top: 50px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.rez-body-top {
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		width:1320px;
+		max-width: 1320px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+
+/* 위로 테스트 */
 	#hospital-list{
 		width: 100%;
 	}

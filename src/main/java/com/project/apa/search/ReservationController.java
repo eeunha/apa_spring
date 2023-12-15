@@ -67,6 +67,7 @@ public class ReservationController {
 		model.addAttribute("choicetime", choicetime);
 		model.addAttribute("userlist", userlist);
 		model.addAttribute("childlist", service.childlist(userseq));
+		model.addAttribute("pharmacylist", service.pharmacylist());
 		
 		return "search.reservation.detail";
 	}

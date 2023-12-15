@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
+import com.project.apa.api.search.model.PharmacyDTO;
 import com.project.apa.api.search.model.UserInfoDTO;
 
 public interface ReservationDAO {
@@ -15,5 +16,7 @@ public interface ReservationDAO {
 	List<ChildInfoDTO> childlist(String userseq);
 
 	ChildInfoDTO childinfo(String childseq);
+
+	List<PharmacyDTO> pharmacylist();
 
 }

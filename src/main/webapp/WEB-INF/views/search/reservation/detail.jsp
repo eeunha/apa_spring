@@ -12,8 +12,8 @@
 					<tr>
 						<th>진료 대상</th>
 						<td colspan="2">
-							<input type="button" class="rezuser-choice-user" value="본인">
-							<input type="button" class="rezuser-choice-child" value="자녀">
+							<input type="button" class="rezuser-choice-user dept-tag btn custom-btn" value="본인">
+							<input type="button" class="rezuser-choice-child dept-tag btn custom-btn" value="자녀">
 						</td>
 					</tr>
 					<tr class="rezuser-choice-hide">
@@ -66,10 +66,6 @@
 							<td class="oneclickservice" colspan="2">
 								<div>
 									<input type="button" class="detail-userinfo-button" value="원클릭">
-									<div class="help-tip">
-										원클릭 서비스가 뭔가요?
-										<p>버튼하나로 병원과 약국 예약을 동시에!!</p>
-									</div>
 								</div>
 							</td>
 						</tr>
@@ -93,7 +89,7 @@
 				<input type="hidden" name="choicedate" value="${choicedate}">
 				<input type="hidden" name="choicetime" value="${choicetime}">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<button type="submit" class="reservation-datail-button"> 예약하기 </button>
+				<button type="submit" class="reservation-button"> 예약하기 </button>
 			</div>			
 		</div>
 		</form>

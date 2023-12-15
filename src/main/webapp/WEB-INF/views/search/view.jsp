@@ -96,7 +96,7 @@
 						<c:forEach items="${doclist}" var="doc">
 							<c:if test="${list.departmentname == doc.departmentname}">
 								<div style="display:block; margin-left: 5px;">
-									<img class="docter-images"
+									<img class="docter-images" style="opacity: 1;"
 										src="/apa/resources/images/doc/${doc.doctorImage}">
 									<div style="text-align: center; padding-top: 8px;">${list.departmentname}</div>
 									<p class="" style="margin-top: 5px; text-align: center;">${doc.doctorName}</p>

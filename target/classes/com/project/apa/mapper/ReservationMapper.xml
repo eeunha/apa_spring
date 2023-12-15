@@ -17,5 +17,13 @@
 	 <select id="childinfo" resultType="com.project.apa.api.search.model.ChildInfoDTO">
 	 	select * from tblchild where childseq = #{childseq}
 	 </select>
+	 <select id="pharmacylist" resultType="com.project.apa.api.search.model.PharmacyDTO">
+	 	select p.pharmacyid, p.pharmacyname, p.pharmacyaddress, p.pharmacyemail, p.pharmacytel,
+        to_char(po.opentime,'HH24:mi') as opentime, to_char(po.closetime,'HH24:mi') as closetime, po.pharmacydayoff
+    from tblpharmacy  p
+    inner join tblpharmacyoperation po
+        on p.pharmacyid = po.pharmacyid
+where p.ispharmacyunregister in ('n', 'N') and po.isdispense in ('y', 'Y')
+	 </select>
 	
 </mapper>

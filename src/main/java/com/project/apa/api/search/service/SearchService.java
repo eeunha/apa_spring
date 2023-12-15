@@ -11,6 +11,7 @@ import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
+import com.project.apa.api.search.model.PharmacyDTO;
 import com.project.apa.api.search.model.ReviewDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
 import com.project.apa.api.search.model.UserInfoDTO;
@@ -105,6 +106,10 @@ public class SearchService {
 
 	public List<SelfsymtomDTO> finddept(HospitalInfoDTO dto) {
 		return searchdao.finddept(dto);
+	}
+
+	public List<PharmacyDTO> pharmacylist() {
+		return redao.pharmacylist();
 	}
 
 }
