@@ -23,7 +23,7 @@
 	<div class="sidebar-heading">진료 관리</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
+	<li id="side-main-today" class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
 		aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>오늘의
 				진료</span>
@@ -32,13 +32,13 @@
 			data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-				<a class="collapse-item" href="/apa/hospital/${id}/medi/today/appointment">오늘의 예약 내역</a> <a
-					class="collapse-item" href="/apa/hospital/${id}/medi/today/treatment">오늘의 진료 내역</a>
+				<a id="side-sub-today-appointment" class="collapse-item" href="/apa/hospital/${id}/medi/today/appointment">오늘의 예약 내역</a> 
+				<a id="side-sub-today-treatment" class="collapse-item" href="/apa/hospital/${id}/medi/today/treatment">오늘의 진료 내역</a>
 			</div>
 		</div></li>
 
 	<!-- Nav Item - Utilities Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
+	<li id="side-main-all" class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseUtilities"
 		aria-expanded="true" aria-controls="collapseUtilities"> <i
 			class="fas fa-fw fa-wrench"></i> <span>모든 진료</span>
@@ -46,8 +46,8 @@
 		<div id="collapseUtilities" class="collapse"
 			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="/apa/hospital/${id}/medi/all/appointment">모든 예약 내역</a> <a
-					class="collapse-item" href="/apa/hospital/${id}/medi/all/treatment">모든 진료 내역</a>
+				<a id="side-sub-all-appointment" class="collapse-item" href="/apa/hospital/${id}/medi/all/appointment">모든 예약 내역</a> 
+				<a id="side-sub-all-treatment" class="collapse-item" href="/apa/hospital/${id}/medi/all/treatment">모든 진료 내역</a>
 			</div>
 		</div></li>
 
@@ -58,7 +58,7 @@
 	<div class="sidebar-heading">환자 관리</div>
 
 	<!-- Nav Item - Charts -->
-	<li class="nav-item"><a class="nav-link" href="/apa/hospital/${id}/medi/patient"> <i
+	<li id="side-main-patient" class="nav-item"><a class="nav-link" href="/apa/hospital/${id}/medi/patient"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>내원환자</span></a></li>
 
 	<!-- Divider -->

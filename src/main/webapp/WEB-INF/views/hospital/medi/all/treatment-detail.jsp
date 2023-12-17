@@ -273,6 +273,13 @@ table tr td {
 <!-- /.container-fluid -->
 
 <script>
+	
+	//사이드바 css설정
+	$('#side-main-all > a').addClass('collapsed');
+	$('#side-main-all > a').css('background-color', '#dddfeb');
+	$('#side-main-all > a').attr('aria-expanded', 'true');
+	$('#side-main-all > div').addClass('show');
+	$('#side-sub-all-treatment').css('background-color', '#dddfeb');	
 
 	function callPatient() {
 		if (confirm('환자를 호출하시겠습니까?')) {

@@ -5,10 +5,6 @@
 <!-- appointment.jsp -->
 
 <style>
-.sidebar-clicked {
-	background-color: #dddfeb;
-}
-
 .list tr {
 	height: 40px;
 }
@@ -131,7 +127,6 @@ button {
 	border: 1px solid #CCC;
 }
 
-
 </style>
 
 <!-- Begin Page Content -->
@@ -184,6 +179,13 @@ button {
 			data: {page: pageNum},
 			dataType: 'json',
 			success: result => {
+				
+				//사이드바 css설정
+				$('#side-main-today > a').addClass('collapsed');
+				$('#side-main-today > a').css('background-color', '#dddfeb');
+				$('#side-main-today > a').attr('aria-expanded', 'true');
+				$('#side-main-today > div').addClass('show');
+				$('#side-sub-today-appointment').css('background-color', '#dddfeb');
 				
 				//기존 내용 삭제
 				//$('.sel-appointment-order-area').html(''); 

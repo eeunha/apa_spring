@@ -79,3 +79,10 @@
 	</div>
 </div>
 <!-- /.container-fluid -->
+
+<script>
+
+	//사이드바 css설정
+	$('#side-main-patient > a').css('background-color', '#dddfeb');
+	
+</script>

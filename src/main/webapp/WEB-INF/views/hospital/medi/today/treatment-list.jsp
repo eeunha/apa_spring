@@ -172,7 +172,13 @@ button {
 			dataType: 'json',
 			success: result => {
 				
-				//console.log(result);
+				//사이드바 css설정
+				$('#side-main-today > a').addClass('collapsed');
+				$('#side-main-today > a').css('background-color', '#dddfeb');
+				$('#side-main-today > a').attr('aria-expanded', 'true');
+				$('#side-main-today > div').addClass('show');
+				$('#side-sub-today-treatment').css('background-color', '#dddfeb');				
+				
 				
 				//기존 내용 삭제
 				$('.list thead').html(''); 

@@ -213,6 +213,14 @@ table tr td {
 <!-- /.container-fluid -->
 
 <script>
+
+	//사이드바 css설정
+	$('#side-main-all > a').addClass('collapsed');
+	$('#side-main-all > a').css('background-color', '#dddfeb');
+	$('#side-main-all > a').attr('aria-expanded', 'true');
+	$('#side-main-all > div').addClass('show');
+	$('#side-sub-all-appointment').css('background-color', '#dddfeb');	
+	
 	function approveAppointment() {
 		
 		if (confirm('예약을 승인하시겠습니까?')) {

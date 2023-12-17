@@ -250,3 +250,15 @@ button:hover {
 	</div>
 </div>
 <!-- /.container-fluid -->
+
+<script>
+	
+	//사이드바 css설정
+	$('#side-main-all > a').addClass('collapsed');
+	$('#side-main-all > a').css('background-color', '#dddfeb');
+	$('#side-main-all > a').attr('aria-expanded', 'true');
+	$('#side-main-all > div').addClass('show');
+	$('#side-sub-all-appointment').css('background-color', '#dddfeb');	
+
+	
+</script>
