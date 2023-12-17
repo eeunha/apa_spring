@@ -114,8 +114,8 @@ button {
 
 .pagebar {
 	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
+	margin-top: 20px;
+	/* margin-bottom: 20px; */
 	font-size: 1.1rem;
 }
 
@@ -131,9 +131,7 @@ button {
 	border: 1px solid #CCC;
 }
 
-.null-msg {
-	text-align: center;
-}
+
 </style>
 
 <!-- Begin Page Content -->
@@ -149,17 +147,12 @@ button {
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h5 class="m-0 font-weight-bold text-primary">오늘의 예약</h5>
-					<div>
-						<input type="text" name="search" id="search">
-						<button type="button">
-							<i class="fas fa-search"></i>
-						</button>
-					</div>
+					<h5 class="today-date m-0 text-primary"></h5>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
 
-					<div class="sel-appointment-order-area"></div>
+					<!-- <div class="sel-appointment-order-area"></div> -->
 
 					<table class="list">
 						<thead></thead>
@@ -193,10 +186,20 @@ button {
 			success: result => {
 				
 				//기존 내용 삭제
-				$('.sel-appointment-order-area').html(''); 
+				//$('.sel-appointment-order-area').html(''); 
 				$('.list thead').html(''); 
 				$('.list tbody').html('');
 				$('.pagebar').html('');
+				$('.today-date').html('');
+				
+				
+				//오늘 날짜 생성
+				let today = new Date();
+				let year = today.getFullYear(); // 년도
+				let month = today.getMonth() + 1;  // 월
+				let date = today.getDate();  // 날짜
+				
+				$('.today-date').append('[ ' + year + '년 ' + month + '월 ' + date + '일 ]');
 				
 				
 				if (result.length != 0) {
@@ -204,7 +207,7 @@ button {
 					//예약이 있을 경우
 					
 					// select
-					const selectOrderData = `
+					/* const selectOrderData = `
 						<div class="sel-appointment-order-inner-area">
 							<select id="sel-appointment-order">
 								<option value="appintmentSeq">예약번호순</option>
@@ -215,7 +218,7 @@ button {
 						</div>
 					`;
 					
-					$('.sel-appointment-order-area').append(selectOrderData);
+					$('.sel-appointment-order-area').append(selectOrderData); */
 					
 					
 					// thead
@@ -283,7 +286,7 @@ button {
 							</tr>
 						`;
 						
-						$('.list thead').append(tbodyData);
+						$('.list tbody').append(tbodyData);
 						
 					});
 					

@@ -25,7 +25,7 @@ public interface PracticeService {
 
 	String getAllTreatmentListPageBar(HashMap<String, Object> map);
 
-	TreatmentDetailDTO getAllTreatmentDetail(int appointmentSeq);
+	TreatmentDetailDTO getTreatmentDetail(int appointmentSeq);
 
 	int approveAppointment(int appointmentSeq);
 

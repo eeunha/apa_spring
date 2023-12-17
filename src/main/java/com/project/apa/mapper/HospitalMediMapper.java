@@ -28,7 +28,7 @@ public interface HospitalMediMapper {
 
 	int getAllTreatmentCount(String id);
 
-	TreatmentDetailDTO getAllTreatmentDetail(int appointmentSeq);
+	TreatmentDetailDTO getTreatmentDetail(int appointmentSeq);
 
 	int approveAppointment(int appointmentSeq);
 

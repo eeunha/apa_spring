@@ -147,7 +147,7 @@
 	</select>
 	
 	<!-- 모든 진료 - 진료 - 상세보기 -->
-	<select id="getAllTreatmentDetail" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO">
+	<select id="getTreatmentDetail" parameterType="Integer" resultType="com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO">
 		select *
 		from vwTreatmentDetail
 		where appointmentSeq = #{appointmentSeq}
@@ -188,7 +188,7 @@
 		values (seqDispenseStatus.nextVal, #{dispenseListSeq}, '제조대기')
 	</insert>
 	
-	<!-- 진료내역서 작성 시 진료상태 변경 -->
+	<!-- 진료상태를 진료완료로 변경 -->
 	<update id="changeTreatmentStatus" parameterType="String">
 		update tblAppointmentStatus 
 		set status = '진료완료' 

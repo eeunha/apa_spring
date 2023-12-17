@@ -53,7 +53,7 @@ public class RestHospitalMediController {
 		return practiceService.getTodayAppointmentList(map);
 	}
 
-	// 오늘의 진료 예약 상세 내역 가져오기 => 
+	// 오늘의 진료 예약 상세 내역 가져오기 =>
 
 	// 오늘의 진료 내역 목록 가져오기
 	@GetMapping(value = "/today/treatment")
@@ -66,10 +66,28 @@ public class RestHospitalMediController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
-		
+
 		return practiceService.getTodayTreatmentList(map);
 	}
-	
+
+//	// 오늘의 진료 내역 - 환자 호출하기
+//	@PutMapping(value = "/today/treatment/{appointmentSeq}")
+//	public int handleTodayTreatmentDetail(@PathVariable int appointmentSeq, @RequestBody HashMap<String, String> data) {
+//
+//		String action = data.get("action");
+//
+//		System.out.println("action: " + action);
+//
+//		// 환자를 호출할 경우
+//		if (action.equals("call")) {
+//
+//			return practiceService.callPatient(appointmentSeq);
+//		}
+//
+//		// 진료완료를 할 경우(예방접종, 건강검진만)
+//		return practiceService.completeTreatment(appointmentSeq + "");
+//	}
+
 	// 오늘의 진료 상세 내역 가져오기
 
 	// 모든 진료 예약 목록 가져오기
@@ -130,8 +148,8 @@ public class RestHospitalMediController {
 		return practiceService.getAllTreatmentDetail(appointmentSeq);
 	}
 
-	// 모든 진료 내역 - 환자 호출하기
-	@PutMapping(value = "/all/treatment/{appointmentSeq}")
+	// 진료 내역 - 환자 호출하기 & 진료완료
+	@PutMapping(value = {"/today/treatment/{appointmentSeq}", "/all/treatment/{appointmentSeq}"})
 	public int handleTreatmentDetail(@PathVariable int appointmentSeq, @RequestBody HashMap<String, String> data) {
 
 		String action = data.get("action");
@@ -150,7 +168,7 @@ public class RestHospitalMediController {
 	}
 
 	// 진료내역서 작성하기 + 진료완료처리
-	@PutMapping(value = "/all/treatment/{appointmentSeq}/record")
+	@PutMapping(value = { "/today/treatment/{appointmentSeq}/record", "/all/treatment/{appointmentSeq}/record" })
 	public int writeMediRecord(Model model, @RequestBody HashMap<String, String> data) {
 
 		// 일단 형변환 없이 String으로 진행해보자.

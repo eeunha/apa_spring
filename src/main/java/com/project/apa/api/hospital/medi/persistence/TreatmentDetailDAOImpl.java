@@ -13,8 +13,8 @@ public class TreatmentDetailDAOImpl implements TreatmentDetailDAO {
 	private HospitalMediMapper hospitalMediMapper;
 
 	@Override
-	public TreatmentDetailDTO getAllTreatmentDetail(int appointmentSeq) {
-		return hospitalMediMapper.getAllTreatmentDetail(appointmentSeq);
+	public TreatmentDetailDTO getTreatmentDetail(int appointmentSeq) {
+		return hospitalMediMapper.getTreatmentDetail(appointmentSeq);
 	}
 
 	@Override

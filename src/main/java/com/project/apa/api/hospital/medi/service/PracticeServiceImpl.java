@@ -153,20 +153,29 @@ public class PracticeServiceImpl implements PracticeService {
 		List<TreatmentListDTO> orgList = treatmentListDAO.getTodayTreatmentList(map);
 		List<TreatmentListDTO> shortenList = new ArrayList<>();
 
-		// 상세증상 줄이기
+		//데이터 수정하기
 		for (TreatmentListDTO dto : orgList) {
+			// 상세증상 줄이기
 			String symptom = dto.getSymptom();
 
 			if (symptom != null && symptom.length() > 20) {
 				symptom = symptom.substring(0, 20) + "...";
-				System.out.println(symptom);
+//				System.out.println(symptom);
 				dto.setSymptom(symptom);
 			}
+			
+			//
+			String appointmentDate = dto.getAppointmentDate();
+			
+			appointmentDate = appointmentDate.substring(10);
+//			System.out.println(appointmentDate);
+			dto.setAppointmentDate(appointmentDate);
+			
 			shortenList.add(dto);
 		}
 
 		String pagebar = getTodayTreatmentListPageBar(map);
-		System.out.println(pagebar);
+//		System.out.println(pagebar);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", shortenList);
@@ -433,9 +442,9 @@ public class PracticeServiceImpl implements PracticeService {
 	 * 모든 진료 - 상세 진료 내역을 보는 메소드입니다.
 	 */
 	@Override
-	public TreatmentDetailDTO getAllTreatmentDetail(int appointmentSeq) {
+	public TreatmentDetailDTO getTreatmentDetail(int appointmentSeq) {
 
-		return treatmentDetailDAO.getAllTreatmentDetail(appointmentSeq);
+		return treatmentDetailDAO.getTreatmentDetail(appointmentSeq);
 	}
 
 	/**

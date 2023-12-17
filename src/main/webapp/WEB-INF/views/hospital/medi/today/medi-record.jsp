@@ -70,7 +70,6 @@ textarea {
 	height: 200px;
 	resize: none;
 }
-
 </style>
 
 <!-- Begin Page Content -->
@@ -89,47 +88,49 @@ textarea {
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<form method="PUT"
-						action="/apa/api/hospital/${dto.hospitalId}/medi/treatment/${dto.appointmentSeq}/record">
-						<div id="container">
-							<table>
-								<tr>
-									<th>진료예약번호</th>
-									<td>${dto.appointmentSeq}</td>
-								</tr>
-								<tr>
-									<th>병원명</th>
-									<td>${dto.hospitalName}</td>
-								</tr>
-								<tr>
-									<th>의사명</th>
-									<td>${dto.doctorName}</td>
-								</tr>
-								<tr>
-									<th>진단명</th>
-									<td><input type="text" name="diagnosis" id="diagnosis"
-										required></td>
-								</tr>
-								<tr>
-									<th>질병코드</th>
-									<td><input type="text" name="diseaseCode" id="diseaseCode"
-										required></td>
-								</tr>
-								<tr>
-									<th>진료내용</th>
-									<td><textarea name="recordContent" id="recordContent" required></textarea></td>
-								</tr>
+					<%-- <form method="PUT"
+						action="/apa/api/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record"> --%>
+					<div id="container">
+						<table>
+							<tr>
+								<th>진료예약번호</th>
+								<td>${dto.appointmentSeq}</td>
+							</tr>
+							<tr>
+								<th>병원명</th>
+								<td>${dto.hospitalName}</td>
+							</tr>
+							<tr>
+								<th>의사명</th>
+								<td>${dto.doctorName}</td>
+							</tr>
+							<tr>
+								<th>진단명</th>
+								<td><input type="text" name="diagnosis" id="diagnosis"
+									required></td>
+							</tr>
+							<tr>
+								<th>질병코드</th>
+								<td><input type="text" name="diseaseCode" id="diseaseCode"
+									required></td>
+							</tr>
+							<tr>
+								<th>진료내용</th>
+								<td><textarea name="recordContent" id="recordContent"
+										required></textarea></td>
+							</tr>
 
-							</table>
+						</table>
 
-							<input type="hidden" name="appointmentSeq" id="appointmentSeq" value=${dto.appointmentSeq}>
+						<!-- <input type="hidden" name="appointmentSeq" id="appointmentSeq"
+							value=${dto.appointmentSeq}> -->
 
-							<div id="btnArea">
-								<button type="button" onclick="writeMediRecord();">작성하기</button>
-								<button type="button" onclick="goBack();">취소하기</button>
-							</div>
+						<div id="btnArea">
+							<button type="button" onclick="writeMediRecord();">작성하기</button>
+							<button type="button" onclick="goBack();">취소하기</button>
 						</div>
-					</form>
+					</div>
+					<!-- </form> -->
 				</div>
 			</div>
 		</div>
@@ -150,7 +151,7 @@ textarea {
 	        alert('모든 필수 입력 필드를 작성해주세요.');
 	        return;
 	    }
-	    
+		
 		const dto = {
 			appointmentSeq: ${dto.appointmentSeq},
 			hospitalName: '${dto.hospitalName}',
@@ -165,7 +166,7 @@ textarea {
 		if (confirm('진료내역서 작성을 완료하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}/record',
 				contentType: 'application/json',
 	            data: JSON.stringify(dto),
 				dataType: 'json',
@@ -173,7 +174,7 @@ textarea {
 					if (result == 1) {
 						alert('진료내역서 작성이 완료되었습니다. 목록으로 이동합니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');
@@ -189,8 +190,8 @@ textarea {
 	
 	function goBack() {
 		if (confirm('진료내역서 작성을 취소하시겠습니까? 작성된 내용은 사라집니다.')) {
-			alert('진료내역서 작성을 취소하였습니다. 이전 페이지로 이동합니다.')
-			location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}';
+			alert('진료내역서 작성을 취소하였습니다. 목록으로 이동합니다.')
+			location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment';
 		}
 	}
 </script>
