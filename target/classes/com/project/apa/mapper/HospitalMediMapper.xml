@@ -23,6 +23,7 @@
 		            <!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
 		            and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27'  
 		            and appointmentSeq in (select appointmentSeq from tblAppointmentStatus where status = '승인대기')
+		        order by regdate
 		    ) a
 		) 
 		where rnum between ${begin} and ${end}
@@ -86,10 +87,58 @@
 		            end as status
 		        from vwAppointmentList
 		        where hospitalid = #{id}
+		        order by regdate, appointmentSeq
 		    ) a
 		) 
 		where rnum between #{begin} and #{end}
 	</select>
+	
+	<!-- 모든 진료 - 예약 - 목록 - 오래된 신청일 순 -->
+	<select id="getAllAppointmentListOld" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, treatmentWay, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, doctorName, symptom, regdate, 
+		            case
+		                when status = '승인대기' then '대기'
+		                when status = '예약거부' then '거절'
+		                else '승인'
+		            end as status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		        order by regdate, appointmentSeq
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
+	<!-- 모든 진료 - 예약 - 목록 - 최근 신청일 순 -->
+	<select id="getAllAppointmentListLast" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.AppointmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, treatmentWay, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, doctorName, symptom, regdate, 
+		            case
+		                when status = '승인대기' then '대기'
+		                when status = '예약거부' then '거절'
+		                else '승인'
+		            end as status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		        order by regdate desc
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
 	
 	<!-- 모든 진료 - 예약 - 총 개수 -->
 	<select id="getAllAppointmentCount" parameterType="String" resultType="Integer">
@@ -120,7 +169,7 @@
 	</update>
 	
 	<!-- 모든 진료 - 진료 - 목록 -->
-	<select id="getTreatmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
+	<select id="getAllTreatmentList" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
 		select * 
 		from 
 		(   
@@ -133,10 +182,72 @@
 		        from vwAppointmentList
 		        where hospitalid = #{id}
 		        	and status in ('진료대기', '진료중', '진료완료')
+		        order by appointmentDate, appointmentSeq
 		    ) a
 		) 
 		where rnum between #{begin} and #{end}
 	</select>
+	
+	<!-- 모든 진료 - 진료 - 목록 [기본정렬 - 오래된 진료일 순]-->
+	<select id="getAllTreatmentListOldRegDate" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, treatmentWay, departmentName, 
+		        	doctorName, symptom, regdate, status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		        	and status in ('진료대기', '진료중', '진료완료')
+		        order by appointmentDate, appointmentSeq
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
+	<!-- 모든 진료 - 진료 - 목록 [최근 진료일 순]-->
+	<select id="getAllTreatmentListLastRegDate" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, treatmentWay, departmentName, 
+		        	doctorName, symptom, regdate, status
+		        from vwAppointmentList
+		        where hospitalid = #{id}
+		        	and status in ('진료대기', '진료중', '진료완료')
+		        order by appointmentDate desc, appointmentSeq asc
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
+	<!-- 모든 진료 - 진료 - 목록 [예약번호 순]-->
+	<select id="getAllTreatmentListAppointmentSeq" parameterType="java.util.HashMap" resultType="com.project.apa.api.hospital.medi.domain.TreatmentListDTO">
+		select * 
+		from 
+		(   
+		    select a.*, rownum as rnum 
+		    from 
+		    (
+		        select appointmentSeq, username, childName, hospitalId, 
+		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, treatmentWay, departmentName, 
+		        	doctorName, symptom, regdate, status
+		        from vwAppointmentList
+		        where hospitalid = 'yonse'
+		        	and status in ('진료대기', '진료중', '진료완료')
+		        order by appointmentSeq asc
+		    ) a
+		) 
+		where rnum between #{begin} and #{end}
+	</select>
+	
 	
 	<!-- 모든 진료 - 진료 - 총 개수 -->
 	<select id="getAllTreatmentCount" parameterType="String" resultType="Integer">

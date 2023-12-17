@@ -123,10 +123,6 @@ button {
 	color: #CCC;
 }
 
-#search {
-	border: 1px solid #CCC;
-}
-
 </style>
 
 <!-- Begin Page Content -->
@@ -146,8 +142,6 @@ button {
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-
-					<!-- <div class="sel-appointment-order-area"></div> -->
 
 					<table class="list">
 						<thead></thead>
@@ -188,7 +182,6 @@ button {
 				$('#side-sub-today-appointment').css('background-color', '#dddfeb');
 				
 				//기존 내용 삭제
-				//$('.sel-appointment-order-area').html(''); 
 				$('.list thead').html(''); 
 				$('.list tbody').html('');
 				$('.pagebar').html('');
@@ -205,23 +198,6 @@ button {
 				
 				
 				if (result.length != 0) {
-					
-					//예약이 있을 경우
-					
-					// select
-					/* const selectOrderData = `
-						<div class="sel-appointment-order-inner-area">
-							<select id="sel-appointment-order">
-								<option value="appintmentSeq">예약번호순</option>
-								<option value="newRegDate">최근 신청순</option>
-								<option value="treatmentDate">예약날짜순</option>
-								<option value=""></option>
-							</select>
-						</div>
-					`;
-					
-					$('.sel-appointment-order-area').append(selectOrderData); */
-					
 					
 					// thead
 					const theadData = `

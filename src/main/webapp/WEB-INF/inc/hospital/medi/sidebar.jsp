@@ -13,7 +13,7 @@
 
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item active"><a class="nav-link" href="/apa/hospital/${id}/medi/today/appointment">
-			<i class="fas fa-fw fa-tachometer-alt"></i> <span>내 진료</span>
+			<i class="far fa-hospital"></i> <span>내 진료</span>
 	</a></li>
 
 	<!-- Divider -->
@@ -25,7 +25,7 @@
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li id="side-main-today" class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-		aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>오늘의
+		aria-controls="collapseTwo"> <i class="fas fa-stethoscope"></i> <span>오늘의
 				진료</span>
 	</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
@@ -40,8 +40,8 @@
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<li id="side-main-all" class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseUtilities"
-		aria-expanded="true" aria-controls="collapseUtilities"> <i
-			class="fas fa-fw fa-wrench"></i> <span>모든 진료</span>
+		aria-expanded="true" aria-controls="collapseUtilities"> 
+		<i class="fas fa-file-medical"></i> <span>모든 진료</span>
 	</a>
 		<div id="collapseUtilities" class="collapse"
 			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -58,8 +58,8 @@
 	<div class="sidebar-heading">환자 관리</div>
 
 	<!-- Nav Item - Charts -->
-	<li id="side-main-patient" class="nav-item"><a class="nav-link" href="/apa/hospital/${id}/medi/patient"> <i
-			class="fas fa-fw fa-chart-area"></i> <span>내원환자</span></a></li>
+	<li id="side-main-patient" class="nav-item"><a class="nav-link" href="/apa/hospital/${id}/medi/patient"> 
+		<i class="fas fa-hospital-user"></i> <span>내원환자</span></a></li>
 
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">

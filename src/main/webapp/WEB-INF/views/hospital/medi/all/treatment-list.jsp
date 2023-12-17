@@ -5,10 +5,6 @@
 <!-- treatment.jsp -->
 
 <style>
-.sidebar-clicked {
-	background-color: #dddfeb;
-}
-
 .list tr {
 	height: 40px;
 }
@@ -157,11 +153,11 @@ button {
 					<c:if test="${treatmentList.size() != 0}">
 						<div class="sel-treatment-order-area">
 							<div class="sel-treatment-order-inner-area">
-								<select id="sel-order">
-									<option value="appintmentSeq">예약번호순</option>
-									<option value="newRegDate">최근 신청순</option>
-									<option value="treatmentDate">예약날짜순</option>
-									<option value=""></option>
+								<select id="sel-order" onchange="handleOrderChange();">
+									<option value="oldRegDate" selected>오래된 진료일순</option>
+									<option value="lastRegDate">최근 진료일순</option>
+									<option value="appointmentSeq">예약번호순</option>
+									<!-- <option value=""></option> -->
 								</select>
 							</div>
 						</div>
@@ -234,6 +230,7 @@ button {
 					<c:if test="${treatmentList.size() == 0}">
 						<h4 class="null-msg">진료 내역이 없습니다.</h4>
 					</c:if>
+					
 				</div>
 			</div>
 		</div>

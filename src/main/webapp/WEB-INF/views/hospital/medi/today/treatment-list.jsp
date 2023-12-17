@@ -115,11 +115,6 @@ button {
 	color: #CCC;
 }
 
-#search {
-	border: 1px solid #CCC;
-}
-
-
 </style>
 
 <!-- Begin Page Content -->
@@ -198,7 +193,7 @@ button {
 				
 				if (result.length != 0) {
 					
-					console.log(result);
+					//console.log(result);
 					
 					//예약이 있을 경우
 					
@@ -366,9 +361,7 @@ button {
 						console.log(a, b, c);
 					}
 				});
-				
 			}
-
 		}
 		
 		event.stopPropagation();

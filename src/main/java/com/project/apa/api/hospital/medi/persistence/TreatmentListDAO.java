@@ -7,12 +7,18 @@ import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
 
 public interface TreatmentListDAO {
 
-	List<TreatmentListDTO> getTreatmentList(HashMap<String, Object> map);
+	List<TreatmentListDTO> getAllTreatmentList(HashMap<String, Object> map);
 
 	int getAllTreatmentCount(String id);
 
 	List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map);
 
 	int getTodayTreatmentCount(String id);
+
+	List<TreatmentListDTO> getAllTreatmentListOldRegDate(HashMap<String, Object> map);
+
+	List<TreatmentListDTO> getAllTreatmentListLastRegDate(HashMap<String, Object> map);
+
+	List<TreatmentListDTO> getAllTreatmentListAppointmentSeq(HashMap<String, Object> map);
 
 }

@@ -16,8 +16,8 @@ public class TreatmentListDAOImpl implements TreatmentListDAO {
 	private HospitalMediMapper hospitalMediMapper;
 
 	@Override
-	public List<TreatmentListDTO> getTreatmentList(HashMap<String, Object> map) {
-		return hospitalMediMapper.getTreatmentList(map);
+	public List<TreatmentListDTO> getAllTreatmentList(HashMap<String, Object> map) {
+		return hospitalMediMapper.getAllTreatmentList(map);
 	}
 	
 	@Override
@@ -28,6 +28,24 @@ public class TreatmentListDAOImpl implements TreatmentListDAO {
 	@Override
 	public List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map) {
 		return hospitalMediMapper.getTodayTreatmentList(map);
+	}
+	
+	@Override
+	public List<TreatmentListDTO> getAllTreatmentListOldRegDate(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return hospitalMediMapper.getAllTreatmentListOldRegDate(map);
+	}
+	
+	@Override
+	public List<TreatmentListDTO> getAllTreatmentListLastRegDate(HashMap<String, Object> map) {
+
+		return hospitalMediMapper.getAllTreatmentListLastRegDate(map);
+	}
+	
+	@Override
+	public List<TreatmentListDTO> getAllTreatmentListAppointmentSeq(HashMap<String, Object> map) {
+
+		return hospitalMediMapper.getAllTreatmentListAppointmentSeq(map);
 	}
 	
 	@Override

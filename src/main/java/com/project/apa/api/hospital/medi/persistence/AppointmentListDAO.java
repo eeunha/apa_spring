@@ -15,4 +15,8 @@ public interface AppointmentListDAO {
 
 	int getTodayAppointmentCount(String id);
 
+	List<AppointmentListDTO> getAllAppointmentListOld(HashMap<String, Object> map);
+
+	List<AppointmentListDTO> getAllAppointmentListLast(HashMap<String, Object> map);
+
 }

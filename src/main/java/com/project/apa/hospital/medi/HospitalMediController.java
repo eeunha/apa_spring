@@ -66,7 +66,7 @@ public class HospitalMediController {
 	public String getTodayTreatmentList(Model model, @RequestParam(defaultValue = "1") int page) {
 
 		model.addAttribute("page", page);
-		
+
 		return "hospital.medi.today.treatment-list";
 	}
 
@@ -81,7 +81,7 @@ public class HospitalMediController {
 
 		return "hospital.medi.today.medi-record";
 	}
-	
+
 	// 오늘의 진료 - 진료 - 상세보기
 	@GetMapping(value = "/today/treatment/{appointmentSeq}")
 	public String getTodayTreatmentDetail(Model model, @PathVariable int appointmentSeq) {
@@ -92,23 +92,25 @@ public class HospitalMediController {
 
 		return "hospital.medi.today.treatment-detail";
 	}
-	
+
 	// 모든 진료 - 예약 - 목록
 	@GetMapping(value = "/all/appointment")
 	public String getAllAppointmentList(Model model, @PathVariable String id,
-			@RequestParam(defaultValue = "1") int page) {
-
-//		System.out.println("page: " + page);
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue="oldRegDate") String order) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
+		map.put("order", order);
+		
+		System.out.println("controller order: "+ order);
 
 		List<AppointmentListDTO> appointmentList = practiceService.getAllAppointmentList(map);
 
 		// 페이지바 생성하기
 		String pagebar = practiceService.getAllAppointmentListPageBar(map);
 
+		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("appointmentList", appointmentList);
 
@@ -132,24 +134,33 @@ public class HospitalMediController {
 		return "hospital.medi.all.appointment-detail";
 	}
 
-	// 모든 진료 - 진료 - 목록
+	// 모든 진료 - 진료 - 목록 model
+//	@GetMapping(value = "/all/treatment")
+//	public String getAllTreatmentList(Model model, @PathVariable String id,
+//			@RequestParam(defaultValue = "1") int page) {
+//
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+//		map.put("page", page);
+//
+//		List<TreatmentListDTO> treatmentList = practiceService.getAllTreatmentList(map);
+//
+//		// 페이지바
+//		String pagebar = practiceService.getAllTreatmentListPageBar(map);
+//
+//		model.addAttribute("treatmentList", treatmentList);
+//		model.addAttribute("pagebar", pagebar);
+//
+//		return "hospital.medi.all.treatment-list";
+//	}
+
+	// 모든 진료 - 진료 - 목록 ajax
 	@GetMapping(value = "/all/treatment")
-	public String getAllTreatmentList(Model model, @PathVariable String id,
-			@RequestParam(defaultValue = "1") int page) {
+	public String getAllTreatmentList2(Model model, @RequestParam(defaultValue = "1") int page) {
 
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("page", page);
+		model.addAttribute("page", page);
 
-		List<TreatmentListDTO> treatmentList = practiceService.getAllTreatmentList(map);
-
-		// 페이지바
-		String pagebar = practiceService.getAllTreatmentListPageBar(map);
-
-		model.addAttribute("treatmentList", treatmentList);
-		model.addAttribute("pagebar", pagebar);
-
-		return "hospital.medi.all.treatment-list";
+		return "hospital.medi.all.treatment-list2";
 	}
 
 	/**

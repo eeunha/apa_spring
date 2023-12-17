@@ -63,9 +63,6 @@ public class PracticeServiceImpl implements PracticeService {
 			shortenList.add(dto);
 		}
 
-//		return appointmentListDAO.getTodayAppointmentList(map);
-//		return shortenList;
-
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", shortenList);
 		result.put("pagebar", getTodayAppointmentListPageBar(map)); // 페이지바 정보 추가
@@ -77,6 +74,17 @@ public class PracticeServiceImpl implements PracticeService {
 	@Override
 	public String getTodayAppointmentListPageBar(HashMap<String, Object> map) {
 
+		String order = (String)map.get("order");
+		System.out.println("pagebar order: " + order);
+		
+		String orderTail = "";
+		
+		if (order.equals("oldRegDate")) {
+			orderTail = "&order=oldRegDate";
+		} else {
+			orderTail = "&order=lastRegDate";
+		}
+		
 		int nowPage = 0;
 		// 해당 병원의 총 오늘의 예약 수
 		int totalCount = 0;
@@ -110,8 +118,8 @@ public class PracticeServiceImpl implements PracticeService {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
 			sb.append(String.format(
-					" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
-					(String) map.get("id"), n - 1));
+					" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s';>[이전 페이지]</a>&nbsp;&nbsp;",
+					(String) map.get("id"), n - 1, orderTail));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -119,8 +127,8 @@ public class PracticeServiceImpl implements PracticeService {
 			if (n == nowPage) {
 				sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a>&nbsp;&nbsp;", n));
 			} else {
-				sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d'>%d</a>&nbsp;&nbsp;",
-						(String) map.get("id"), n, n));
+				sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s'>%d</a>&nbsp;&nbsp;",
+						(String) map.get("id"), n, orderTail, n));
 			}
 
 			loop++;
@@ -131,8 +139,8 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n > totalPage) {
 			sb.append(" <a href='#!';>[다음 페이지]</a> ");
 		} else {
-			sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[다음 페이지]</a> ",
-					(String) map.get("id"), n));
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s';>[다음 페이지]</a> ",
+					(String) map.get("id"), n, orderTail));
 		}
 
 		return sb.toString();
@@ -153,7 +161,7 @@ public class PracticeServiceImpl implements PracticeService {
 		List<TreatmentListDTO> orgList = treatmentListDAO.getTodayTreatmentList(map);
 		List<TreatmentListDTO> shortenList = new ArrayList<>();
 
-		//데이터 수정하기
+		// 데이터 수정하기
 		for (TreatmentListDTO dto : orgList) {
 			// 상세증상 줄이기
 			String symptom = dto.getSymptom();
@@ -163,20 +171,20 @@ public class PracticeServiceImpl implements PracticeService {
 //				System.out.println(symptom);
 				dto.setSymptom(symptom);
 			}
-			
+
 			//
 			String appointmentDate = dto.getAppointmentDate();
-			
+
 			appointmentDate = appointmentDate.substring(10);
 //			System.out.println(appointmentDate);
 			dto.setAppointmentDate(appointmentDate);
-			
+
 			shortenList.add(dto);
 		}
 
 		String pagebar = getTodayTreatmentListPageBar(map);
 //		System.out.println(pagebar);
-		
+
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", shortenList);
 		result.put("pagebar", pagebar); // 페이지바 정보 추가
@@ -220,9 +228,9 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n == 1) {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
-			sb.append(String.format(
-					" <a href='/apa/hospital/%s/medi/today/treatment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
-					(String) map.get("id"), n - 1));
+			sb.append(
+					String.format(" <a href='/apa/hospital/%s/medi/today/treatment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
+							(String) map.get("id"), n - 1));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -260,8 +268,17 @@ public class PracticeServiceImpl implements PracticeService {
 
 		map.put("begin", begin);
 		map.put("end", end);
+		
+		String order = (String) map.get("order");
 
-		List<AppointmentListDTO> orgList = appointmentListDAO.getAllAppointmentList(map);
+		List<AppointmentListDTO> orgList = null;
+		
+		if (order.equals("oldRegDate")) {
+			orgList = appointmentListDAO.getAllAppointmentListOld(map);
+		} else {
+			orgList = appointmentListDAO.getAllAppointmentListLast(map);
+		}
+		
 		List<AppointmentListDTO> shortenList = new ArrayList<>();
 
 		// 상세증상 줄이기
@@ -374,7 +391,71 @@ public class PracticeServiceImpl implements PracticeService {
 		map.put("begin", begin);
 		map.put("end", end);
 
-		return treatmentListDAO.getTreatmentList(map);
+		return treatmentListDAO.getAllTreatmentList(map);
+	}
+
+	// 모든 진료 목록 ajax
+	@Override
+	public Map<String, Object> getAllTreatmentList2(HashMap<String, Object> map) {
+
+		int page = (int) map.get("page");
+
+		int end = page * 10;
+		int begin = end - 9;
+
+		map.put("begin", begin);
+		map.put("end", end);
+
+		//정렬 적용
+		String order = (String) map.get("order");
+		
+		System.out.println(order);
+		
+		List<TreatmentListDTO> orgList = null;
+
+		if (order.equals("oldRegDate")) { // 오래된 진료일순
+			
+			orgList = treatmentListDAO.getAllTreatmentListOldRegDate(map);
+			
+		} else if (order.equals("lastRegDate")) {
+			
+			orgList = treatmentListDAO.getAllTreatmentListLastRegDate(map);
+			
+		} else if (order.equals("appointmentSeq")) {
+			
+			orgList = treatmentListDAO.getAllTreatmentListAppointmentSeq(map);
+			
+		}
+
+//		List<TreatmentListDTO> orgList = treatmentListDAO.getAllTreatmentList(map);
+		List<TreatmentListDTO> shortenList = new ArrayList<>();
+
+		// 데이터 수정하기
+		for (TreatmentListDTO dto : orgList) {
+
+			// 상세증상 줄이기
+			String symptom = dto.getSymptom();
+
+			if (symptom != null && symptom.length() > 20) {
+
+				symptom = symptom.substring(0, 20) + "...";
+
+				dto.setSymptom(symptom);
+			}
+
+			shortenList.add(dto);
+		}
+
+		String pagebar = getAllTreatmentListPageBar(map);
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("list", shortenList);
+		result.put("pagebar", pagebar); // 페이지바 정보 추가
+
+		// System.out.println(result.toString());
+
+		return result;
+
 	}
 
 	// 모든 진료 - 진료 - 목록 - 페이지바

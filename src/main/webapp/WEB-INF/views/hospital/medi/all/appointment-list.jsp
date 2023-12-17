@@ -2,26 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- appointment.jsp -->
-<!-- <link href="/apa/resources/css/hospital-medi.css" rel="stylesheet"> -->
-
 <style>
-.sidebar-clicked {
-	background-color: #dddfeb;
-}
-
-button, input[type=date] {
+button {
 	border: 1px solid #CCC;
 	border-radius: 5px;
 	color: #858796;
 }
 
-input[type=date] {
-	margin-right: 10px;
+button:hover {
+	background-color: #ccc;
 }
 
-button:hover {
-	background-color: #CCC;
+select:hover {
+	cursor: pointer;
 }
 
 .list tr {
@@ -112,7 +105,7 @@ button:hover {
 	font-size: 1.1rem;
 }
 
-.pagebar > a {
+.pagebar>a {
 	color: #858796;
 }
 
@@ -140,7 +133,6 @@ button:hover {
 #title-area {
 	display: flex;
 }
-
 </style>
 
 <!-- Begin Page Content -->
@@ -172,11 +164,16 @@ button:hover {
 					<c:if test="${appointmentList.size() != 0}">
 						<div class="sel-appointment-order-area">
 							<div class="sel-appointment-order-inner-area">
-								<select id="sel-appointment-order">
-									<option value="appintmentSeq">예약번호순</option>
-									<option value="newRegDate">최근 신청순</option>
-									<option value="treatmentDate">예약날짜순</option>
-									<option value=""></option>
+								<select id="sel-appointment-order"
+									onchange="handleOrderChange();">
+									<c:if test="${order == 'oldRegDate'}">
+										<option value="oldRegDate" selected>오래된 신청일순</option>
+										<option value="lastRegDate">최근 신청일순</option>
+									</c:if>
+									<c:if test="${order == 'lastRegDate'}">
+										<option value="oldRegDate">오래된 신청일순</option>
+										<option value="lastRegDate" selected>최근 신청일순</option>
+									</c:if>
 								</select>
 							</div>
 						</div>
@@ -252,13 +249,23 @@ button:hover {
 <!-- /.container-fluid -->
 
 <script>
-	
+	const hospitalId = 'yonse';
+
 	//사이드바 css설정
 	$('#side-main-all > a').addClass('collapsed');
 	$('#side-main-all > a').css('background-color', '#dddfeb');
 	$('#side-main-all > a').attr('aria-expanded', 'true');
 	$('#side-main-all > div').addClass('show');
-	$('#side-sub-all-appointment').css('background-color', '#dddfeb');	
+	$('#side-sub-all-appointment').css('background-color', '#dddfeb');
 
-	
+	function handleOrderChange() {
+		const selectedValue = $('#sel-appointment-order').val();
+
+		//load(1, selectedValue);
+
+		console.log(selectedValue);
+
+		location.href = '/apa/hospital/' + hospitalId
+				+ '/medi/all/appointment?page=1&order=' + selectedValue;
+	}
 </script>

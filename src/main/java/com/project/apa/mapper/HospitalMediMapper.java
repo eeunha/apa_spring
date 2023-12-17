@@ -24,7 +24,7 @@ public interface HospitalMediMapper {
 
 	int getAllAppointmentCount(String id);
 
-	List<TreatmentListDTO> getTreatmentList(HashMap<String, Object> map);
+	List<TreatmentListDTO> getAllTreatmentList(HashMap<String, Object> map);
 
 	int getAllTreatmentCount(String id);
 
@@ -51,4 +51,14 @@ public interface HospitalMediMapper {
 	List<TreatmentListDTO> getTodayTreatmentList(HashMap<String, Object> map);
 
 	int getTodayTreatmentCount(String id);
+
+	List<TreatmentListDTO> getAllTreatmentListOldRegDate(HashMap<String, Object> map);
+
+	List<TreatmentListDTO> getAllTreatmentListLastRegDate(HashMap<String, Object> map);
+
+	List<TreatmentListDTO> getAllTreatmentListAppointmentSeq(HashMap<String, Object> map);
+
+	List<AppointmentListDTO> getAllAppointmentListOld(HashMap<String, Object> map);
+
+	List<AppointmentListDTO> getAllAppointmentListLast(HashMap<String, Object> map);
 }
