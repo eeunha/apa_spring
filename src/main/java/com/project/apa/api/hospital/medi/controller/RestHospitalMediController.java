@@ -145,7 +145,7 @@ public class RestHospitalMediController {
 	@GetMapping(value = "/all/treatment/{appointmentSeq}")
 	public TreatmentDetailDTO getAllTreatmentDetail(@PathVariable int appointmentSeq) {
 
-		return practiceService.getAllTreatmentDetail(appointmentSeq);
+		return practiceService.getTreatmentDetail(appointmentSeq);
 	}
 
 	// 진료 내역 - 환자 호출하기 & 진료완료
