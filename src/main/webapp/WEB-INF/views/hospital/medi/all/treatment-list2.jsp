@@ -173,7 +173,7 @@ button {
 	//const pageData = ${page};
 	
 	//화면 초기화
-	load(${page}, 'oldRegDate');
+	load(${page}, 'old-regdate');
 //	load(pageData, 'oldRegDate');
 //	load(pageData, ${order});
 	
@@ -218,28 +218,28 @@ button {
 							<select id="sel-order" onchange="handleOrderChange();">
 					`;
 					
-					if (order == 'oldRegDate') {
-						selectData += `<option value="oldRegDate" selected>오래된 진료일순</option>`;
+					if (order == 'old-regdate') {
+						selectData += `<option value="old-regdate" selected>오래된 진료일순</option>`;
 					} else {
-						selectData += `<option value="oldRegDate">오래된 진료일순</option>`;
+						selectData += `<option value="old-regdate">오래된 진료일순</option>`;
 					}
 					
 					if (order == 'lastRegDate') {
-						selectData += `<option value="lastRegDate" selected>최근 진료일순</option>`;
+						selectData += `<option value="last-regdate" selected>최근 진료일순</option>`;
 					} else {
-						selectData += `<option value="lastRegDate">최근 진료일순</option>`;
+						selectData += `<option value="last-regdate">최근 진료일순</option>`;
 					}
 					
-					if (order == 'appointmentSeq') {
+					if (order == 'appointmentseq') {
 						selectData += `
-									<option value="appointmentSeq" selected>예약번호순</option>
+									<option value="appointmentseq" selected>예약번호순</option>
 								</select>
 							</div>
 						`;
 					} 
 					else {
 						selectData += `
-									<option value="appointmentSeq">예약번호순</option>
+									<option value="appointmentseq">예약번호순</option>
 								</select>
 							</div>
 						`;

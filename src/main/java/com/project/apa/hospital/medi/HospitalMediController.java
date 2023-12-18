@@ -94,21 +94,32 @@ public class HospitalMediController {
 	}
 
 	// 모든 진료 - 예약 - 목록
+	/**
+	 * 모든 진료에서 예약 목록 페이지를 렌더링하는 메소드입니다.
+	 * 
+	 * @param model
+	 * @param id 병원 아이디
+	 * @param page 페이지 번호
+	 * @param order 정렬
+	 * @return
+	 */
 	@GetMapping(value = "/all/appointment")
 	public String getAllAppointmentList(Model model, @PathVariable String id,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue="oldRegDate") String order) {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue="old-regdate") String order) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
 		map.put("order", order);
 		
-		System.out.println("controller order: "+ order);
+		System.out.println("controller order: "+ order); // old-regdate || last-regdate
 
 		List<AppointmentListDTO> appointmentList = practiceService.getAllAppointmentList(map);
 
 		// 페이지바 생성하기
 		String pagebar = practiceService.getAllAppointmentListPageBar(map);
+		
+		System.out.println(pagebar);
 
 		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
@@ -135,33 +146,37 @@ public class HospitalMediController {
 	}
 
 	// 모든 진료 - 진료 - 목록 model
-//	@GetMapping(value = "/all/treatment")
-//	public String getAllTreatmentList(Model model, @PathVariable String id,
-//			@RequestParam(defaultValue = "1") int page) {
-//
-//		HashMap<String, Object> map = new HashMap<>();
-//		map.put("id", id);
-//		map.put("page", page);
-//
-//		List<TreatmentListDTO> treatmentList = practiceService.getAllTreatmentList(map);
-//
-//		// 페이지바
-//		String pagebar = practiceService.getAllTreatmentListPageBar(map);
-//
-//		model.addAttribute("treatmentList", treatmentList);
-//		model.addAttribute("pagebar", pagebar);
-//
-//		return "hospital.medi.all.treatment-list";
-//	}
+	@GetMapping(value = "/all/treatment")
+	public String getAllTreatmentList(Model model, @PathVariable String id,
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "old-regdate") String order) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		map.put("order", order);
+
+		// 진료 데이터 리스트
+		List<TreatmentListDTO> treatmentList = practiceService.getAllTreatmentList(map);
+
+		// 페이지바
+		String pagebar = practiceService.getAllTreatmentListPageBar(map);
+
+		model.addAttribute("treatmentList", treatmentList);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("order", order);
+
+		return "hospital.medi.all.treatment-list";
+	}
 
 	// 모든 진료 - 진료 - 목록 ajax
-	@GetMapping(value = "/all/treatment")
-	public String getAllTreatmentList2(Model model, @RequestParam(defaultValue = "1") int page) {
-
-		model.addAttribute("page", page);
-
-		return "hospital.medi.all.treatment-list2";
-	}
+//	@GetMapping(value = "/all/treatment")
+//	public String getAllTreatmentList2(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "old-regdate") String order) {
+//
+//		model.addAttribute("page", page);
+//		model.addAttribute("order", order);
+//
+//		return "hospital.medi.all.treatment-list2";
+//	}
 
 	/**
 	 * 병원 - 내 진료 - 모든 진료 - 진료 상세보기

@@ -154,10 +154,21 @@ button {
 						<div class="sel-treatment-order-area">
 							<div class="sel-treatment-order-inner-area">
 								<select id="sel-order" onchange="handleOrderChange();">
-									<option value="oldRegDate" selected>오래된 진료일순</option>
-									<option value="lastRegDate">최근 진료일순</option>
-									<option value="appointmentSeq">예약번호순</option>
-									<!-- <option value=""></option> -->
+									<c:if test="${order == 'old-regdate'}">
+										<option value="old-regdate" selected>오래된 진료일순</option>
+										<option value="last-regdate">최근 진료일순</option>
+										<option value="appointmentseq">예약번호순</option>
+									</c:if>
+									<c:if test="${order == 'last-regdate'}">
+										<option value="old-regdate">오래된 진료일순</option>
+										<option value="last-regdate" selected>최근 진료일순</option>
+										<option value="appointmentseq">예약번호순</option>
+									</c:if>
+									<c:if test="${order == 'appointmentseq'}">
+										<option value="old-regdate">오래된 진료일순</option>
+										<option value="last-regdate">최근 진료일순</option>
+										<option value="appointmentseq" selected>예약번호순</option>
+									</c:if>
 								</select>
 							</div>
 						</div>
@@ -240,11 +251,23 @@ button {
 
 <script>
 
+	const hospitalId = 'yonse';
+
 	//사이드바 css설정
 	$('#side-main-all > a').addClass('collapsed');
 	$('#side-main-all > a').css('background-color', '#dddfeb');
 	$('#side-main-all > a').attr('aria-expanded', 'true');
 	$('#side-main-all > div').addClass('show');
 	$('#side-sub-all-treatment').css('background-color', '#dddfeb');	
+	
+	
+	function handleOrderChange() {
+		const selectedValue = $('#sel-order').val();
+
+		console.log(selectedValue);
+
+		location.href = '/apa/hospital/' + hospitalId
+				+ '/medi/all/treatment?page=1&order=' + selectedValue;
+	}
 	
 </script>

@@ -74,17 +74,6 @@ public class PracticeServiceImpl implements PracticeService {
 	@Override
 	public String getTodayAppointmentListPageBar(HashMap<String, Object> map) {
 
-		String order = (String)map.get("order");
-		System.out.println("pagebar order: " + order);
-		
-		String orderTail = "";
-		
-		if (order.equals("oldRegDate")) {
-			orderTail = "&order=oldRegDate";
-		} else {
-			orderTail = "&order=lastRegDate";
-		}
-		
 		int nowPage = 0;
 		// 해당 병원의 총 오늘의 예약 수
 		int totalCount = 0;
@@ -118,8 +107,8 @@ public class PracticeServiceImpl implements PracticeService {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
 			sb.append(String.format(
-					" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s';>[이전 페이지]</a>&nbsp;&nbsp;",
-					(String) map.get("id"), n - 1, orderTail));
+					" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
+					(String) map.get("id"), n - 1));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -127,8 +116,8 @@ public class PracticeServiceImpl implements PracticeService {
 			if (n == nowPage) {
 				sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a>&nbsp;&nbsp;", n));
 			} else {
-				sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s'>%d</a>&nbsp;&nbsp;",
-						(String) map.get("id"), n, orderTail, n));
+				sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d'>%d</a>&nbsp;&nbsp;",
+						(String) map.get("id"), n, n));
 			}
 
 			loop++;
@@ -139,8 +128,8 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n > totalPage) {
 			sb.append(" <a href='#!';>[다음 페이지]</a> ");
 		} else {
-			sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d%s';>[다음 페이지]</a> ",
-					(String) map.get("id"), n, orderTail));
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/today/appointment?page=%d';>[다음 페이지]</a> ",
+					(String) map.get("id"), n));
 		}
 
 		return sb.toString();
@@ -268,17 +257,21 @@ public class PracticeServiceImpl implements PracticeService {
 
 		map.put("begin", begin);
 		map.put("end", end);
-		
+
 		String order = (String) map.get("order");
 
+		System.out.println(map.get("order"));
+		System.out.println("service - order: " + order);
+
 		List<AppointmentListDTO> orgList = null;
-		
-		if (order.equals("oldRegDate")) {
+
+		// 정렬 적용
+		if (order.equals("old-regdate")) {
 			orgList = appointmentListDAO.getAllAppointmentListOld(map);
 		} else {
 			orgList = appointmentListDAO.getAllAppointmentListLast(map);
 		}
-		
+
 		List<AppointmentListDTO> shortenList = new ArrayList<>();
 
 		// 상세증상 줄이기
@@ -313,6 +306,19 @@ public class PracticeServiceImpl implements PracticeService {
 
 		nowPage = (int) map.get("page");
 
+		// System.out.println("pagebar - order:" + map.get("order"));
+
+		String order = (String) map.get("order"); // 정렬 키워드
+		String orderTail = "";
+
+		if (order.equals("old-regdate")) {
+			orderTail = "&order=old-regdate";
+		} else {
+			orderTail = "&order=last-regdate";
+		}
+
+		// System.out.println("orderTail: " + orderTail);
+
 		begin = ((nowPage - 1) * pageSize) + 1;
 		end = begin + pageSize - 1;
 
@@ -330,9 +336,9 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n == 1) {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
-			sb.append(
-					String.format(" <a href='/apa/hospital/%s/medi/all/appointment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
-							(String) map.get("id"), n - 1));
+			sb.append(String.format(
+					" <a href='/apa/hospital/%s/medi/all/appointment?page=%d%s';>[이전 페이지]</a>&nbsp;&nbsp;",
+					(String) map.get("id"), n - 1, orderTail));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -340,8 +346,8 @@ public class PracticeServiceImpl implements PracticeService {
 			if (n == nowPage) {
 				sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a>&nbsp;&nbsp;", n));
 			} else {
-				sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/appointment?page=%d'>%d</a>&nbsp;&nbsp;",
-						(String) map.get("id"), n, n));
+				sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/appointment?page=%d%s'>%d</a>&nbsp;&nbsp;",
+						(String) map.get("id"), n, orderTail, n));
 			}
 
 			loop++;
@@ -352,8 +358,8 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n > totalPage) {
 			sb.append(" <a href='#!';>[다음 페이지]</a> ");
 		} else {
-			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/appointment?page=%d';>[다음 페이지]</a> ",
-					(String) map.get("id"), n));
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/appointment?page=%d%s';>[다음 페이지]</a> ",
+					(String) map.get("id"), n, orderTail));
 		}
 
 		return sb.toString();
@@ -391,7 +397,47 @@ public class PracticeServiceImpl implements PracticeService {
 		map.put("begin", begin);
 		map.put("end", end);
 
-		return treatmentListDAO.getAllTreatmentList(map);
+		
+		// 정렬 적용
+		String order = (String) map.get("order");
+
+		System.out.println(order);
+
+		List<TreatmentListDTO> orgList = null;
+
+		if (order.equals("old-regdate")) { // 오래된 진료일순
+
+			orgList = treatmentListDAO.getAllTreatmentListOldRegDate(map);
+
+		} else if (order.equals("last-regdate")) {
+
+			orgList = treatmentListDAO.getAllTreatmentListLastRegDate(map);
+
+		} else if (order.equals("appointmentseq")) {
+
+			orgList = treatmentListDAO.getAllTreatmentListAppointmentSeq(map);
+
+		}
+		
+		List<TreatmentListDTO> shortenList = new ArrayList<>();
+
+		// 데이터 수정하기
+		for (TreatmentListDTO dto : orgList) {
+
+			// 상세증상 줄이기
+			String symptom = dto.getSymptom();
+
+			if (symptom != null && symptom.length() > 20) {
+
+				symptom = symptom.substring(0, 20) + "...";
+
+				dto.setSymptom(symptom);
+			}
+
+			shortenList.add(dto);
+		}
+
+		return shortenList;
 	}
 
 	// 모든 진료 목록 ajax
@@ -406,25 +452,25 @@ public class PracticeServiceImpl implements PracticeService {
 		map.put("begin", begin);
 		map.put("end", end);
 
-		//정렬 적용
+		// 정렬 적용
 		String order = (String) map.get("order");
-		
+
 		System.out.println(order);
-		
+
 		List<TreatmentListDTO> orgList = null;
 
-		if (order.equals("oldRegDate")) { // 오래된 진료일순
-			
+		if (order.equals("old-regdate")) { // 오래된 진료일순
+
 			orgList = treatmentListDAO.getAllTreatmentListOldRegDate(map);
-			
-		} else if (order.equals("lastRegDate")) {
-			
+
+		} else if (order.equals("last-regdate")) {
+
 			orgList = treatmentListDAO.getAllTreatmentListLastRegDate(map);
-			
-		} else if (order.equals("appointmentSeq")) {
-			
+
+		} else if (order.equals("appointmentseq")) {
+
 			orgList = treatmentListDAO.getAllTreatmentListAppointmentSeq(map);
-			
+
 		}
 
 //		List<TreatmentListDTO> orgList = treatmentListDAO.getAllTreatmentList(map);
@@ -474,6 +520,18 @@ public class PracticeServiceImpl implements PracticeService {
 
 		nowPage = (int) map.get("page");
 
+		// 정렬
+		String order = (String) map.get("order");
+		String orderTail = "";
+
+		if (order.equals("old-regdate")) { // 오래된 진료일순
+			orderTail = "&order=old-regdate";
+		} else if (order.equals("last-regdate")) {
+			orderTail = "&order=last-regdate";
+		} else if (order.equals("appointmentseq")) {
+			orderTail = "&order=appointmentseq";
+		}
+
 		begin = ((nowPage - 1) * pageSize) + 1;
 		end = begin + pageSize - 1;
 
@@ -491,8 +549,9 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n == 1) {
 			sb.append(" <a href='#!';>[이전 페이지]</a>&nbsp;&nbsp;");
 		} else {
-			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d';>[이전 페이지]</a>&nbsp;&nbsp;",
-					(String) map.get("id"), n - 1));
+			sb.append(
+					String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d%s';>[이전 페이지]</a>&nbsp;&nbsp;",
+							(String) map.get("id"), n - 1, orderTail));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
@@ -500,8 +559,8 @@ public class PracticeServiceImpl implements PracticeService {
 			if (n == nowPage) {
 				sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a>&nbsp;&nbsp;", n));
 			} else {
-				sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d'>%d</a>&nbsp;&nbsp;",
-						(String) map.get("id"), n, n));
+				sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d%s'>%d</a>&nbsp;&nbsp;",
+						(String) map.get("id"), n, orderTail, n));
 			}
 
 			loop++;
@@ -512,8 +571,8 @@ public class PracticeServiceImpl implements PracticeService {
 		if (n > totalPage) {
 			sb.append(" <a href='#!';>[다음 페이지]</a> ");
 		} else {
-			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d';>[다음 페이지]</a> ",
-					(String) map.get("id"), n));
+			sb.append(String.format(" <a href='/apa/hospital/%s/medi/all/treatment?page=%d%s';>[다음 페이지]</a> ",
+					(String) map.get("id"), n, orderTail));
 		}
 
 		return sb.toString();

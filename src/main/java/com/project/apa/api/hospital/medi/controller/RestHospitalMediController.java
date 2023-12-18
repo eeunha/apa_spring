@@ -57,8 +57,8 @@ public class RestHospitalMediController {
 	public Map<String, Object> getTodayTreatmentList(@PathVariable(name = "id") String id,
 			@RequestParam(defaultValue = "1") int page) {
 
-		System.out.println("id: " + id);
-		System.out.println("page: " + page);
+		//System.out.println("id: " + id);
+		//System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -90,11 +90,12 @@ public class RestHospitalMediController {
 	// 모든 진료 예약 목록 가져오기
 	@GetMapping(value = "/all/appointment")
 	public List<AppointmentListDTO> getAllAppointmentList(@PathVariable String id,
-			@RequestParam(defaultValue = "1") int page) {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue="old-regdate") String order) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
+		map.put("order", order);
 
 		return practiceService.getAllAppointmentList(map);
 	}
@@ -137,14 +138,14 @@ public class RestHospitalMediController {
 	// 모든 진료 내역 목록 가져오기 ajax
 	@GetMapping(value = "/all/treatment")
 	public Map<String, Object> getAllTreatmentList(@PathVariable(name = "id") String id,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "oldRegDate") String order) {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "old-regdate") String order) {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
 		map.put("order", order);
 
-		System.out.println("controller: " + order);
+		System.out.println("controller order: " + order);
 		
 		return practiceService.getAllTreatmentList2(map);
 	}

@@ -166,13 +166,13 @@ select:hover {
 							<div class="sel-appointment-order-inner-area">
 								<select id="sel-appointment-order"
 									onchange="handleOrderChange();">
-									<c:if test="${order == 'oldRegDate'}">
-										<option value="oldRegDate" selected>오래된 신청일순</option>
-										<option value="lastRegDate">최근 신청일순</option>
+									<c:if test="${order == 'old-regdate'}">
+										<option value="old-regdate" selected>오래된 신청일순</option>
+										<option value="last-regdate">최근 신청일순</option>
 									</c:if>
-									<c:if test="${order == 'lastRegDate'}">
-										<option value="oldRegDate">오래된 신청일순</option>
-										<option value="lastRegDate" selected>최근 신청일순</option>
+									<c:if test="${order == 'last-regdate'}">
+										<option value="old-regdate">오래된 신청일순</option>
+										<option value="last-regdate" selected>최근 신청일순</option>
 									</c:if>
 								</select>
 							</div>
