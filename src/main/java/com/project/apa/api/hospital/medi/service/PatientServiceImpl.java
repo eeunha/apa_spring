@@ -15,8 +15,8 @@ public class PatientServiceImpl implements PatientService {
 	private PatientDAO patientDAO;
 	
 	@Override
-	public List<PatientDTO> getPatientList(String id) {
+	public List<PatientDTO> getPatientList() {
 
-		return patientDAO.getPatientList(id);
+		return patientDAO.getPatientList();
 	}
 }

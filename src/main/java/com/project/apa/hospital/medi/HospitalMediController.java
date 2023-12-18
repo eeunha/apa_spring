@@ -1,37 +1,16 @@
 package com.project.apa.hospital.medi;
 
-import java.util.HashMap;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
-import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
-import com.project.apa.api.hospital.medi.domain.PatientDTO;
-import com.project.apa.api.hospital.medi.domain.RecordDTO;
-import com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO;
-import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
-import com.project.apa.api.hospital.medi.service.PatientService;
-import com.project.apa.api.hospital.medi.service.PracticeService;
-
-/**
- * 병원의 내 진료 페이지 내부의 렌더링을 위한 컨트롤러입니다.
- * 
- * @author Eunha
- *
- */
 @Controller
-@RequestMapping("/hospital/{id}/medi")
+@RequestMapping("/hospital/medi")
 public class HospitalMediController {
 
-	@Autowired
-	private PatientService patientService;
+	@GetMapping(value = "/main")
+	public String main(Model model) {
 
 	@Autowired
 	private PracticeService practiceService;
@@ -211,4 +190,10 @@ public class HospitalMediController {
 
 		return "hospital.medi.patient";
 	}
+
+//	@GetMapping(value = "/today/appointment.do")
+//	public String appointment(Model model) {
+//		
+//		return "hospital.medi.today-appointment";
+//	}
 }
