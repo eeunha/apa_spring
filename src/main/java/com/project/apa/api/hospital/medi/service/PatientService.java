@@ -8,6 +8,6 @@ import com.project.apa.api.hospital.medi.domain.PatientDTO;
 
 public interface PatientService {
 
-	List<PatientDTO> getPatientList(String id);
+	List<PatientDTO> getPatientList();
 
 }

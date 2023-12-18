@@ -6,6 +6,7 @@ https://templatemo.com/tm-581-kind-heart-charity
 
 */
 
+
 @font-face {
     font-family: 'Metropolis';
     src: url('../fonts/Metropolis/Metropolis-Regular.woff2') format('woff2'),
@@ -332,8 +333,7 @@ strong {
 }
 
 .custom-btn:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--primary-color);
   color: var(--white-color);
 }
 
@@ -413,8 +413,7 @@ strong {
   background: var(--white-color);
   box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
   border: 0;
-  /* max-width: 50px; */
-  text-align:center;
+  max-width: 50px;
   padding: 0;
   margin-top: 20px;
 }
@@ -1373,18 +1372,6 @@ blockquote::before {
   width: 35px;
   height: 35px;
   line-height: 38px;
-}
-.bookmark-icon-link {
-  background: var(--site-footer-bg-color);
-  border-radius: var(--border-radius-large);
-  color: var(--white-color);
-  font-size: var(--copyright-font-size);
-  display: block;
-  margin-right: 5px;
-  text-align: center;
-  width: 60px;
-  height: 60px;
-  font-size: 2rem;
 }
 
 .social-icon-link:hover {

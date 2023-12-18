@@ -6,6 +6,6 @@ import com.project.apa.api.hospital.medi.domain.PatientDTO;
 
 public interface PatientDAO {
 
-	List<PatientDTO> getPatientList(String id);
+	List<PatientDTO> getPatientList();
 
 }
