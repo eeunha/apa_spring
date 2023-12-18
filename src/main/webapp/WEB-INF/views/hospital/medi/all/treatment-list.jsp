@@ -194,7 +194,7 @@ button {
 						<tbody>
 							<c:forEach items="${treatmentList}" var="dto">
 								<tr
-									onclick="location.href='/apa/hospital/${id}/medi/all/treatment/${dto.appointmentSeq}';">
+									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}';">
 									<td>${dto.rnum}</td>
 									<td>${dto.appointmentSeq}</td>
 									<td>
@@ -251,6 +251,8 @@ button {
 
 <script>
 
+	const hospitalId = 'yonse';
+
 	//사이드바 css설정
 	$('#side-main-all > a').addClass('collapsed');
 	$('#side-main-all > a').css('background-color', '#dddfeb');
@@ -261,7 +263,8 @@ button {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-order').val();
 
-		location.href = '/apa/hospital/${id}/medi/all/treatment?page=1&order=' + selectedValue;
+		location.href = '/apa/hospital/' + hospitalId
+				+ '/medi/all/treatment?page=1&order=' + selectedValue;
 	}
 	
 </script>

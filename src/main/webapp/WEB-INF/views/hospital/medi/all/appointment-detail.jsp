@@ -198,7 +198,7 @@ table tr td {
 									onclick="declineAppointment();">거절</button>
 							</c:if>
 							<button type="button"
-								onclick="location.href='/apa/hospital/${id}/medi/all/appointment';">뒤로가기</button>
+								onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';">뒤로가기</button>
 						</div>
 					</div>
 				</div>
@@ -222,7 +222,7 @@ table tr td {
 		if (confirm('예약을 승인하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${id}/medi/all/appointment/${dto.appointmentSeq}',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -234,7 +234,7 @@ table tr td {
 						
 						alert('예약을 승인하였습니다.');
 						
-						location.href='/apa/hospital/${id}/medi/all/appointment';//목록으로 이동
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment';//목록으로 이동
 						
 					} else {
 						alert('0');
@@ -252,7 +252,7 @@ table tr td {
 		if(confirm('예약을 거절하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${id}/medi/all/appointment/${dto.appointmentSeq}',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -263,7 +263,7 @@ table tr td {
 					if (result == 1) {
 						alert('예약을 거절하였습니다.');
 						
-						location.href='/apa/hospital/${id}/medi/all/appointment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');

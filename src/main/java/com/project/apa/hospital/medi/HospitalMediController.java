@@ -1,16 +1,37 @@
 package com.project.apa.hospital.medi;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
+import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
+import com.project.apa.api.hospital.medi.domain.PatientDTO;
+import com.project.apa.api.hospital.medi.domain.RecordDTO;
+import com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO;
+import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;
+import com.project.apa.api.hospital.medi.service.PatientService;
+import com.project.apa.api.hospital.medi.service.PracticeService;
+
+/**
+ * 병원의 내 진료 페이지 내부의 렌더링을 위한 컨트롤러입니다.
+ * 
+ * @author Eunha
+ *
+ */
 @Controller
-@RequestMapping("/hospital/medi")
+@RequestMapping("/hospital/{id}/medi")
 public class HospitalMediController {
 
-	@GetMapping(value = "/main")
-	public String main(Model model) {
+	@Autowired
+	private PatientService patientService;
 
 	@Autowired
 	private PracticeService practiceService;
@@ -36,7 +57,6 @@ public class HospitalMediController {
 
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
-		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.today.appointment-detail";
@@ -47,7 +67,6 @@ public class HospitalMediController {
 	public String getTodayTreatmentList(Model model, @PathVariable String id, @RequestParam(defaultValue = "1") int page) {
 
 		model.addAttribute("page", page);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.today.treatment-list";
 	}
@@ -60,7 +79,6 @@ public class HospitalMediController {
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
 		model.addAttribute("dto", dto);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.today.medi-record";
 	}
@@ -72,7 +90,6 @@ public class HospitalMediController {
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.today.treatment-detail";
 	}
@@ -103,7 +120,6 @@ public class HospitalMediController {
 		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("appointmentList", appointmentList);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.all.appointment-list";
 	}
@@ -121,7 +137,6 @@ public class HospitalMediController {
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.all.appointment-detail";
 	}
@@ -142,7 +157,6 @@ public class HospitalMediController {
 		// 페이지바
 		String pagebar = practiceService.getAllTreatmentListPageBar(map);
 
-		model.addAttribute("id", id);
 		model.addAttribute("treatmentList", treatmentList);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("order", order);
@@ -163,7 +177,6 @@ public class HospitalMediController {
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.all.treatment-detail";
 	}
@@ -175,7 +188,6 @@ public class HospitalMediController {
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
 		model.addAttribute("dto", dto);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.all.medi-record";
 	}
@@ -186,14 +198,7 @@ public class HospitalMediController {
 		List<PatientDTO> patientList = patientService.getPatientList(id);
 
 		model.addAttribute("patientList", patientList);
-		model.addAttribute("id", id);
 
 		return "hospital.medi.patient";
 	}
-
-//	@GetMapping(value = "/today/appointment.do")
-//	public String appointment(Model model) {
-//		
-//		return "hospital.medi.today-appointment";
-//	}
 }

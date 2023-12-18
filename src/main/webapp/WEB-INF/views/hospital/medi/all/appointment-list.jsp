@@ -198,7 +198,7 @@ select:hover {
 						<tbody>
 							<c:forEach items="${appointmentList}" var="dto">
 								<tr
-									onclick="location.href='/apa/hospital/${id}/medi/all/appointment/${dto.appointmentSeq}';">
+									onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}';">
 									<td>${dto.rnum}</td>
 									<td>${dto.appointmentSeq}</td>
 									<td>${dto.userName}</td>
@@ -258,6 +258,7 @@ select:hover {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-appointment-order').val();
 
-		location.href = '/apa/hospital/${id}/medi/all/appointment?page=1&order=' + selectedValue;
+		location.href = '/apa/hospital/' + hospitalId
+				+ '/medi/all/appointment?page=1&order=' + selectedValue;
 	}
 </script>

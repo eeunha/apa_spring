@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.project.apa.api.hospital.medi.domain.AppointmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.AppointmentListDTO;
-import com.project.apa.api.hospital.medi.domain.AppointmentStatusDTO;
 import com.project.apa.api.hospital.medi.domain.RecordDTO;
 import com.project.apa.api.hospital.medi.domain.TreatmentDetailDTO;
 import com.project.apa.api.hospital.medi.domain.TreatmentListDTO;

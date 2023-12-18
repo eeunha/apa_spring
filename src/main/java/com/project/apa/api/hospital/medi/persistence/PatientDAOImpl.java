@@ -15,8 +15,8 @@ public class PatientDAOImpl implements PatientDAO {
 	private HospitalMediMapper hospitalMediMapper;
 	
 	@Override
-	public List<PatientDTO> getPatientList() {
+	public List<PatientDTO> getPatientList(String id) {
 
-		return hospitalMediMapper.getPatientList();
+		return hospitalMediMapper.getPatientList(id);
 	}
 }
