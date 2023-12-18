@@ -236,6 +236,9 @@
 		$.ajax({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/getusercommunitydetail',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: dto => {
 				
@@ -268,6 +271,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/getusercommunitycomment',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -298,6 +304,9 @@
 			type: 'PUT',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/usercommunityupdate',
 			headers: {'Content-Type': 'application/json'},
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {

@@ -171,6 +171,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/appointment',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -205,6 +208,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/record',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {

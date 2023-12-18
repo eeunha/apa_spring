@@ -227,6 +227,9 @@
 		$.ajax({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: dto => {
 				$('input[name=seq]').val(dto.userSeq),
@@ -392,6 +395,9 @@
 			type: 'PUT',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
 			headers: {'Content-Type': 'application/json'},
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {
@@ -414,6 +420,9 @@
 		$.ajax({
 			type: 'PATCH',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: result => {
 				if (result == 1) {

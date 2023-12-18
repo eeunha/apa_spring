@@ -184,6 +184,9 @@
 		$.ajax({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mymedicounselquestiondetail',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: dto => {
 				

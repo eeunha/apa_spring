@@ -213,6 +213,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -311,6 +314,9 @@
 			type: 'PUT',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
 			headers: {'Content-Type': 'application/json'},
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {
@@ -332,6 +338,9 @@
 			$.ajax({
 				type: 'PATCH',
 				url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+				beforeSend : function(xhr) {
+	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	            },
 				dataType: 'json',
 				success: result => {
 					if (result == 1) {
@@ -361,6 +370,9 @@
 			type: 'POST',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
 			headers: {'Content-Type': 'application/json'},
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {
@@ -396,6 +408,9 @@
 			type: 'POST',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/myfirstchild',
 			headers: {'Content-Type': 'application/json'},
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {
