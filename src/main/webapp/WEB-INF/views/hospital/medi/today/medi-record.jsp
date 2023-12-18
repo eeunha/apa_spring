@@ -5,10 +5,6 @@
 <!-- medi-record.jsp -->
 
 <style>
-.sidebar-clicked {
-	background-color: #dddfeb;
-}
-
 button {
 	border: none;
 	border-radius: 5px;
@@ -122,9 +118,6 @@ textarea {
 
 						</table>
 
-						<!-- <input type="hidden" name="appointmentSeq" id="appointmentSeq"
-							value=${dto.appointmentSeq}> -->
-
 						<div id="btnArea">
 							<button type="button" onclick="writeMediRecord();">작성하기</button>
 							<button type="button" onclick="goBack();">취소하기</button>
@@ -168,13 +161,14 @@ textarea {
 			recordContent: $('#recordContent').val()	
 		}
 		
-		//console.log(dto);
-		
 		if (confirm('진료내역서 작성을 완료하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
 				url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}/record',
 				contentType: 'application/json',
+				beforeSend : function(xhr) {
+                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                 },
 	            data: JSON.stringify(dto),
 				dataType: 'json',
 				success: result => {

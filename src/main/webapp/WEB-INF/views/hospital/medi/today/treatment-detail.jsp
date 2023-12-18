@@ -5,9 +5,6 @@
 <!-- treatment.jsp -->
 
 <style>
-.sidebar-clicked {
-	background-color: #dddfeb;
-}
 
 button {
 	border: none;
@@ -287,6 +284,9 @@ table tr td {
 				type:'PUT',
 				url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}',
 				contentType: 'application/json',
+				beforeSend : function(xhr) {
+                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                 },
 				data: JSON.stringify({action: 'call'}),
 				dataType: 'json',
 				success: result => {
@@ -325,6 +325,9 @@ table tr td {
 					type: 'PUT',
 					url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}',
 					contentType: 'application/json',
+					beforeSend : function(xhr) {
+	                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	                 },
 					data: JSON.stringify({action: 'complete'}),
 					dataType: 'json',
 					success: result => {

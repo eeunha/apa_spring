@@ -151,7 +151,6 @@ button {
 <!-- /.container-fluid -->
 
 <script>
-	//console.log('start');
 	
 	const hospitalId = 'yonse';
 	
@@ -163,6 +162,9 @@ button {
 			type: 'GET',
 			url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment',
 			contentType: 'application/json',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+             },
 			data: {page: pageNum},
 			dataType: 'json',
 			success: result => {
@@ -192,8 +194,6 @@ button {
 				
 				
 				if (result.length != 0) {
-					
-					//console.log(result);
 					
 					//예약이 있을 경우
 					
@@ -271,11 +271,9 @@ button {
 								<td class="gray-font">\${item.status}</td>
 								<td></td></tr>
 							`;
-							
 						}
 							
 						$('.list tbody').append(tbodyData);
-						
 					});
 					
 					// pagebar
@@ -304,6 +302,9 @@ button {
 				type:'PUT',
 				url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment/' + appointmentSeq,
 				contentType: 'application/json',
+				beforeSend : function(xhr) {
+                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                 },
 				data: JSON.stringify({action: 'call'}),
 				dataType: 'json',
 				success: result => {
@@ -344,6 +345,9 @@ button {
 					type: 'PUT',
 					url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment/' + appointmentSeq,
 					contentType: 'application/json',
+					beforeSend : function(xhr) {
+	                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	                 },
 					data: JSON.stringify({action: 'complete'}),
 					dataType: 'json',
 					success: result => {

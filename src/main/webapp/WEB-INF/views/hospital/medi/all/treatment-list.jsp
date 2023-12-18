@@ -263,8 +263,6 @@ button {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-order').val();
 
-		console.log(selectedValue);
-
 		location.href = '/apa/hospital/' + hospitalId
 				+ '/medi/all/treatment?page=1&order=' + selectedValue;
 	}

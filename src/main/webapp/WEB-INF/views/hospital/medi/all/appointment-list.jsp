@@ -258,10 +258,6 @@ select:hover {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-appointment-order').val();
 
-		//load(1, selectedValue);
-
-		console.log(selectedValue);
-
 		location.href = '/apa/hospital/' + hospitalId
 				+ '/medi/all/appointment?page=1&order=' + selectedValue;
 	}
