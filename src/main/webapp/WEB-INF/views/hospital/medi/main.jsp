@@ -1,4 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<h1>Patient</h1>
+    
+<h1>Main</h1>

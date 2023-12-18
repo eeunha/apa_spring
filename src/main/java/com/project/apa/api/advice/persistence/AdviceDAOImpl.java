@@ -20,11 +20,9 @@ public class AdviceDAOImpl implements AdviceDAO {
 	
 	
 	@Override
-	public int add(AdviceDTO dto) {	
+	public int add(AdviceDTO dto) {
 		return adviceMapper.add(dto);
 	}
-	
-	
 	
 	
 	@Override

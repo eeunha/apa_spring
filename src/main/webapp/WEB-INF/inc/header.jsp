@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <header class="site-header">
             <div class="container">
                 <div class="row">
@@ -20,19 +19,19 @@
                     <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
                         <ul class="social-icon">
                             <li class="social-icon-item">
-                                <a href="/apa/auth/mylogin.do" class="social-icon-link bi-twitter"></a>
+                                <a href="#" class="social-icon-link bi-twitter"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="/apa/auth/mymy.do" class="social-icon-link bi-facebook"></a>
+                                <a href="#" class="social-icon-link bi-facebook"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="/apa/auth/myinfo.do" class="social-icon-link bi-instagram"></a>
+                                <a href="#" class="social-icon-link bi-instagram"></a>
                             </li>
 
                             <li class="social-icon-item">
-                                <a href="/apa/auth/mylogout.do" class="social-icon-link bi-youtube"></a>
+                                <a href="#" class="social-icon-link bi-youtube"></a>
                             </li>
 
                             <li class="social-icon-item">
@@ -66,7 +65,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/apa/search/list.do">병원 찾기</a></li>
-                                <li><a class="dropdown-item" href="/apa/search/pharmacylist.do">약국 찾기</a></li>
+                                <li><a class="dropdown-item" href="/apa/search/list.do">약국 찾기</a></li>
                             </ul>
                         </li>
 
@@ -88,6 +87,44 @@
                             <a class="nav-link click-scroll" href="/apa/community/list.do">커뮤니티</a>
                         </li>
 
+<<<<<<< HEAD
+                        <c:if test="${empty pw && empty id}">
+                        <li class="nav-item ms-3">
+                            <a class="nav-link custom-btn custom-border-btn btn" href="#">로그인</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link custom-btn custom-border-btn btn" href="#">회원가입</a>
+                        </li>
+                        </c:if>
+                        <c:if test="${not empty pw && not empty id}">
+                        	<c:if test="${lv == 1}">
+		                        <li class="nav-item ms-3">
+		                            <a class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+		                        </li>
+                        	</c:if>
+                        	<c:if test="${lv == 2}">
+		                        <li class="nav-item ms-3">
+		                            <a class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+		                        </li>
+		                        <li class="nav-item ms-3">
+		                            <a class="nav-link custom-btn custom-border-btn btn" href="#">내 진료</a>
+		                        </li>
+                        	</c:if>
+                        	<c:if test="${lv == 3}">
+		                        <li class="nav-item ms-3">
+		                            <a class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+		                        </li>
+                        	</c:if>
+                        	<c:if test="${lv == 0}">
+		                        <li class="nav-item ms-3">
+		                            <a class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+		                        </li>
+                        	</c:if>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link custom-btn custom-border-btn btn" href="#">로그아웃</a>
+                        </li>
+                        </c:if>
+=======
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item ms-3"><a
 						class="nav-link custom-btn custom-border-btn btn"
@@ -154,6 +191,7 @@
 					</sec:authorize>
 
 				</sec:authorize>
+>>>>>>> dbf0ee673f698e872ec906e55bc97508a33a1291
                     </ul>
                 </div>
             </div>
