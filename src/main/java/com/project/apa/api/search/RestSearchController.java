@@ -1,5 +1,6 @@
 package com.project.apa.api.search;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,26 @@ public class RestSearchController {
 			list = service.findHospitalList2(dto.getDeptseq());
 		} else {
 			list = service.findHospitalList(findsystomlist);
+		}
+		Date nowtime = new Date();
+		Date opentime = new Date();
+		Date closetime = new Date();
+		for (HospitalInfoDTO HosInfodto : list) {
+			
+			opentime.setHours(Integer.parseInt(HosInfodto.getOpentime().substring(11,13)));
+			opentime.setMinutes(Integer.parseInt(HosInfodto.getOpentime().substring(14,16)));
+			closetime.setHours(Integer.parseInt(HosInfodto.getClosetime().substring(11,13)));
+			closetime.setMinutes(Integer.parseInt(HosInfodto.getClosetime().substring(14,16)));
+			long timeopen = opentime.getTime();
+			long timeclose = closetime.getTime();
+			long timenow = nowtime.getTime();
+			if (timeopen <= timenow && timeclose >= timenow) {
+				HosInfodto.setOpentime("영업중");
+			} else {
+				HosInfodto.setOpentime("영업종료");
+				
+			}
+			
 		}
 		return list;
 	}

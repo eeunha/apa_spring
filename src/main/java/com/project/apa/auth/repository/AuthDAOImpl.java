@@ -11,5 +11,10 @@ public class AuthDAOImpl implements AuthDAO {
 
 	@Autowired
 	private AuthMapper mapper;
+
+	@Override
+	public String getuserseq(String userid) {
+		return mapper.getuserseq(userid);
+	}
 		
 }

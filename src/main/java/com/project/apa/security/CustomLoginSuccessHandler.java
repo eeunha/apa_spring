@@ -18,19 +18,21 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		//방금 로그인 한 사람이 어떤 자격을 가지고 있는지?
 		//- 일반 회원 or 관리자
+		
 		List<String> roleNames = new ArrayList<String>();
 		
 		authentication.getAuthorities().forEach(authority -> {
 			
 			roleNames.add(authority.getAuthority());
-			
 		});
 		
 		if (roleNames.contains("ROLE_ADMIN")) {
 			response.sendRedirect("/apa/main.do");
-		} else if (roleNames.contains("ROLE_MEMBER")) {
+		} else if (roleNames.contains("ROLE_USER")) {
 			response.sendRedirect("/apa/main.do");
-		} else {
+		} else if(roleNames.contains("ROLE_HOSPITAL")){
+			response.sendRedirect("/apa/main.do");
+		}else if(roleNames.contains("ROLE_PHARMACY")){
 			response.sendRedirect("/apa/main.do");
 		}
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <style>
 </style>
 <main>
@@ -115,18 +116,10 @@
 			<div id="map" style="width: auto; height: 400px;"></div>
 			<!-- 지도를 담을 영역 만들기 -->
 		</div>
-		<c:if test="${lv == '1'}">
-			<div style"width=100%">
-				<a href="/apa/search/reservation/select.do?seq=${dto.hospitalid}">
-					<button class="reservation-button">예약하기</button>
-				</a>
-			</div>
-		</c:if>
-		<c:if test="${lv == '' || lv == null}">
-			<!-- <div class="button-div"> -->
-			<!-- <a class="js-click-modal">
-					<button class="reservation-button">예약하기</button>
-				</a> -->
+		<sec:authorize access="isAnonymous()">
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasRole('ROLE_USER')">
 			<div class="container">
 				<a class="reservation-button js-click-modal">예약하기</a>
 				<div class="reservation-modal">
@@ -183,7 +176,8 @@
 					</div>
 				</div>
 			</div>
-		</c:if>
+			</sec:authorize>
+		</sec:authorize>
 		<hr>
 		<div>
 			<div style="display: flex; justify-content: space-between;">
@@ -218,7 +212,6 @@
 				<h4 style="text-align: center; margin-top: 30px;">등록된 리뷰가 없습니다.</h4>
 			</c:if>
 		</div>
-		<div id="seq" data-userseq="<sec:authentication property='principal.dto.userseq' />">
 		</div>
 	</div>
 </main>
@@ -302,4 +295,35 @@
 					});
 				}
 			});
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center: new kakao.maps.LatLng(37.49934, 127.0333), // 지도의 중심좌표
+			level: 3 // 지도의 확대 레벨
+		};
+
+	// 지도를 생성합니다    2
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${dto.hospitaladdress}', function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	}); 
 </script>

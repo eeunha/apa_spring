@@ -12,12 +12,17 @@ import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
 import com.project.apa.api.search.model.PharmacyDTO;
+import com.project.apa.api.search.model.ReservationHospitalAppointmentDTO;
+import com.project.apa.api.search.model.ReservationPharmacyAppointmentDTO;
 import com.project.apa.api.search.model.ReviewDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
 import com.project.apa.api.search.model.UserInfoDTO;
 import com.project.apa.api.search.repository.InfoDAO;
+import com.project.apa.api.search.repository.ReservationAppointmentDAO;
+import com.project.apa.api.search.repository.ReservationAppointmentDAOImpl;
 import com.project.apa.api.search.repository.ReservationDAO;
 import com.project.apa.api.search.repository.SearchDAO;
+import com.project.apa.auth.repository.AuthDAO;
 
 @Service
 public class SearchService {
@@ -28,6 +33,14 @@ public class SearchService {
 	private InfoDAO infodao;
 	@Autowired
 	private ReservationDAO redao;
+	@Autowired
+	private ReservationAppointmentDAO reappdao;
+	@Autowired
+	private AuthDAO authdao;
+
+	public String getuserseq(String userid) {
+		return authdao.getuserseq(userid);
+	}
 
 	public List<SelfsymtomDTO> symtomlist() {
 		return searchdao.symtomlist();
@@ -110,6 +123,31 @@ public class SearchService {
 
 	public List<PharmacyDTO> pharmacylist() {
 		return redao.pharmacylist();
+	}
+
+	public void addHospitalAppintment(ReservationHospitalAppointmentDTO rhadto) {
+		reappdao.addHospitalAppintment(rhadto);
+	}
+
+	public void addHospitalAppintmentStatus() {
+		reappdao.addHospitalAppintmentStatus();
+		
+	}
+
+	public PharmacyDTO pharmacychoice(String parmacyseq) {
+		return redao.pharmacychoice(parmacyseq);
+	}
+
+	public void addPharmacyAppintment(ReservationPharmacyAppointmentDTO rpadto) {
+		reappdao.addPharmacyAppintment(rpadto);
+	}
+
+	public void addPharmacyAppintmentStatus() {
+		reappdao.addPharmacyAppintmentStatus();
+	}
+
+	public PharmacyDTO pharmacyinfo(String seq) {
+		return searchdao.pharmacyinfo(seq);
 	}
 
 }

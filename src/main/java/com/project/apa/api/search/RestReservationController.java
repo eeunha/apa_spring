@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
+import com.project.apa.api.search.model.PharmacyDTO;
+import com.project.apa.api.search.model.ReservationHospitalAppointmentDTO;
+import com.project.apa.api.search.model.ReservationPharmacyAppointmentDTO;
 import com.project.apa.api.search.service.SearchService;
 
 @RestController
@@ -32,4 +35,10 @@ public class RestReservationController {
 	public ChildInfoDTO child(@RequestBody String childseq) {
 		return service.childinfo(childseq);
 	}
+	
+	@PostMapping(value = "/pharmacychoice")
+	public PharmacyDTO pharmacychoice(@RequestBody String parmacyseq) {
+		return service.pharmacychoice(parmacyseq);
+	}
+	
 }

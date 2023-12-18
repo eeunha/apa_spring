@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
+import com.project.apa.api.search.model.PharmacyDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
 
 public interface SearchMapper {
@@ -23,6 +24,8 @@ public interface SearchMapper {
 	List<HospitalInfoDTO> findHospitalList2(String deptseq);
 
 	List<SelfsymtomDTO> finddept(HospitalInfoDTO dto);
+
+	PharmacyDTO pharmacyinfo(String seq);
 
 
 }

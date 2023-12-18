@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"> -->
@@ -169,11 +170,12 @@ thead tr:nth-child(3) th {
 				<c:if test="${choicetype ne '건강검진'}">
 				</div>
 				</c:if>
+				<sec:authentication property="principal" var="user"/> 
+				<input type="hidden" name="userid" value="${user.username}"> 
 				<div id="hidden-choice-doc"></div>
 				<div class="time-choice" id="time-choice"></div>
 				<input type="hidden" name="seq" value="${dto.hospitalid}"> 
 				<input type="hidden" name="choicetype" value="${choicetype}"> 
-				<input type="hidden" name="userseq" value="1"> 
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<button class="reservation-button select-opacity" id="reservation-button" type="submit" disabled="disabled">다음으로</button>
 			</div>

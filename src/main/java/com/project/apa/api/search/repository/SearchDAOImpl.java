@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.apa.api.search.model.FindHospitalDTO;
 import com.project.apa.api.search.model.HospitalInfoDTO;
+import com.project.apa.api.search.model.PharmacyDTO;
 import com.project.apa.api.search.model.SelfsymtomDTO;
 import com.project.apa.mapper.SearchMapper;
 
@@ -40,6 +41,11 @@ public class SearchDAOImpl implements SearchDAO {
 	@Override
 	public List<SelfsymtomDTO> finddept(HospitalInfoDTO dto) {
 		return mapper.finddept(dto);
+	}
+
+	@Override
+	public PharmacyDTO pharmacyinfo(String seq) {
+		return mapper.pharmacyinfo(seq);
 	}
 
 	

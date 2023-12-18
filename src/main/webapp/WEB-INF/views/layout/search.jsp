@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -366,7 +366,34 @@
 		text-align: center;
 		margin: 0 100px;
 	}
-
+	.listopentime{
+		margin-bottom: 8px;
+		font-size: .8rem;
+	}
+	.listopentimeinmark{
+		display: flex;
+	}
+	.listopentimeoutmark{
+	
+	}
+	.listopentimeinmark{
+		background: #5bc1ac;
+		border: 1px solid #5bc1ac;
+		border-radius: 50%;
+		width: 5px;
+		height: 5px;
+		margin-top: 7px;
+		margin-right: 5px;
+	}
+	.listopentimeoutmark{
+		background: #717275;
+		border: 1px solid #717275;
+		border-radius: 50%;
+		width: 5px;
+		height: 5px;
+		margin-top: 7px;
+		margin-right: 5px;
+	}
 </style>
 
 </head>
@@ -378,38 +405,7 @@
 	
 	<tiles:insertAttribute name="footer"/>
 	
-	<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				mapOption = {
-					center: new kakao.maps.LatLng(37.49934, 127.0333), // 지도의 중심좌표
-					level: 3 // 지도의 확대 레벨
-				};
-		
-			// 지도를 생성합니다    2
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-	
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('${dto.hospitaladdress}', function(result, status) {
-	
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-	
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
-			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-	
-			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.setCenter(coords);
-			    } 
-			}); 
-        </script>
         
         
 

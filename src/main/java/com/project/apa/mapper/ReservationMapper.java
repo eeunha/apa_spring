@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.PharmacyDTO;
+import com.project.apa.api.search.model.ReservationHospitalAppointmentDTO;
 import com.project.apa.api.search.model.UserInfoDTO;
 
 public interface ReservationMapper {
@@ -20,5 +21,9 @@ public interface ReservationMapper {
 	ChildInfoDTO childinfo(String childseq);
 
 	List<PharmacyDTO> pharmacylist();
+
+	void addHospitalAppintment(ReservationHospitalAppointmentDTO rhadto);
+
+	PharmacyDTO pharmacychoice(String parmacyseq);
 
 }

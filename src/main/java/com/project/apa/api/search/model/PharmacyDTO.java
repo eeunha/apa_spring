@@ -13,4 +13,8 @@ public class PharmacyDTO {
 	private String closetime;
 	private String pharmacydayoff;
 	
+	private String ispharmarcyholiday;
+	private String ispharmarcynightcare;
+	
+	
 }

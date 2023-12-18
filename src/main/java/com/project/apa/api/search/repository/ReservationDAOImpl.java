@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.project.apa.api.search.model.ChildInfoDTO;
 import com.project.apa.api.search.model.HospitalDoctorDTO;
 import com.project.apa.api.search.model.PharmacyDTO;
+import com.project.apa.api.search.model.ReservationHospitalAppointmentDTO;
 import com.project.apa.api.search.model.UserInfoDTO;
 import com.project.apa.mapper.ReservationMapper;
 
@@ -40,4 +41,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public List<PharmacyDTO> pharmacylist() {
 		return mapper.pharmacylist();
 	}
+
+	@Override
+	public PharmacyDTO pharmacychoice(String parmacyseq) {
+		return mapper.pharmacychoice(parmacyseq);
+	}
+
+	
 }
