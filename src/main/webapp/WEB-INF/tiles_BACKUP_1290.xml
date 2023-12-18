@@ -35,7 +35,7 @@
 		<put-attribute name="footer" value="/WEB-INF/inc/footer.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/search/{1}.jsp"></put-attribute>
 	</definition>
-
+<<<<<<< HEAD
 
 	<definition name="hospital.*.*.*" template="/WEB-INF/views/layout/mypage.jsp">
 		<put-attribute name="mypageAsset" value="/WEB-INF/inc/mypageAsset.jsp"></put-attribute>
@@ -60,11 +60,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/hospital/{1}/{2}.jsp"></put-attribute>
 	</definition>
 
-
+=======
 	<definition name="*.newtab.*" template="/WEB-INF/views/layout/newtab.jsp">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/newtab/{2}.jsp"></put-attribute>
 	</definition>
-
+>>>>>>> feature/yeonseob
 	<definition name="*.*" template="/WEB-INF/views/layout/mypage.jsp">
 		<put-attribute name="mypageAsset" value="/WEB-INF/inc/mypageAsset.jsp"></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/inc/{1}/sidebar.jsp"></put-attribute>
