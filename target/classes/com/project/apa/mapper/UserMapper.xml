@@ -168,4 +168,209 @@
 		DELETE FROM tblBookmark WHERE bookmarkSeq = #{seq}
 	</delete>
 	
+	<select id="getUserMediTest" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediTestDTO">
+		SELECT S.mediTestSaveSeq, T.mediTestName, TO_CHAR(S.saveDate, 'YYYY-MM-DD HH24:MI') AS saveDate FROM tblMediTestSave S
+		INNER JOIN tblMediTest T
+			ON S.mediTestSeq = T.mediTestSeq
+				WHERE S.userSeq = #{seq}
+	</select>
+	
+	<select id="getUserDetailMediTest" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediTestDTO">
+		SELECT U.userName, T.mediTestName, S.mediTestTotalScore, R.mediTestResultContent, S.saveDate FROM tblMediTestSave S
+		INNER JOIN tblMediTestResult R
+			ON S.mediTestSeq = R.mediTestSeq
+		INNER JOIN tblMediTest T
+			ON T.mediTestSeq = S.mediTestSeq
+		INNER JOIN tblUser U
+			ON S.userSeq = U.userSeq
+		WHERE S.mediTestSaveSeq = #{seq} AND (S.mediTestTotalScore >= R.minScore AND S.meditesttotalscore &lt;= R.maxScore)
+	</select>
+	
+	<select id="getUserMyMediCounselQuestion" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediCounselQuestionDTO">
+		SELECT Q.mediCounselQuestionSeq, A.mediCounselAnswerSeq, D.departmentName, Q.counselTitle, TO_CHAR(Q.regdate, 'YYYY-MM-DD HH24:MI') AS regdate FROM tblMediCounselingQuestion Q
+		INNER JOIN tblDepartment D
+			ON Q.departmentSeq = D.departmentSeq
+		LEFT OUTER JOIN tblMediCounselingAnswer A
+			ON A.mediCounselQuestionSeq = Q.mediCounselQuestionSeq
+		WHERE Q.userSeq = #{seq}
+			ORDER BY Q.regdate DESC
+	</select>
+	
+	<select id="getUserMyMediCounselQuestionDetail" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediCounselQuestionDTO">
+		SELECT Q.mediCounselQuestionSeq,
+			   U.userId,
+			   D.departmentName,
+			   Q.counselTitle,
+			   Q.counselContent,
+			   A.counselAnswerContent,
+			   DO.doctorName,
+			   H.hospitalName,
+			   TO_CHAR(Q.regdate, 'YYYY-MM-DD HH24:MI') AS regdate,
+			   TO_CHAR(A.answerTime, 'YYYY-MM-DD HH24:MI') AS answerTime
+		FROM tblMediCounselingQuestion Q
+		INNER JOIN tblDepartment D
+			ON Q.departmentSeq = D.departmentSeq
+		INNER JOIN tblUser U
+			ON U.userSeq = Q.userSeq
+		LEFT OUTER JOIN tblMediCounselingAnswer A
+			ON A.mediCounselQuestionSeq = Q.mediCounselQuestionSeq
+		LEFT OUTER JOIN tblDoctor DO
+			ON A.doctorSeq = DO.doctorseq
+		LEFT OUTER JOIN tblHospital H
+			ON DO.hospitalId = H.hospitalId
+		WHERE Q.medicounselquestionseq = #{seq}
+	</select>
+	
+	<delete id="deleteMyCounselBox" parameterType="String">
+		DELETE FROM tblMediCounselingBox WHERE mediCounselAnswerSeq = #{aseq}
+	</delete>
+	
+	<delete id="deleteMyCounselAnswer" parameterType="String">
+		DELETE FROM tblMediCounselingAnswer WHERE mediCounselQuestionSeq = #{qseq}
+	</delete>
+	
+	<delete id="deleteMyCounselQuestion" parameterType="String">
+		DELETE FROM tblMediCounselingQuestion WHERE mediCounselQuestionSeq = #{qseq}
+	</delete>
+	
+	<select id="getUserEtcMediCounselQuestion" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediCounselQuestionDTO">
+		SELECT B.mediCounselBoxSeq, Q.mediCounselQuestionSeq, D.departmentName, Q.counseltitle, TO_CHAR(Q.regdate, 'YYYY-MM-DD HH24:MI') AS regdate FROM tblMediCounselingBox B
+		INNER JOIN tblMediCounselingAnswer A
+			ON B.mediCounselAnswerSeq = A.mediCounselAnswerSeq
+		INNER JOIN tblMediCounselingQuestion Q
+			ON A.mediCounselQuestionSeq = Q.mediCounselQuestionSeq
+		INNER JOIN tblDepartment D
+			ON Q.departmentSeq = D.departmentSeq
+		WHERE B.userSeq = #{seq}
+			ORDER BY Q.regdate DESC		
+	</select>
+	
+	<select id="getUserEtcMediCounselQuestionDetail" parameterType="String" resultType="com.project.apa.api.user.domain.UserMediCounselQuestionDTO">
+		SELECT Q.mediCounselQuestionSeq,
+			   U.userId, 
+			   D.departmentName,
+			   Q.counselTitle,
+			   Q.counselContent,
+			   A.counselAnswerContent,
+			   DO.doctorName,
+			   H.hospitalName,
+			   TO_CHAR(Q.regdate, 'YYYY-MM-DD') AS regdate,
+			   TO_CHAR(A.answerTime, 'YYYY-MM-DD') AS answerTime
+		FROM tblMediCounselingBox B
+		INNER JOIN tblMediCounselingAnswer A
+			ON B.mediCounselAnswerSeq = A.mediCounselAnswerSeq
+		INNER JOIN tblMediCounselingQuestion Q
+			ON A.mediCounselQuestionSeq = Q.mediCounselQuestionSeq
+		INNER JOIN tblDepartment D
+			ON Q.departmentSeq = D.departmentSeq
+		INNER JOIN tblDoctor DO
+			ON DO.doctorSeq = A.doctorSeq
+		INNER JOIN tblHospital H
+			ON H.hospitalId = DO.hospitalId
+		INNER JOIN tblUser U
+			ON U.userSeq = Q.userSeq
+		WHERE B.mediCounselBoxSeq = #{seq}			
+	</select>
+	
+	<delete id="deleteEtcCounselQuestion" parameterType="String">
+		DELETE FROM tblMediCounselingBox WHERE mediCounselBoxSeq = #{seq}
+	</delete>
+	
+	<select id="getUserMyCommunity" parameterType="String" resultType="com.project.apa.api.user.domain.UserMyCommunityDTO">
+		SELECT C.communitySeq, C.communityTitle, C.communityCommentCount, C.communityLikeCount, TO_CHAR(C.communityDate, 'YYYY-MM-DD HH24:MI') AS communityDate FROM tblCommunity C
+		INNER JOIN tblUser U
+			ON C.userSeq = U.userSeq
+		WHERE C.userSeq = #{seq}
+			ORDER BY c.communityDate DESC		
+	</select>
+	
+	<select id="getUserMyCommunityDetail" parameterType="String" resultType="com.project.apa.api.user.domain.UserMyCommunityDTO">
+		SELECT C.communitySeq, C.communityTitle, C.communityContent, U.userID, TO_CHAR(C.communityDate, 'YYYY-MM-DD HH24:MI') AS communityDate, C.communityCommentCount, C.communityLikeCount FROM tblCommunity C
+		INNER JOIN tblUser U
+			ON C.userSeq = U.userSeq
+		WHERE C.communitySeq = #{seq}	
+	</select>
+	
+	<select id="getUserMyCommunityComment" parameterType="String" resultType="com.project.apa.api.user.domain.UserMyCommunityDTO">
+		SELECT CC.communityCommentContent, TO_CHAR(CC.communityCommentDate, 'YYYY-MM-DD HH24:MI') AS communityCommentDate, U.userId FROM tblCommunityComment CC
+		INNER JOIN tblCommunity C
+			ON C.communitySeq = CC.communitySeq
+		INNER JOIN tblUser U 
+			ON CC.userSeq = U.userSeq
+		WHERE C.communitySeq = #{seq}
+			ORDER BY communityCommentDate DESC
+	</select>
+	
+	<update id="userCommunityUpdate" parameterType="com.project.apa.api.user.domain.UserMyCommunityDTO">
+		UPDATE tblCommunity SET communityTitle = #{communityTitle}, communityContent = #{communityContent} WHERE communitySeq = #{communitySeq}
+	</update>
+	
+	<delete id="deleteCommunityComment" parameterType="String">
+		DELETE FROM tblCommunityComment WHERE communitySeq = #{seq}
+	</delete>
+	
+	<delete id="deleteCommunity" parameterType="String">
+		DELETE FROM tblCommunity WHERE communitySeq = #{seq}
+	</delete>
+	
+	<select id="getUserReview" parameterType="String" resultType="com.project.apa.api.user.domain.UserReviewDTO">
+		SELECT RV.reviewSeq, H.hospitalName, RV.reviewContent, TO_CHAR(A.appointmentDate, 'YYYY-MM-DD HH24:MI') AS appointmentDate, RV.isReviewDelete FROM tblReview RV
+		INNER JOIN tblAppointment A
+			ON A.appointmentSeq = RV.appointmentSeq
+		INNER JOIN tblHospital H
+			ON A.hospitalId = H.hospitalId
+		INNER JOIN tblDoctor DO
+			ON DO.doctorSeq = A.doctorSeq
+		WHERE A.userSeq = #{seq}
+	</select>
+	
+	<select id="getUserReviewDetail" parameterType="String" resultType="com.project.apa.api.user.domain.UserReviewDTO">
+		SELECT RV.reviewSeq, H.hospitalName, RV.reviewContent, DO.doctorName, A.treatmentWay, TO_CHAR(A.appointmentDate, 'YYYY-MM-DD HH24:MI') AS appointmentDate FROM tblReview RV
+		INNER JOIN tblAppointment A
+			ON A.appointmentSeq = RV.appointmentSeq
+		INNER JOIN tblHospital H
+			ON A.hospitalId = H.hospitalId
+		INNER JOIN tblDoctor DO
+			ON DO.doctorSeq = A.doctorSeq
+		WHERE RV.reviewSeq = #{seq}	
+	</select>
+	
+	<select id="getUserReviewDetailTag" parameterType="String" resultType="com.project.apa.api.user.domain.UserReviewDTO">
+		SELECT T.tagContent, T.tagType FROM tblReviewTag RT
+		INNER JOIN tblTag T
+			ON RT.tagSeq = T.tagSeq
+		WHERE reviewSeq = #{seq}
+	</select>
+	
+	<update id="deleteReview" parameterType="String">
+		UPDATE tblReview SET isReviewDelete = 'y' WHERE reviewSeq = #{seq}	
+	</update>
+	
+	<select id="getSelfTest" parameterType="String" resultType="com.project.apa.api.user.domain.SelfTestDTO">
+		SELECT meditestQuestionSeq, meditestQuestionNo, meditestContent
+		FROM tblMediTestQuestion WHERE mediTestSeq = #{seq}
+	</select>
+
+	<select id="getSelfTestAnswer" parameterType="String" resultType="String">
+		SELECT meditestAnswerNo FROM tblMediTestAnswer WHERE mediTestQuestionSeq = #{meditestQuestionNo}
+	</select>
+	
+	<select id="getSelfTestMinQuestionSeq" parameterType="String" resultType="String">
+		SELECT min(Q.meditestQuestionSeq)
+		FROM tblMediTestQuestion Q WHERE mediTestSeq = #{seq}
+	</select>
+	
+	<select id="getSelfTestAnswerContent" parameterType="String" resultType="com.project.apa.api.user.domain.SelfTestDTO">
+		SELECT meditestAnswerContent FROM tblMediTestAnswer WHERE mediTestQuestionSeq = #{seq}
+	</select>
+	
+	<select id="getSelfTestResult" parameterType="String" resultType="com.project.apa.api.user.domain.SelfTestDTO">
+		SELECT ROWNUM AS num, minScore, maxScore, meditestResultContent
+		FROM tblMeditestResult WHERE meditestSeq = #{seq}
+	</select>
+	
+	<insert id="saveTestResult" parameterType="com.project.apa.api.user.domain.SelfTestDTO">
+		INSERT INTO tblMediTestSave VALUES (seqMediTestSave.nextVal, #{meditestSeq}, #{userSeq}, #{meditestTotalScore}, DEFAULT)
+	</insert>
+	
 </mapper>

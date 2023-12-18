@@ -1,6 +1,7 @@
 package com.project.apa.api.user.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.apa.api.user.domain.SelfTestDTO;
 import com.project.apa.api.user.domain.UserAppointmentDTO;
 import com.project.apa.api.user.domain.UserBookmarkDTO;
 import com.project.apa.api.user.domain.UserChildDTO;
 import com.project.apa.api.user.domain.UserDTO;
 import com.project.apa.api.user.domain.UserDetailRecordDTO;
+import com.project.apa.api.user.domain.UserMediCounselQuestionDTO;
+import com.project.apa.api.user.domain.UserMediTestDTO;
+import com.project.apa.api.user.domain.UserMyCommunityDTO;
 import com.project.apa.api.user.domain.UserRecordDTO;
 import com.project.apa.api.user.domain.UserReviewDTO;
 import com.project.apa.api.user.service.UserService;
@@ -193,5 +198,232 @@ public class RestUserController {
 		
 		return userService.deleteBookmark(seq);
 	}
+	
+	//의학 테스트 결과 목록 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/meditest")
+	public List<UserMediTestDTO> mymeditest(@PathVariable("seq") String seq) {
+		
+		return userService.getUserMediTest(seq);
+	}
+	
+	//의학 테스트 상세 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/detailmeditest")
+	public UserMediTestDTO detailmeditest(@PathVariable("seq") String seq) {
+
+		return userService.getUserDetailMediTest(seq);
+	}	
+
+	//의학 상담 내 질문 목록 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/mymedicounselquestion")
+	public List<UserMediCounselQuestionDTO> mymedicounselquestion(@PathVariable("seq") String seq) {
+		
+		List<UserMediCounselQuestionDTO> qlist = userService.getUserMyMediCounselQuestion(seq);
+		
+		for (UserMediCounselQuestionDTO qdto : qlist) {
+			
+			String subject = qdto.getCounselTitle();
+			
+			if (subject.length() > 22) {
+				subject = subject.substring(0, 22) + "...";
+			}
+			
+			subject = subject.replace("<", "&lt;");
+			subject = subject.replace(">", "&gt;");
+			
+			qdto.setCounselTitle(subject);
+			
+		}
+		
+		return qlist;
+	}	
+
+	//의학상담 내 글 상세 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/mymedicounselquestiondetail")
+	public UserMediCounselQuestionDTO mymedicounselquestiondetail(@PathVariable("seq") String seq) {
+		
+		return userService.getUserMyMediCounselQuestionDetail(seq);
+	}
+	
+	
+	//의학상담 내 글 삭제 
+	@DeleteMapping(value = "/api/user/{qseq}/{aseq}/mybox/deletemycounsel")
+	public int deletemycounsel(@PathVariable("qseq") String qseq, @PathVariable("aseq") String aseq) {
+		
+		int result = 0;
+		
+		if (!aseq.equals("null")) {
+			result = userService.deleteMyCounselBox(aseq);	//보관함 테이블에서 내 글 삭제
+			result = userService.deleteMyCounselAnswer(qseq);	//의학상담 답변 테이블에서 내 글 삭제			
+		}
+		
+		result = userService.deleteMyCounselQuestion(qseq);	//의학상담 질문 테이블에서 내 글 삭제
+		
+		return result;
+	}
+	
+
+	//의학상담 기타 질문 목록 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/etcmedicounselquestion")
+	public List<UserMediCounselQuestionDTO> etcmedicounselquestion(@PathVariable("seq") String seq) {
+		
+		List<UserMediCounselQuestionDTO> qlist = userService.getUserEtcMediCounselQuestion(seq);
+		
+		for (UserMediCounselQuestionDTO qdto : qlist) {
+			
+			String subject = qdto.getCounselTitle();
+			
+			if (subject.length() > 22) {
+				subject = subject.substring(0, 22) + "...";
+			}
+			
+			subject = subject.replace("<", "&lt;");
+			subject = subject.replace(">", "&gt;");
+			
+			qdto.setCounselTitle(subject);
+			
+		}
+		
+		return qlist;
+	
+	}	
+	
+	//의학상담 기타 글 상세 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/etcmedicounselquestiondetail")
+	public UserMediCounselQuestionDTO etcmedicounselquestiondetail(@PathVariable("seq") String seq) {
+		
+		return userService.getUserEtcMediCounselQuestionDetail(seq);
+	}
+	
+	//의학상담 기타 글 삭제 
+	@DeleteMapping(value = "/api/user/{seq}/mybox/deleteetccounsel")
+	public int deleteetccounsel(@PathVariable("seq") String seq) {
+		
+		return userService.deleteEtcCounselQuestion(seq);
+	}
+	
+	//커뮤니티 내 글 목록 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/mycommunity")
+	public List<UserMyCommunityDTO> mycommunity(@PathVariable("seq") String seq) {
+		
+		return userService.getUserMyCommunity(seq);
+	}
+	
+	//커뮤니티 내 글 상세 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/getusercommunitydetail")
+	public UserMyCommunityDTO getusercommunitydetail(@PathVariable("seq") String seq) {
+		
+		return userService.getUserMyCommunityDetail(seq);
+	}
+
+	//커뮤니티 내 글 댓글 조회
+	@GetMapping(value = "/api/user/{seq}/mybox/getusercommunitycomment")
+	public List<UserMyCommunityDTO> getusercommunitycomment(@PathVariable("seq") String seq) {
+		
+		return userService.getUserMyCommunityComment(seq);
+	}
+	
+	//커뮤니티 내 글 수정
+	@PutMapping(value = "/api/user/{seq}/mybox/usercommunityupdate")
+	public int usercommunityupdate(@RequestBody UserMyCommunityDTO dto, @PathVariable("seq") String seq) {
+		
+		dto.setCommunitySeq(seq);
+		
+		return userService.userCommunityUpdate(dto);
+	}
+	
+	//커뮤니티 내 글 삭제 
+	@DeleteMapping(value = "/api/user/{seq}/mybox/deletecommunity")
+	public int deletecommunity(@PathVariable("seq") String seq) {
+
+		int result = 0;
+		
+		result = userService.deleteCommunityComment(seq);
+		result = userService.deleteCommunity(seq);
+
+		return result;
+		
+	}
+	
+	//리뷰 목록 조회
+	@GetMapping(value = "/api/user/{seq}/myreview")
+	public List<UserReviewDTO> myreview(@PathVariable("seq") String seq) {
+		
+		List<UserReviewDTO> rlist = userService.getUserReview(seq);
+		
+		for (UserReviewDTO rdto : rlist) {
+			
+			String subject = rdto.getReviewContent();
+			
+			if (subject.length() > 20) {
+				subject = subject.substring(0, 20) + "...";
+			}
+			
+			subject = subject.replace("<", "&lt;");
+			subject = subject.replace(">", "&gt;");
+			
+			rdto.setReviewContent(subject);
+			
+		}
+		
+		return rlist;
+		
+	}
+
+	//리뷰 상세 조회
+	@GetMapping(value = "/api/user/{seq}/myreview/getuserreviewdetail")
+	public UserReviewDTO getuserreviewdetail(@PathVariable("seq") String seq) {
+		
+		return userService.getUserReviewDetail(seq);
+	}
+
+	//리뷰 상세 조회(태그)
+	@GetMapping(value = "/api/user/{seq}/myreview/getuserreviewdetailtag")
+	public List<UserReviewDTO> getuserreviewdetailtag(@PathVariable("seq") String seq) {
+		
+		return userService.getUserReviewDetailTag(seq);
+	}
+	
+	//리뷰 삭제
+	@PutMapping(value = "/api/user/{seq}/myreview/deletereview")
+	public int deletereview(@PathVariable("seq") String seq) {
+		
+		return userService.deleteReview(seq);
+	}	
+	
+	@GetMapping(value = "/api/user/{seq}/selftest")
+	public List<SelfTestDTO> getselftest(@PathVariable("seq") String seq) {
+		
+		List<SelfTestDTO> list = userService.getSelfTest(seq);
+	    
+		for (SelfTestDTO dto : list) {
+			
+			dto.setMeditestAnswerNo(userService.getSelfTestAnswer(dto.getMeditestQuestionSeq()));
+			
+		}
+		
+		return list;
+	}
+	
+	@GetMapping(value = "/api/user/{seq}/selftest/answercontent")
+	public List<SelfTestDTO> getselftestanswercontent(@PathVariable("seq") String seq) {
+		
+		String min = userService.getSelfTestMinQuestionSeq(seq);
+		
+		return userService.getSelfTestAnswerContent(min);
+	}
+
+	@GetMapping(value = "/api/user/{seq}/selftest/result")
+	public List<SelfTestDTO> getselftestresult(@PathVariable("seq") String seq) {
+		
+		return userService.getSelfTestResult(seq);
+	}
+	
+	@PostMapping(value = "/api/user/selftest/save")
+	public int savetestresult(@RequestBody SelfTestDTO dto) {
+		
+		
+		return userService.saveTestResult(dto);
+	}
+	
 	
 }

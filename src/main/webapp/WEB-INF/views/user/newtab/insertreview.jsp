@@ -385,8 +385,8 @@ small {
 		var content = $('textarea[name=content]').val();
         var tagInputValue = $('input[name="tag-input"]').val();
         var tagCount = tagInputValue ? tagInputValue.split(',').length : 0;
-        if (content.length < 20) {
-        	alert('리뷰는 최소 20자 이상 작성해야 합니다.');
+        if (content.length < 10) {
+        	alert('리뷰는 최소 10자 이상 작성해야 합니다.');
             e.preventDefault();
         }
 

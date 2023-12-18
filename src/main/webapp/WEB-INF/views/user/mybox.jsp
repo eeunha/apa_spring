@@ -30,10 +30,16 @@
 	#mlist > thead > tr > th:nth-child(2) { width: 250px; }
 	#mlist > thead > tr > th:nth-child(3) { width: 130px; }
 	
-	#qlist > thead > tr > th:nth-child(1) { width: 150px; }
-	#qlist > thead > tr > th:nth-child(2) { width: 300px; }
-	#qlist > thead > tr > th:nth-child(3) { width: 200px; }
-	#qlist > thead > tr > th:nth-child(4) { width: 100px; }
+	#mqlist > thead > tr > th:nth-child(1) { width: 200px; }
+	#mqlist > thead > tr > th:nth-child(2) { width: 400px; }
+	#mqlist > thead > tr > th:nth-child(3) { width: 250px; }
+	#mqlist > thead > tr > th:nth-child(4) { width: 150px; }
+	#mqlist > thead > tr > th:nth-child(5) { width: 100px; }
+
+	#qlist > thead > tr > th:nth-child(1) { width: 200px; }
+	#qlist > thead > tr > th:nth-child(2) { width: 400px; }
+	#qlist > thead > tr > th:nth-child(3) { width: 250px; }
+	#qlist > thead > tr > th:nth-child(4) { width: 150px; }
 	#qlist > thead > tr > th:nth-child(5) { width: 100px; }
 
 	#clist > thead > tr > th:nth-child(1) { width: 250px; }
@@ -53,6 +59,10 @@
 	    padding-right: 10px;
 	    padding-top: 5px;
 	    padding-bottom: 5px;
+	}
+	
+	.btn:hover {
+		background-color: #dddfeb;
 	}
 	
 </style>
@@ -93,8 +103,8 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<h5 class="m-0 font-weight-bold" style="padding-bottom: 20px;">내 글 보관함</h5>
-					<table id="qlist" class="list">
+					<h5 class="m-0 font-weight-bold" style="padding-bottom: 20px;">내 글</h5>
+					<table id="mqlist" class="list">
 						<thead>
 							<tr>
 								<th>진료과목</th>
@@ -114,7 +124,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<h5 class="m-0 font-weight-bold" style="padding-top: 20px; padding-bottom: 20px;">타인 글 보관함</h5>
+					<h5 class="m-0 font-weight-bold" style="padding-top: 20px; padding-bottom: 20px;">기타 글</h5>
 					<table id="qlist" class="list">
 						<thead>
 							<tr>
@@ -126,13 +136,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>${bdto.departmentName}</td>
-								<td>${bdto.counselTitle}</td>
-								<td>${bdto.regdate}</td>
-								<td><button onclick="viewDetailQ(${bdto.mediCounselQuestionSeq})" class="btn">상세 보기</button></td>
-								<td><button onclick="delB(${bdto.mediCounselBoxSeq})" class="btn">삭제</button></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -158,14 +161,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>${cdto.communityTitle}</td>
-								<td>${cdto.communityDate}</td>
-								<td>${cdto.communityCommentCount}</td>
-								<td>${cdto.communityLikeCount}</td>
-								<td><button onclick="viewDetailC(${cdto.communitySeq})" class="btn">상세 보기</button></td>
-								<td><button onclick="delC(${cdto.communitySeq})" class="btn">삭제</button></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -202,6 +197,9 @@
 	}
 	
 	mediTest(${seq});
+	myMediCounselQuestion(${seq});
+	etcMediCounselQuestion(${seq});
+	myCommunity(${seq});
 	
 	function mediTest(seq) {
 		
@@ -218,7 +216,7 @@
 							
 						<tr>
 							<td>\${item.mediTestName}</td>
-							<td>\${item.testTime}</td>
+							<td>\${item.saveDate}</td>
 							<td><button onclick="viewTestDetail(\${item.mediTestSaveSeq})" class="btn">결과 확인</button></td>
 						</tr>			
 						
@@ -231,16 +229,214 @@
 			}
 		});		
 	}
+	
+	function myMediCounselQuestion(seq) {
+		
+		$('#mqlist > tbody').html('');
+		
+		$.ajax ({
+			type: 'GET',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mymedicounselquestion',
+			dataType: 'json',
+			success: list => {
+				$(list).each((index, item) => {
+					
+					$('#mqlist > tbody').append(`
+							
+						<tr>
+							<td>\${item.departmentName}</td>
+							<td>\${item.counselTitle}</td>
+							<td>\${item.regdate}</td>
+							<td><button onclick="viewDetailMyMediQuestion(\${item.mediCounselQuestionSeq})" class="btn">상세 보기</button></td>
+							<td><button onclick="deleteMyCounsel(\${item.mediCounselQuestionSeq}, \${item.mediCounselAnswerSeq})" class="btn">삭제</button></td>
+						</tr>			
+						
+					`);
+					
+				});
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});		
+	}
+	
+	function etcMediCounselQuestion(seq) {
+		
+		$('#qlist > tbody').html('');
+		
+		$.ajax ({
+			type: 'GET',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/etcmedicounselquestion',
+			dataType: 'json',
+			success: list => {
+				$(list).each((index, item) => {
+					
+					$('#qlist > tbody').append(`
+							
+						<tr>
+							<td>\${item.departmentName}</td>
+							<td>\${item.counselTitle}</td>
+							<td>\${item.regdate}</td>
+							<td><button onclick="viewDetailEtcMediQuestion(\${item.mediCounselBoxSeq})" class="btn">상세 보기</button></td>
+							<td><button onclick="deleteEtcCounsel(\${item.mediCounselBoxSeq})" class="btn">삭제</button></td>
+						</tr>			
+						
+					`);
+					
+				});
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});		
+	}
+
+	function myCommunity(seq) {
+		
+		$('#clist > tbody').html('');
+		
+		$.ajax ({
+			type: 'GET',
+			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mycommunity',
+			dataType: 'json',
+			success: list => {
+				$(list).each((index, item) => {
+					
+					$('#clist > tbody').append(`
+							
+						<tr>
+							<td>\${item.communityTitle}</td>
+							<td>\${item.communityDate}</td>
+							<td>\${item.communityCommentCount}</td>
+							<td>\${item.communityLikeCount}</td>
+							<td><button onclick="viewDetailCommunity(\${item.communitySeq})" class="btn">상세 보기</button></td>
+							<td><button onclick="deleteCommunity(\${item.communitySeq})" class="btn">삭제</button></td>
+						</tr>		
+						
+					`);
+					
+				});
+			},
+			error: (a,b,c) => {
+				console.log(a,b,c);
+			}
+		});		
+	}
 
 
-	function viewDetail(seq) {
+	function viewTestDetail(seq) {
 		
         var winHeight = 1000;
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/myrecord.do', '진료 내역', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('http://localhost:8090/apa/user/' + seq + '/mymeditest.do', '의학테스트 결과', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 
+	function viewDetailMyMediQuestion(seq) {
+		
+        var winHeight = 1000;
+        var winWidth = 800;
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://localhost:8090/apa/user/' + seq + '/mymediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+		
+	}	
+
+	function viewDetailEtcMediQuestion(seq) {
+		
+        var winHeight = 1000;
+        var winWidth = 800;
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://localhost:8090/apa/user/' + seq + '/etcmediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+		
+	}	
+	
+	function viewDetailCommunity(seq) {
+		
+        var winHeight = 1000;
+        var winWidth = 800;
+        var winTop = (screen.height / 2) - (winHeight / 2);
+        var winLeft = (screen.width / 2) - (winWidth / 2);
+        window.open('http://localhost:8090/apa/user/' + seq + '/mycommunitydetail.do', '커뮤니티 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);				
+	}	
+	
+	function deleteMyCounsel(qseq, aseq) {
+		
+		if(confirm('정말로 삭제하시겠습니까?')) {
+			
+			if (aseq == null) {
+				aseq = "null";
+			}
+			
+			$.ajax({
+				type: 'DELETE',
+				url: 'http://localhost:8090/apa/api/user/' + qseq + '/' + aseq + '/mybox/deletemycounsel',
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						myMediCounselQuestion(userSeq);
+						alert('정상적으로 삭제하였습니다.');
+					} else {
+						alert('failed');
+					}
+				},
+				error: (a,b,c) => {
+					console.log(a,b,c);
+				}
+			});
+	    }
+        
+	}	
+
+	function deleteEtcCounsel(seq) {
+		
+		if(confirm('정말로 삭제하시겠습니까?')) {
+			
+			$.ajax({
+				type: 'DELETE',
+				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deleteetccounsel',
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						etcMediCounselQuestion(userSeq);
+						alert('정상적으로 삭제하였습니다.');
+					} else {
+						alert('failed');
+					}
+				},
+				error: (a,b,c) => {
+					console.log(a,b,c);
+				}
+			});
+	    }
+	}	
+
+	function deleteCommunity(seq) {
+		
+		if(confirm('정말로 삭제하시겠습니까?')) {
+			
+			$.ajax({
+				type: 'DELETE',
+				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deletecommunity',
+				dataType: 'json',
+				success: result => {
+					if (result == 1) {
+						alert('정상적으로 삭제하였습니다.');
+						myCommunity(${seq});
+					} else {
+						alert('failed');
+					}
+				},
+				error: (a,b,c) => {
+					console.log(a,b,c);
+				}
+			});
+	    }
+		
+	}
+	
 </script>

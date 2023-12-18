@@ -1,14 +1,20 @@
 package com.project.apa.api.user.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.apa.api.user.domain.UserDTO;
 import com.project.apa.api.user.domain.UserDetailRecordDTO;
+import com.project.apa.api.user.domain.UserMediCounselQuestionDTO;
+import com.project.apa.api.user.domain.UserMediTestDTO;
+import com.project.apa.api.user.domain.UserMyCommunityDTO;
 import com.project.apa.api.user.domain.UserRecordDTO;
 import com.project.apa.api.user.domain.UserReviewDTO;
+import com.project.apa.api.user.domain.SelfTestDTO;
 import com.project.apa.api.user.domain.UserAppointmentDTO;
 import com.project.apa.api.user.domain.UserBookmarkDTO;
 import com.project.apa.api.user.domain.UserChildDTO;
@@ -120,5 +126,161 @@ public class UserServiceImpl implements UserService {
 	public int deleteBookmark(String seq) {
 
 		return userDAO.deleteBookmark(seq);
+	}
+	
+	@Override
+	public List<UserMediTestDTO> getUserMediTest(String seq) {
+
+		return userDAO.getUserMediTest(seq);
+	}
+	
+	@Override
+	public UserMediTestDTO getUserDetailMediTest(String seq) {
+		
+		return userDAO.getUserDetailMediTest(seq);
+	}
+	
+	@Override
+	public List<UserMediCounselQuestionDTO> getUserMyMediCounselQuestion(String seq) {
+
+		return userDAO.getUserMyMediCounselQuestion(seq);
+	}
+	
+	@Override
+	public UserMediCounselQuestionDTO getUserMyMediCounselQuestionDetail(String seq) {
+
+		return userDAO.getUserMyMediCounselQuestionDetail(seq);
+	}
+	
+	@Override
+	public int deleteMyCounselBox(String aseq) {
+
+		return userDAO.deleteMyCounselBox(aseq);
+	}
+	
+	@Override
+	public int deleteMyCounselAnswer(String qseq) {
+
+		return userDAO.deleteMyCounselAnswer(qseq);
+	}
+	
+	@Override
+	public int deleteMyCounselQuestion(String qseq) {
+
+		return userDAO.deleteMyCounselQuestion(qseq);
+	}
+	
+	@Override
+	public List<UserMediCounselQuestionDTO> getUserEtcMediCounselQuestion(String seq) {
+
+		return userDAO.getUserEtcMediCounselQuestion(seq);
+	}
+	
+	@Override
+	public UserMediCounselQuestionDTO getUserEtcMediCounselQuestionDetail(String seq) {
+
+		return userDAO.getUserEtcMediCounselQuestionDetail(seq);
+	}
+	
+	@Override
+	public int deleteEtcCounselQuestion(String seq) {
+
+		return userDAO.deleteEtcCounselQuestion(seq);
+	}
+	
+	@Override
+	public List<UserMyCommunityDTO> getUserMyCommunity(String seq) {
+
+		return userDAO.getUserMyCommunity(seq);
+	}
+	
+	@Override
+	public UserMyCommunityDTO getUserMyCommunityDetail(String seq) {
+
+		return userDAO.getUserMyCommunityDetail(seq);
+	}
+	
+	@Override
+	public List<UserMyCommunityDTO> getUserMyCommunityComment(String seq) {
+
+		return userDAO.getUserMyCommunityComment(seq);
+	}
+	
+	@Override
+	public int userCommunityUpdate(UserMyCommunityDTO dto) {
+
+		return userDAO.userCommunityUpdate(dto);
+	}
+	
+	@Override
+	public int deleteCommunityComment(String seq) {
+
+		return userDAO.deleteCommunityComment(seq);
+	}
+	
+	@Override
+	public int deleteCommunity(String seq) {
+
+		return userDAO.deleteCommunity(seq);
+	}
+	
+	@Override
+	public List<UserReviewDTO> getUserReview(String seq) {
+		
+		return userDAO.getUserReview(seq);
+	}
+	
+	@Override
+	public UserReviewDTO getUserReviewDetail(String seq) {
+
+		return userDAO.getUserReviewDetail(seq);
+	}
+	
+	@Override
+	public List<UserReviewDTO> getUserReviewDetailTag(String seq) {
+
+		return userDAO.getUserReviewDetailTag(seq);
+	}
+	
+	@Override
+	public int deleteReview(String seq) {
+
+		return userDAO.deleteReview(seq);
+	}
+
+	@Override
+	public List<SelfTestDTO> getSelfTest(String seq) {
+
+		return userDAO.getSelfTest(seq);
+	}
+	
+	@Override
+	public ArrayList<String> getSelfTestAnswer(String meditestQuestionNo) {
+
+		return userDAO.getSelfTestAnswer(meditestQuestionNo);
+	}
+	
+	@Override
+	public String getSelfTestMinQuestionSeq(String seq) {
+
+		return userDAO.getSelfTestMinQuestionSeq(seq);
+	}
+	
+	@Override
+	public List<SelfTestDTO> getSelfTestAnswerContent(String seq) {
+
+		return userDAO.getSelfTestAnswerContent(seq);
+	}
+	
+	@Override
+	public List<SelfTestDTO> getSelfTestResult(String seq) {
+		
+		return userDAO.getSelfTestResult(seq);
+	}
+	
+	@Override
+	public int saveTestResult(SelfTestDTO dto) {
+
+		return userDAO.saveTestResult(dto);
 	}
 }

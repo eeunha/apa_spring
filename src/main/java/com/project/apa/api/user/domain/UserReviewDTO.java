@@ -15,4 +15,10 @@ public class UserReviewDTO {
 
 	private String tagList;
 	private String reviewSeq;
+
+	private String isReviewDelete;
+	
+	private String tagType;
+	private String tagContent;
+	
 }
