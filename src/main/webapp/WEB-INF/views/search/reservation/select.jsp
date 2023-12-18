@@ -187,6 +187,9 @@ thead tr:nth-child(3) th {
 		}
 		function cell() {
 			$('.cell').css('opacity', '0.5');
+			$('.cell').css('border-color', '#BDBDBD');
+			$('.cell').css('background-color', '#fff');
+			
 			$(event.target).css('opacity', '1');
 			$(event.target).css('background-color', '#5bc1ac');
 			$(event.target).css('border-color', '#5bc1ac');

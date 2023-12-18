@@ -194,20 +194,40 @@
 				</div>
 			</div>
 			<div style="padding-top: 15px;">
-				<c:forEach items="${reviewlist}" var="reviewlist">
+				<c:forEach items="${reviewlist}" var="reviewlist" begin="0" end="9" step="1"> 
+				<div>
 					<div class="review-grid">
 						<div>${reviewlist.userId}</div>
 						<div class="hospital-info-grid reviewtaglist">
 							<c:forEach items="${reviewtaglist}" var="reviewtaglist">
-								<c:if test="${reviewtaglist.reviewSeq == reviewlist.reviewSeq}">
-									<p class="box-content">${reviewtaglist.tagContent}</p>
-								</c:if>
+									<c:if test="${reviewtaglist.reviewSeq == reviewlist.reviewSeq}">
+										<p class="box-content">${reviewtaglist.tagContent}</p>
+									</c:if>
 							</c:forEach>
 						</div>
 					</div>
 					<p>${reviewlist.reviewContent}</p>
+				</div>
+				</c:forEach>
+				<c:forEach items="${reviewlist}" var="reviewlist" begin="10" step="1">
+				<div class="hidden-review">
+					<div class="review-grid">
+						<div>${reviewlist.userId}</div>
+						<div class="hospital-info-grid reviewtaglist ">
+							<c:forEach items="${reviewtaglist}" var="reviewtaglist">
+									<c:if test="${reviewtaglist.reviewSeq == reviewlist.reviewSeq}">
+										<p class="box-content">${reviewtaglist.tagContent}</p>
+									</c:if>
+							</c:forEach>
+						</div>
+					</div>
+					<p>${reviewlist.reviewContent}</p>
+				</div> 
 				</c:forEach>
 			</div>
+			<hr>
+			<div class="taglist-button" style="text-align: center;">더보기</div>
+			<hr>
 			<c:if test="${positive == 0 and negative == 0}">
 				<h4 style="text-align: center; margin-top: 30px;">등록된 리뷰가 없습니다.</h4>
 			</c:if>
@@ -326,4 +346,13 @@
 	        map.setCenter(coords);
 	    } 
 	}); 
+	$(".taglist-button").click(function() {
+		if ($(".hidden-review").is(":visible")){
+			$(".hidden-review").slideUp();
+			$(".taglist-button").text("더보기");    				
+		} else {
+			$(".hidden-review").slideDown();
+			$(".taglist-button").text("숨기기");
+		}
+	});
 </script>

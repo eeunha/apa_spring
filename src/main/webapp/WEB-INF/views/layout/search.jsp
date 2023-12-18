@@ -11,6 +11,9 @@
 <meta name="author" content="">
 <tiles:insertAttribute name="asset"/>
 <style>
+.hidden-review{
+	display: none;
+}
 .detail-userinfo-button{
 		text-align:center;
 		padding-right:10px;
