@@ -208,6 +208,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/meditest',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -237,6 +240,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mymedicounselquestion',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -268,6 +274,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/etcmedicounselquestion',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -299,6 +308,9 @@
 		$.ajax ({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mycommunity',
+			beforeSend : function(xhr) {
+                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			dataType: 'json',
 			success: list => {
 				$(list).each((index, item) => {
@@ -375,6 +387,9 @@
 			$.ajax({
 				type: 'DELETE',
 				url: 'http://localhost:8090/apa/api/user/' + qseq + '/' + aseq + '/mybox/deletemycounsel',
+				beforeSend : function(xhr) {
+	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	            },
 				dataType: 'json',
 				success: result => {
 					if (result == 1) {
@@ -399,6 +414,9 @@
 			$.ajax({
 				type: 'DELETE',
 				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deleteetccounsel',
+				beforeSend : function(xhr) {
+	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	            },
 				dataType: 'json',
 				success: result => {
 					if (result == 1) {
@@ -422,6 +440,9 @@
 			$.ajax({
 				type: 'DELETE',
 				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deletecommunity',
+				beforeSend : function(xhr) {
+	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	            },
 				dataType: 'json',
 				success: result => {
 					if (result == 1) {

@@ -87,6 +87,7 @@
                             <a class="nav-link click-scroll" href="/apa/community/list.do">커뮤니티</a>
                         </li>
 
+<<<<<<< HEAD
                         <c:if test="${empty pw && empty id}">
                         <li class="nav-item ms-3">
                             <a class="nav-link custom-btn custom-border-btn btn" href="#">로그인</a>
@@ -123,6 +124,74 @@
                             <a class="nav-link custom-btn custom-border-btn btn" href="#">로그아웃</a>
                         </li>
                         </c:if>
+=======
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item ms-3"><a
+						class="nav-link custom-btn custom-border-btn btn"
+						href="/apa/auth/mylogin.do">로그인</a></li>
+					<li class="nav-item ms-3"><a
+						class="nav-link custom-btn custom-border-btn btn"
+						href="/apa/auth/clickregister.do">회원가입</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<sec:authorize access="hasRole('ROLE_USER')">
+						<li class="nav-item ms-3"><a
+							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+						</li>
+						<li class="nav-item ms-3">
+							<form action="/apa/auth/mylogout.do" method="POST">
+								<div>
+									<button class="nav-link custom-btn custom-border-btn btn">로그아웃</button>
+								</div>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}">
+							</form>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_HOSPITAL')">
+						<li class="nav-item ms-3"><a
+							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+						</li>
+						<li class="nav-item ms-3"><a
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/${id}/medi/today/appointment">내
+								진료</a></li>
+						<li class="nav-item ms-3">
+						<form action="/apa/auth/mylogout.do" method="POST">
+								<div>
+									<button class="nav-link custom-btn custom-border-btn btn">로그아웃</button>
+								</div>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}">
+							</form>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_PHARMACY')">
+						<li class="nav-item ms-3"><a
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/pharmacy/${id}/info.do">마이페이지</a>
+						</li>
+						<li class="nav-item ms-3"><form action="/apa/auth/mylogout.do" method="POST">
+								<div>
+									<button class="nav-link custom-btn custom-border-btn btn">로그아웃</button>
+								</div>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}">
+							</form></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="nav-item ms-3"><a
+							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+						</li>
+						<li class="nav-item ms-3"><form action="/apa/auth/mylogout.do" method="POST">
+								<div>
+									<button class="nav-link custom-btn custom-border-btn btn">로그아웃</button>
+								</div>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}">
+							</form></li>
+					</sec:authorize>
+
+				</sec:authorize>
+>>>>>>> dbf0ee673f698e872ec906e55bc97508a33a1291
                     </ul>
                 </div>
             </div>
