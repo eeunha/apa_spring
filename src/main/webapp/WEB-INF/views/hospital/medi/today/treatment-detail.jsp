@@ -98,7 +98,6 @@ table tr td {
 				<!-- Card Body -->
 				<div class="card-body">
 					<div id="container">
-						<%-- <h5 id="detail-treatmentseq">예약 번호: ${dto.appointmentSeq}</h5> --%>
 						<h5 id="detail-treatmentseq">[ 예약 번호: ${dto.appointmentSeq} ]</h5>
 						<h5 id="detailTitle">진료 정보</h5>
 						<table>
@@ -258,7 +257,7 @@ table tr td {
 							</c:if>
 
 							<button type="button"
-								onclick="location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment';">뒤로가기</button>
+								onclick="location.href='/apa/hospital/${id}/medi/today/treatment';">뒤로가기</button>
 						</div>
 
 					</div>
@@ -282,7 +281,7 @@ table tr td {
 		if (confirm('환자를 호출하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}',
+				url: '/apa/api/hospital/${id}/medi/today/treatment/${dto.appointmentSeq}',
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -293,7 +292,7 @@ table tr td {
 					if (result == 1) {
 						alert('환자를 호출하였습니다. 목록으로 돌아갑니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${id}/medi/today/treatment'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');
@@ -313,7 +312,7 @@ table tr td {
 			
 			if (confirm('진료를 완료하시겠습니까? 확인을 누르시면 진료내역서를 작성합니다.')) {
 				
-				location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}/record';
+				location.href='/apa/hospital/${id}/medi/today/treatment/${dto.appointmentSeq}/record';
 			}
 			
 		} else { // 예방접종과 건강검진은 진료내역서 미작성
@@ -323,7 +322,7 @@ table tr td {
 				// 진행상태만 진료완료로 변경하기
 				$.ajax({
 					type: 'PUT',
-					url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}',
+					url: '/apa/api/hospital/${id}/medi/today/treatment/${dto.appointmentSeq}',
 					contentType: 'application/json',
 					beforeSend : function(xhr) {
 	                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -334,7 +333,7 @@ table tr td {
 						if (result == 1) {
 							alert('진료를 완료하였습니다. 목록으로 이동합니다.');
 							
-							location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment'; //목록으로 이동
+							location.href='/apa/hospital/${id}/medi/today/treatment'; //목록으로 이동
 							
 						} else {
 							alert('0');

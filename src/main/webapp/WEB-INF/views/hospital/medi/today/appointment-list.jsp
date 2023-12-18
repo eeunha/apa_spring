@@ -160,15 +160,13 @@ button {
 
 <script>
 
-	const hospitalId = 'yonse';
-	
 	//화면 초기화
 	load(${page});
 	
 	function load(pageNum){
 		$.ajax({
 			type: 'GET',
-			url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment',
+			url: '/apa/api/hospital/${id}/medi/today/appointment',
 			contentType: 'application/json',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -295,7 +293,7 @@ button {
 		if (confirm('예약을 승인하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment/' + appointmentSeq,
+				url: '/apa/api/hospital/${id}/medi/today/appointment/' + appointmentSeq,
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -327,7 +325,7 @@ button {
 		if(confirm('예약을 거절하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment/' + appointmentSeq,
+				url: '/apa/api/hospital/${id}/medi/today/appointment/' + appointmentSeq,
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

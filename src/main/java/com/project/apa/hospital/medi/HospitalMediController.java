@@ -43,8 +43,9 @@ public class HospitalMediController {
 
 	// 오늘의 진료 - 예약 - 목록
 	@GetMapping(value = "/today/appointment")
-	public String getToadyAppointmentList(Model model, @RequestParam(defaultValue = "1") int page) {
+	public String getToadyAppointmentList(Model model, @PathVariable String id, @RequestParam(defaultValue = "1") int page) {
 
+		model.addAttribute("id", id);
 		model.addAttribute("page", page);
 
 		return "hospital.medi.today.appointment-list";
@@ -52,10 +53,11 @@ public class HospitalMediController {
 
 	// 오늘의 진료 - 예약 - 상세보기
 	@GetMapping(value = "/today/appointment/{appointmentSeq}")
-	public String getTodayAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
+	public String getTodayAppointmentDetail(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.today.appointment-detail";
@@ -63,32 +65,35 @@ public class HospitalMediController {
 
 	// 오늘의 진료 - 진료 - 목록
 	@GetMapping(value = "/today/treatment")
-	public String getTodayTreatmentList(Model model, @RequestParam(defaultValue = "1") int page) {
+	public String getTodayTreatmentList(Model model, @PathVariable String id, @RequestParam(defaultValue = "1") int page) {
 
 		model.addAttribute("page", page);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.today.treatment-list";
 	}
 
 	// 오늘의 진료 - 진료 - 목록 - 진료내역서 작성
 	@GetMapping(value = "/today/treatment/{appointmentSeq}/record")
-	public String writeTodayMediRecord(Model model, @PathVariable int appointmentSeq) {
+	public String writeTodayMediRecord(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		// 기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.today.medi-record";
 	}
 
 	// 오늘의 진료 - 진료 - 상세보기
 	@GetMapping(value = "/today/treatment/{appointmentSeq}")
-	public String getTodayTreatmentDetail(Model model, @PathVariable int appointmentSeq) {
+	public String getTodayTreatmentDetail(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.today.treatment-detail";
 	}
@@ -119,6 +124,7 @@ public class HospitalMediController {
 		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("appointmentList", appointmentList);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.all.appointment-list";
 	}
@@ -131,11 +137,12 @@ public class HospitalMediController {
 	 * @return
 	 */
 	@GetMapping(value = "/all/appointment/{appointmentSeq}")
-	public String getAllAppointmentDetail(Model model, @PathVariable int appointmentSeq) {
+	public String getAllAppointmentDetail(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.all.appointment-detail";
 	}
@@ -156,6 +163,7 @@ public class HospitalMediController {
 		// 페이지바
 		String pagebar = practiceService.getAllTreatmentListPageBar(map);
 
+		model.addAttribute("id", id);
 		model.addAttribute("treatmentList", treatmentList);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("order", order);
@@ -171,22 +179,24 @@ public class HospitalMediController {
 	 * @return
 	 */
 	@GetMapping(value = "/all/treatment/{appointmentSeq}")
-	public String getAllTreatmentDetail(Model model, @PathVariable int appointmentSeq) {
+	public String getAllTreatmentDetail(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.all.treatment-detail";
 	}
 
 	@GetMapping(value = "/all/treatment/{appointmentSeq}/record")
-	public String writeMediRecord(Model model, @PathVariable int appointmentSeq) {
+	public String writeMediRecord(Model model, @PathVariable String id, @PathVariable int appointmentSeq) {
 
 		// 기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.all.medi-record";
 	}
@@ -197,6 +207,7 @@ public class HospitalMediController {
 		List<PatientDTO> patientList = patientService.getPatientList(id);
 
 		model.addAttribute("patientList", patientList);
+		model.addAttribute("id", id);
 
 		return "hospital.medi.patient";
 	}

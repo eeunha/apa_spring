@@ -84,8 +84,6 @@ textarea {
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<%-- <form method="PUT"
-						action="/apa/api/hospital/${dto.hospitalId}/medi/all/treatment/${dto.appointmentSeq}/record"> --%>
 					<div id="container">
 						<table>
 							<tr>
@@ -123,7 +121,6 @@ textarea {
 							<button type="button" onclick="goBack();">취소하기</button>
 						</div>
 					</div>
-					<!-- </form> -->
 				</div>
 			</div>
 		</div>
@@ -164,7 +161,7 @@ textarea {
 		if (confirm('진료내역서 작성을 완료하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${dto.hospitalId}/medi/today/treatment/${dto.appointmentSeq}/record',
+				url: '/apa/api/hospital/${id}/medi/today/treatment/${dto.appointmentSeq}/record',
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -175,7 +172,7 @@ textarea {
 					if (result == 1) {
 						alert('진료내역서 작성이 완료되었습니다. 목록으로 이동합니다.');
 						
-						location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment'; //목록으로 돌아가기
+						location.href='/apa/hospital/${id}/medi/today/treatment'; //목록으로 돌아가기
 						
 					} else {
 						alert('0');
@@ -192,7 +189,7 @@ textarea {
 	function goBack() {
 		if (confirm('진료내역서 작성을 취소하시겠습니까? 작성된 내용은 사라집니다.')) {
 			alert('진료내역서 작성을 취소하였습니다. 목록으로 이동합니다.')
-			location.href='/apa/hospital/${dto.hospitalId}/medi/today/treatment';
+			location.href='/apa/hospital/${id}/medi/today/treatment';
 		}
 	}
 </script>

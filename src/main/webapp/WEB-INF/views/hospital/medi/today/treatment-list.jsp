@@ -152,15 +152,13 @@ button {
 
 <script>
 	
-	const hospitalId = 'yonse';
-	
 	//화면 초기화
 	load(${page});
 	
 	function load(pageNum){
 		$.ajax({
 			type: 'GET',
-			url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment',
+			url: '/apa/api/hospital/${id}/medi/today/treatment',
 			contentType: 'application/json',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -300,7 +298,7 @@ button {
 		if (confirm('환자를 호출하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment/' + appointmentSeq,
+				url: '/apa/api/hospital/${id}/medi/today/treatment/' + appointmentSeq,
 				contentType: 'application/json',
 				beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -333,7 +331,7 @@ button {
 			
 			if (confirm('진료를 완료하시겠습니까? 확인을 누르시면 진료내역서를 작성합니다.')) {
 				
-				location.href='/apa/hospital/' + hospitalId + '/medi/today/treatment/' + appointmentSeq + '/record';
+				location.href='/apa/hospital/${id}/medi/today/treatment/' + appointmentSeq + '/record';
 			}
 			
 		} else { // 예방접종과 건강검진 경우. 진료내역서 미작성
@@ -343,7 +341,7 @@ button {
 				// 진행상태만 진료완료로 변경하기
 				$.ajax({
 					type: 'PUT',
-					url: '/apa/api/hospital/' + hospitalId + '/medi/today/treatment/' + appointmentSeq,
+					url: '/apa/api/hospital/${id}/medi/today/treatment/' + appointmentSeq,
 					contentType: 'application/json',
 					beforeSend : function(xhr) {
 	                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
