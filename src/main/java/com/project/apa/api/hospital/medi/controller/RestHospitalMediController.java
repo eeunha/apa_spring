@@ -23,7 +23,7 @@ import com.project.apa.api.hospital.medi.service.PatientService;
 import com.project.apa.api.hospital.medi.service.PracticeService;
 
 /**
- * 병원 - 내 진료에서 사용되는 데이터를 가져오는 REST API 컨트롤러입니다.
+ * 병원 - 내 진료 메뉴에서 사용되는 데이터를 가져오는 REST API 컨트롤러입니다.
  * 
  * @author Eunha
  *
@@ -38,7 +38,13 @@ public class RestHospitalMediController {
 	@Autowired
 	private PracticeService practiceService;
 
-	// 오늘의 진료 예약 목록 가져오기
+	/**
+	 * 오늘의 진료 메뉴에서 예약 목록을 가져오는 메소드입니다.
+	 * 
+	 * @param id 병원 id
+	 * @param page 페이지 번호
+	 * @return 예약 데이터 리스트와 페이지바 문자열이 담긴 맵
+	 */
 	@GetMapping(value = "/today/appointment")
 	public Map<String, Object> getTodayAppointmentList(@PathVariable(name = "id") String id,
 			@RequestParam(defaultValue = "1") int page) {
@@ -50,15 +56,16 @@ public class RestHospitalMediController {
 		return practiceService.getTodayAppointmentList(map);
 	}
 
-	// 오늘의 진료 예약 상세 내역 가져오기 =>
-
-	// 오늘의 진료 내역 목록 가져오기
+	/**
+	 * 오늘의 진료 메뉴에서 진료 목록을 가져오는 메소드입니다.
+	 * 
+	 * @param id 병원 id
+	 * @param page 페이지 번호
+	 * @return 진료 데이터 리스트와 페이지바 문자열이 담긴 맵
+	 */
 	@GetMapping(value = "/today/treatment")
 	public Map<String, Object> getTodayTreatmentList(@PathVariable(name = "id") String id,
 			@RequestParam(defaultValue = "1") int page) {
-
-		//System.out.println("id: " + id);
-		//System.out.println("page: " + page);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -67,27 +74,14 @@ public class RestHospitalMediController {
 		return practiceService.getTodayTreatmentList(map);
 	}
 
-//	// 오늘의 진료 내역 - 환자 호출하기
-//	@PutMapping(value = "/today/treatment/{appointmentSeq}")
-//	public int handleTodayTreatmentDetail(@PathVariable int appointmentSeq, @RequestBody HashMap<String, String> data) {
-//
-//		String action = data.get("action");
-//
-//		System.out.println("action: " + action);
-//
-//		// 환자를 호출할 경우
-//		if (action.equals("call")) {
-//
-//			return practiceService.callPatient(appointmentSeq);
-//		}
-//
-//		// 진료완료를 할 경우(예방접종, 건강검진만)
-//		return practiceService.completeTreatment(appointmentSeq + "");
-//	}
-
-	// 오늘의 진료 상세 내역 가져오기
-
-	// 모든 진료 예약 목록 가져오기
+	/**
+	 * 모든 진료 메뉴에서 예약 목록을 가져오는 메소드입니다.
+	 * 
+	 * @param id 병원 아이디
+	 * @param page 페이지 번호
+	 * @param order 정렬 키워드
+	 * @return 예약 목록이 담긴 리스트
+	 */
 	@GetMapping(value = "/all/appointment")
 	public List<AppointmentListDTO> getAllAppointmentList(@PathVariable String id,
 			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue="old-regdate") String order) {
@@ -100,15 +94,26 @@ public class RestHospitalMediController {
 		return practiceService.getAllAppointmentList(map);
 	}
 
-	// 모든 진료 예약 상세 내역 가져오기
+	/**
+	 * 모든 진료 메뉴에서 예약 상세 내역을 가져오는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 해당 예약번호의 예약 내역 DTO
+	 */
 	@GetMapping(value = "/all/appointment/{appointmentSeq}")
 	public AppointmentDetailDTO getAppointmentDetail(@PathVariable int appointmentSeq) {
 
 		return practiceService.getAppointmentDetail(appointmentSeq);
 	}
 
-	// 진료 예약 승인/거절
-	@PutMapping(value = "/appointment/{appointmentSeq}")
+	/**
+	 * 진료 예약을 승인 또는 거절하는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @param data 승인 또는 거절을 나타내는 키워드가 담긴 맵
+	 * @return 성공 시 1, 실패 시 0
+	 */
+	@PutMapping(value = {"/today/appointment/{appointmentSeq}", "/all/appointment/{appointmentSeq}"})
 	public int handleAppointment(@PathVariable int appointmentSeq, @RequestBody Map<String, String> data) {
 
 		String action = data.get("action");
@@ -123,47 +128,49 @@ public class RestHospitalMediController {
 		return practiceService.declineAppointment(appointmentSeq);
 	}
 
-	// 모든 진료 내역 목록 가져오기 model
-//	@GetMapping(value = "/all/treatment")
-//	public List<TreatmentListDTO> getAllTreatmentList(@PathVariable String id,
-//			@RequestParam(defaultValue = "1") int page) {
-//
-//		HashMap<String, Object> map = new HashMap<>();
-//		map.put("id", id);
-//		map.put("page", page);
-//
-//		return practiceService.getAllTreatmentList(map);
-//	}
-
-	// 모든 진료 내역 목록 가져오기 ajax
+	/**
+	 * 모든 진료 메뉴의 진료 목록 가져오는 메소드입니다.
+	 * 
+	 * @param id 병원 아이디
+	 * @param page 페이지 번호
+	 * @param order 정렬 키워드
+	 * @return 진료 목록이 담긴 리스트
+	 */
 	@GetMapping(value = "/all/treatment")
-	public Map<String, Object> getAllTreatmentList(@PathVariable(name = "id") String id,
+	public List<TreatmentListDTO> getAllTreatmentList(@PathVariable String id,
 			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "old-regdate") String order) {
-		
+
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
 		map.put("order", order);
 
-		System.out.println("controller order: " + order);
-		
-		return practiceService.getAllTreatmentList2(map);
+		return practiceService.getAllTreatmentList(map);
 	}
 
-	// 모든 진료 내역 상세정보 가져오기
+	/**
+	 * 모든 진료 메뉴에서 진료 상세정보를 가져오는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 해당 예약번호의 진료 상세정보 DTO
+	 */
 	@GetMapping(value = "/all/treatment/{appointmentSeq}")
 	public TreatmentDetailDTO getAllTreatmentDetail(@PathVariable int appointmentSeq) {
 
 		return practiceService.getTreatmentDetail(appointmentSeq);
 	}
 
-	// 진료 내역 - 환자 호출하기 & 진료완료
+	/**
+	 * 환자를 호출하거나 진료완료 처리를 하는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @param data 환자호출 또는 진료완료를 나타내는 키워드가 담긴 맵
+	 * @return
+	 */
 	@PutMapping(value = { "/today/treatment/{appointmentSeq}", "/all/treatment/{appointmentSeq}" })
 	public int handleTreatmentDetail(@PathVariable int appointmentSeq, @RequestBody HashMap<String, String> data) {
 
 		String action = data.get("action");
-
-		System.out.println("action: " + action);
 
 		// 환자를 호출할 경우
 		if (action.equals("call")) {
@@ -176,14 +183,24 @@ public class RestHospitalMediController {
 
 	}
 
-	// 진료내역서 작성하기 + 진료완료처리
+	/**
+	 * 진료내역서를 작성하고 진료완료처리를 하는 메소드입니다.
+	 * 
+	 * @param data 작성한 진료내역서 정보
+	 * @return 성공 시 1, 실패 시 0
+	 */
 	@PutMapping(value = { "/today/treatment/{appointmentSeq}/record", "/all/treatment/{appointmentSeq}/record" })
-	public int writeMediRecord(Model model, @RequestBody HashMap<String, String> data) {
+	public int writeMediRecord(@RequestBody HashMap<String, String> data) {
 
 		return practiceService.writeMediRecord(data);
 	}
 
-	// 내원환자 목록 가져오기
+	/**
+	 * 내원환자 목록을 가져오는 메소드입니다.
+	 * 
+	 * @param id 병원 아이디
+	 * @return 내원환자 목록 정보가 담긴 리스트
+	 */
 	@GetMapping(value = "/patient")
 	public List<PatientDTO> getPatientList(@PathVariable String id) {
 

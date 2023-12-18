@@ -75,8 +75,7 @@ public class PracticeServiceImpl implements PracticeService {
 	public String getTodayAppointmentListPageBar(HashMap<String, Object> map) {
 
 		int nowPage = 0;
-		// 해당 병원의 총 오늘의 예약 수
-		int totalCount = 0;
+		int totalCount = 0; // 해당 병원의 총 오늘의 예약 수
 		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
@@ -91,8 +90,6 @@ public class PracticeServiceImpl implements PracticeService {
 		end = begin + pageSize - 1;
 
 		totalCount = appointmentListDAO.getTodayAppointmentCount((String) map.get("id"));
-
-		// System.out.println("totalCount: " + totalCount);
 
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
@@ -157,22 +154,13 @@ public class PracticeServiceImpl implements PracticeService {
 
 			if (symptom != null && symptom.length() > 20) {
 				symptom = symptom.substring(0, 20) + "...";
-//				System.out.println(symptom);
 				dto.setSymptom(symptom);
 			}
-
-			//
-			String appointmentDate = dto.getAppointmentDate();
-
-			appointmentDate = appointmentDate.substring(10);
-//			System.out.println(appointmentDate);
-			dto.setAppointmentDate(appointmentDate);
 
 			shortenList.add(dto);
 		}
 
 		String pagebar = getTodayTreatmentListPageBar(map);
-//		System.out.println(pagebar);
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", shortenList);
@@ -186,8 +174,7 @@ public class PracticeServiceImpl implements PracticeService {
 	public String getTodayTreatmentListPageBar(HashMap<String, Object> map) {
 
 		int nowPage = 0;
-		// 해당 병원의 총 오늘의 진료 수
-		int totalCount = 0;
+		int totalCount = 0; // 해당 병원의 총 오늘의 진료 수
 		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
@@ -202,8 +189,6 @@ public class PracticeServiceImpl implements PracticeService {
 		end = begin + pageSize - 1;
 
 		totalCount = treatmentListDAO.getTodayTreatmentCount((String) map.get("id"));
-
-		System.out.println("totalCount: " + totalCount);
 
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
@@ -260,9 +245,6 @@ public class PracticeServiceImpl implements PracticeService {
 
 		String order = (String) map.get("order");
 
-		System.out.println(map.get("order"));
-		System.out.println("service - order: " + order);
-
 		List<AppointmentListDTO> orgList = null;
 
 		// 정렬 적용
@@ -285,7 +267,6 @@ public class PracticeServiceImpl implements PracticeService {
 			shortenList.add(dto);
 		}
 
-//		return appointmentListDAO.getAllAppointmentList(map);
 		return shortenList;
 	}
 
@@ -294,8 +275,7 @@ public class PracticeServiceImpl implements PracticeService {
 	public String getAllAppointmentListPageBar(HashMap<String, Object> map) {
 
 		int nowPage = 0;
-		// 해당 병원의 총 예약 수
-		int totalCount = 0;
+		int totalCount = 0; // 해당 병원의 총 예약 수
 		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
@@ -306,18 +286,14 @@ public class PracticeServiceImpl implements PracticeService {
 
 		nowPage = (int) map.get("page");
 
-		// System.out.println("pagebar - order:" + map.get("order"));
-
 		String order = (String) map.get("order"); // 정렬 키워드
-		String orderTail = "";
+		String orderTail = ""; // 정렬이 적용된 페이지 호출을 위한 매개변수 문자열
 
 		if (order.equals("old-regdate")) {
 			orderTail = "&order=old-regdate";
 		} else {
 			orderTail = "&order=last-regdate";
 		}
-
-		// System.out.println("orderTail: " + orderTail);
 
 		begin = ((nowPage - 1) * pageSize) + 1;
 		end = begin + pageSize - 1;
@@ -372,13 +348,14 @@ public class PracticeServiceImpl implements PracticeService {
 		return appointmentDetailDAO.getAppointmentDetail(appointmentSeq);
 	}
 
-	// 모든 진료 - 예약 - 승인
+	// 예약 - 승인
 	@Override
 	public int approveAppointment(int appointmentSeq) {
 
 		return appointmentDetailDAO.approveAppointment(appointmentSeq);
 	}
 
+	// 예약 - 거절
 	@Override
 	public int declineAppointment(int appointmentSeq) {
 
@@ -397,11 +374,8 @@ public class PracticeServiceImpl implements PracticeService {
 		map.put("begin", begin);
 		map.put("end", end);
 
-		
 		// 정렬 적용
 		String order = (String) map.get("order");
-
-		System.out.println(order);
 
 		List<TreatmentListDTO> orgList = null;
 
@@ -416,9 +390,8 @@ public class PracticeServiceImpl implements PracticeService {
 		} else if (order.equals("appointmentseq")) {
 
 			orgList = treatmentListDAO.getAllTreatmentListAppointmentSeq(map);
-
 		}
-		
+
 		List<TreatmentListDTO> shortenList = new ArrayList<>();
 
 		// 데이터 수정하기
@@ -438,70 +411,6 @@ public class PracticeServiceImpl implements PracticeService {
 		}
 
 		return shortenList;
-	}
-
-	// 모든 진료 목록 ajax
-	@Override
-	public Map<String, Object> getAllTreatmentList2(HashMap<String, Object> map) {
-
-		int page = (int) map.get("page");
-
-		int end = page * 10;
-		int begin = end - 9;
-
-		map.put("begin", begin);
-		map.put("end", end);
-
-		// 정렬 적용
-		String order = (String) map.get("order");
-
-		System.out.println(order);
-
-		List<TreatmentListDTO> orgList = null;
-
-		if (order.equals("old-regdate")) { // 오래된 진료일순
-
-			orgList = treatmentListDAO.getAllTreatmentListOldRegDate(map);
-
-		} else if (order.equals("last-regdate")) {
-
-			orgList = treatmentListDAO.getAllTreatmentListLastRegDate(map);
-
-		} else if (order.equals("appointmentseq")) {
-
-			orgList = treatmentListDAO.getAllTreatmentListAppointmentSeq(map);
-
-		}
-
-//		List<TreatmentListDTO> orgList = treatmentListDAO.getAllTreatmentList(map);
-		List<TreatmentListDTO> shortenList = new ArrayList<>();
-
-		// 데이터 수정하기
-		for (TreatmentListDTO dto : orgList) {
-
-			// 상세증상 줄이기
-			String symptom = dto.getSymptom();
-
-			if (symptom != null && symptom.length() > 20) {
-
-				symptom = symptom.substring(0, 20) + "...";
-
-				dto.setSymptom(symptom);
-			}
-
-			shortenList.add(dto);
-		}
-
-		String pagebar = getAllTreatmentListPageBar(map);
-
-		Map<String, Object> result = new HashMap<>();
-		result.put("list", shortenList);
-		result.put("pagebar", pagebar); // 페이지바 정보 추가
-
-		// System.out.println(result.toString());
-
-		return result;
-
 	}
 
 	// 모든 진료 - 진료 - 목록 - 페이지바

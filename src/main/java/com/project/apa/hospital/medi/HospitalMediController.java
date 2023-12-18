@@ -93,7 +93,6 @@ public class HospitalMediController {
 		return "hospital.medi.today.treatment-detail";
 	}
 
-	// 모든 진료 - 예약 - 목록
 	/**
 	 * 모든 진료에서 예약 목록 페이지를 렌더링하는 메소드입니다.
 	 * 
@@ -112,15 +111,11 @@ public class HospitalMediController {
 		map.put("page", page);
 		map.put("order", order);
 		
-		System.out.println("controller order: "+ order); // old-regdate || last-regdate
-
 		List<AppointmentListDTO> appointmentList = practiceService.getAllAppointmentList(map);
 
 		// 페이지바 생성하기
 		String pagebar = practiceService.getAllAppointmentListPageBar(map);
 		
-		System.out.println(pagebar);
-
 		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("appointmentList", appointmentList);
@@ -167,16 +162,6 @@ public class HospitalMediController {
 
 		return "hospital.medi.all.treatment-list";
 	}
-
-	// 모든 진료 - 진료 - 목록 ajax
-//	@GetMapping(value = "/all/treatment")
-//	public String getAllTreatmentList2(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "old-regdate") String order) {
-//
-//		model.addAttribute("page", page);
-//		model.addAttribute("order", order);
-//
-//		return "hospital.medi.all.treatment-list2";
-//	}
 
 	/**
 	 * 병원 - 내 진료 - 모든 진료 - 진료 상세보기

@@ -293,7 +293,7 @@ button {
 		if (confirm('예약을 승인하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/' + hospitalId + '/medi/appointment/' + appointmentSeq,
+				url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment/' + appointmentSeq,
 				contentType: 'application/json',
 				data: JSON.stringify({ action: 'approve' }),
 				dataType: 'json',
@@ -322,7 +322,7 @@ button {
 		if(confirm('예약을 거절하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/' + hospitalId + '/medi/appointment/' + appointmentSeq,
+				url: '/apa/api/hospital/' + hospitalId + '/medi/today/appointment/' + appointmentSeq,
 				contentType: 'application/json',
 	            data: JSON.stringify({ action: 'decline' }),
 				dataType: 'json',

@@ -226,7 +226,7 @@ table tr td {
 		if (confirm('예약을 승인하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${dto.hospitalId}/medi/appointment/${dto.appointmentSeq}',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
 				contentType: 'application/json',
 				data: JSON.stringify({ action: 'approve' }),
 				dataType: 'json',
@@ -253,7 +253,7 @@ table tr td {
 		if(confirm('예약을 거절하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',
-				url: '/apa/api/hospital/${dto.hospitalId}/medi/appointment/${dto.appointmentSeq}',
+				url: '/apa/api/hospital/${dto.hospitalId}/medi/all/appointment/${dto.appointmentSeq}',
 				contentType: 'application/json',
 				data: JSON.stringify({ action: 'decline' }),
 				dataType: 'json',

@@ -113,9 +113,9 @@ select:hover {
 	color: #CCC;
 }
 
-#search {
+/* #search {
 	border: 1px solid #CCC;
-}
+} */
 
 .sel-appointment-order-area {
 	display: flex;
@@ -130,9 +130,6 @@ select:hover {
 	border: 1px solid #CCC;
 }
 
-#title-area {
-	display: flex;
-}
 </style>
 
 <!-- Begin Page Content -->
@@ -148,12 +145,12 @@ select:hover {
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h5 class="m-0 font-weight-bold text-primary">모든 예약 내역</h5>
-					<div>
+					<!-- <div>
 						<input type="text" name="search" id="search">
 						<button type="button">
 							<i class="fas fa-search"></i>
 						</button>
-					</div>
+					</div> -->
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">

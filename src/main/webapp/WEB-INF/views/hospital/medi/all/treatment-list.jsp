@@ -108,9 +108,9 @@ button {
 	color: tomato;
 }
 
-#search {
+/* #search {
 	border: 1px solid #CCC;
-}
+} */
 
 .sel-treatment-order-area {
 	display: flex;
@@ -140,12 +140,12 @@ button {
 				<div
 					class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h5 class="m-0 font-weight-bold text-primary">모든 진료 내역</h5>
-					<div>
+					<!-- <div>
 						<input type="text" name="search" id="search">
 						<button type="button">
 							<i class="fas fa-search"></i>
 						</button>
-					</div>
+					</div> -->
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
@@ -259,7 +259,6 @@ button {
 	$('#side-main-all > a').attr('aria-expanded', 'true');
 	$('#side-main-all > div').addClass('show');
 	$('#side-sub-all-treatment').css('background-color', '#dddfeb');	
-	
 	
 	function handleOrderChange() {
 		const selectedValue = $('#sel-order').val();

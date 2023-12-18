@@ -167,8 +167,6 @@ textarea {
 			recordContent: $('#recordContent').val()	
 		}
 		
-		//console.log(dto);
-		
 		if (confirm('진료내역서 작성을 완료하시겠습니까?')) {
 			$.ajax({
 				type:'PUT',

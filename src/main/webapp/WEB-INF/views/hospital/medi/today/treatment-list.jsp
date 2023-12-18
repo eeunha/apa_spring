@@ -84,15 +84,15 @@ button {
 }
 
 .list th:nth-child(8) {
-	width: 100px;
+	width: 190px;
 }
 
 .list th:nth-child(9) {
-	width: 120px;
+	width: 110px;
 }
 
 .list th:nth-child(10) {
-	width: 130px;
+	width: 120px;
 }
 
 .list td:nth-child(7) {
