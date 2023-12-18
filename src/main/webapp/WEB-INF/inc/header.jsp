@@ -71,7 +71,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#">의학 상담</a>
+                            <a class="nav-link click-scroll" href="/apa/advice/list.do">의학 상담</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -85,7 +85,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#">커뮤니티</a>
+                            <a class="nav-link click-scroll" href="/apa/community/list.do">커뮤니티</a>
                         </li>
 
 				<sec:authorize access="isAnonymous()">
