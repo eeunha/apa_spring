@@ -33,7 +33,6 @@ public class MemberTest {
 
 		for (MemberDTO dto : list) {
 			dto.setUserpw(encoder.encode(dto.getUserpw()));
-			System.out.println(dto.getUserpw());
 			mapper.encode(dto);
 		}
 
