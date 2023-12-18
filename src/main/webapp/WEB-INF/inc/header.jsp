@@ -116,7 +116,7 @@
 							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="#">내
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/${id}/medi/today/appointment">내
 								진료</a></li>
 						<li class="nav-item ms-3">
 						<form action="/apa/auth/mylogout.do" method="POST">
