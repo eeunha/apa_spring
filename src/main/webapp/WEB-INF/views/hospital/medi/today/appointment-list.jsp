@@ -199,8 +199,7 @@ button {
 				
 				$('.today-date').append('[ ' + year + '년 ' + month + '월 ' + date + '일 ]');
 				
-				
-				if (result.length != 0) {
+				if (result.length != undefined) {
 					
 					// thead
 					const theadData = `
