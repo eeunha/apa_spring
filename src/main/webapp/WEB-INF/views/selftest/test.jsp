@@ -288,7 +288,7 @@
 	
 	function saveResult(totalValue) {
 		
-		if (userSeq == '') {
+		if (userSeq == '-1') {
 			alert("비회원은 저장하실 수 없습니다.")
 			return;
 		}
