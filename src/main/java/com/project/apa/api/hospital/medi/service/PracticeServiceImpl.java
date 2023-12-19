@@ -19,6 +19,14 @@ import com.project.apa.api.hospital.medi.persistence.RecordDAO;
 import com.project.apa.api.hospital.medi.persistence.TreatmentDetailDAO;
 import com.project.apa.api.hospital.medi.persistence.TreatmentListDAO;
 
+/**
+ * 진료 관리 서비스의 구현 클래스입니다.
+ * 병원 내 예약 및 진료와 관련된 다양한 기능을 구현하고 있습니다.
+ * 서비스 레이어에서 비즈니스 로직을 처리합니다.
+ * 
+ * @author Eunha
+ *
+ */
 @Service
 public class PracticeServiceImpl implements PracticeService {
 
@@ -37,7 +45,12 @@ public class PracticeServiceImpl implements PracticeService {
 	@Autowired
 	private RecordDAO recordDAO;
 
-	// 오늘의 진료 - 예약 - 목록
+	/**
+	 * 오늘 예약된 환자 목록과 페이지 정보를 반환합니다.
+	 * 
+	 * @param map 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 오늘 예약된 환자 목록과 페이지 정보
+	 */
 	@Override
 	public Map<String, Object> getTodayAppointmentList(HashMap<String, Object> map) {
 
@@ -70,7 +83,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return result;
 	}
 
-	// 오늘의 진료 - 예약 - 목록 - 페이지바
+	/**
+	 * 오늘 예약된 환자 목록의 페이지바 정보를 반환합니다.
+	 * 
+	 * @param map 페이지 정보 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 페이지바 정보
+	 */
 	@Override
 	public String getTodayAppointmentListPageBar(HashMap<String, Object> map) {
 
@@ -132,7 +150,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return sb.toString();
 	}
 
-	// 오늘의 진료 - 진료 - 목록
+	/**
+	 * 오늘 진료된 환자 목록과 페이지 정보를 반환합니다.
+	 * 
+	 * @param map 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 오늘 진료된 환자 목록과 페이지 정보
+	 */
 	@Override
 	public Map<String, Object> getTodayTreatmentList(HashMap<String, Object> map) {
 
@@ -169,7 +192,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return result;
 	}
 
-	// 오늘의 진료 - 진료 - 목록 - 페이지바
+	/**
+	 * 오늘 진료된 환자 목록의 페이지바 정보를 반환합니다.
+	 * 
+	 * @param map 페이지 정보 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 페이지바 정보
+	 */
 	@Override
 	public String getTodayTreatmentListPageBar(HashMap<String, Object> map) {
 
@@ -231,7 +259,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return sb.toString();
 	}
 
-	// 모든 진료 - 예약 - 목록
+	/**
+	 * 예약된 모든 환자 목록을 조회합니다.
+	 * 
+	 * @param map 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 예약된 모든 환자 목록
+	 */
 	@Override
 	public List<AppointmentListDTO> getAllAppointmentList(HashMap<String, Object> map) {
 
@@ -270,7 +303,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return shortenList;
 	}
 
-	// 모든 진료 - 예약 - 목록 - 페이지바
+	/**
+	 * 예약된 모든 환자 목록의 페이지바 정보를 반환합니다.
+	 * 
+	 * @param map 페이지 정보 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 페이지바 정보
+	 */
 	@Override
 	public String getAllAppointmentListPageBar(HashMap<String, Object> map) {
 
@@ -341,28 +379,48 @@ public class PracticeServiceImpl implements PracticeService {
 		return sb.toString();
 	}
 
-	// 모든 진료 - 예약 - 상세보기
+	/**
+	 * 예약 상세 정보를 조회합니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 예약 상세 정보
+	 */
 	@Override
 	public AppointmentDetailDTO getAppointmentDetail(int appointmentSeq) {
 
 		return appointmentDetailDAO.getAppointmentDetail(appointmentSeq);
 	}
 
-	// 예약 - 승인
+	/**
+	 * 예약을 승인합니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 승인 결과 (성공 시 1, 실패 시 0)
+	 */
 	@Override
 	public int approveAppointment(int appointmentSeq) {
 
 		return appointmentDetailDAO.approveAppointment(appointmentSeq);
 	}
 
-	// 예약 - 거절
+	/**
+	 * 예약을 거절합니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 거절 결과 (성공 시 1, 실패 시 0)
+	 */
 	@Override
 	public int declineAppointment(int appointmentSeq) {
 
 		return appointmentDetailDAO.declineAppointment(appointmentSeq);
 	}
 
-	// 모든 진료 - 진료 - 목록
+	/**
+	 * 모든 진료 목록을 조회합니다.
+	 * 
+	 * @param map 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 모든 진료 목록
+	 */
 	@Override
 	public List<TreatmentListDTO> getAllTreatmentList(HashMap<String, Object> map) {
 
@@ -413,7 +471,12 @@ public class PracticeServiceImpl implements PracticeService {
 		return shortenList;
 	}
 
-	// 모든 진료 - 진료 - 목록 - 페이지바
+	/**
+	 * 모든 진료 목록의 페이지바 정보를 반환합니다.
+	 * 
+	 * @param map 페이지 정보 조회에 필요한 매개변수들이 담긴 HashMap
+	 * @return 페이지바 정보
+	 */
 	@Override
 	public String getAllTreatmentListPageBar(HashMap<String, Object> map) {
 
@@ -488,7 +551,10 @@ public class PracticeServiceImpl implements PracticeService {
 	}
 
 	/**
-	 * 모든 진료 - 상세 진료 내역을 보는 메소드입니다.
+	 * 모든 진료의 상세 정보를 조회합니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 진료의 상세 정보
 	 */
 	@Override
 	public TreatmentDetailDTO getTreatmentDetail(int appointmentSeq) {
@@ -498,6 +564,9 @@ public class PracticeServiceImpl implements PracticeService {
 
 	/**
 	 * 환자를 호출하는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 호출 결과 (성공 시 1, 실패 시 0)
 	 */
 	@Override
 	public int callPatient(int appointmentSeq) {
@@ -506,7 +575,10 @@ public class PracticeServiceImpl implements PracticeService {
 	}
 
 	/**
-	 * 건강검진이나 예방접종의 경우, 진료완료 처리만 진행하는 메소드 입니다.
+	 * 건강검진이나 예방접종의 경우, 진료완료 처리만 진행하는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 완료 처리 결과 (성공 시 1, 실패 시 0)
 	 */
 	@Override
 	public int completeTreatment(String appointmentSeq) {
@@ -516,7 +588,11 @@ public class PracticeServiceImpl implements PracticeService {
 
 	/**
 	 * 진료 내역서의 초기 정보를 가져오는 메소드입니다.
+	 * 
+	 * @param appointmentSeq 예약번호
+	 * @return 초기 진료 내역서 정보
 	 */
+
 	@Override
 	public RecordDTO getInitMediRecord(int appointmentSeq) {
 
@@ -525,6 +601,9 @@ public class PracticeServiceImpl implements PracticeService {
 
 	/**
 	 * 진료 내역서를 작성하는 메소드입니다.
+	 * 
+	 * @param data 진료 내역서 작성에 필요한 데이터
+	 * @return 작성 결과 (성공 시 1, 실패 시 0)
 	 */
 	@Override
 	public int writeMediRecord(Map<String, String> data) {

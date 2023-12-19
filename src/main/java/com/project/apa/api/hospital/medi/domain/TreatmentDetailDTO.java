@@ -2,6 +2,12 @@ package com.project.apa.api.hospital.medi.domain;
 
 import lombok.Data;
 
+/**
+ * 병원 - 내 진료 기능 중 진료 상세 정보를 나타내는 클래스입니다.
+ * 
+ * @author Eunha
+ *
+ */
 @Data
 public class TreatmentDetailDTO {
 	private String appointmentSeq;
