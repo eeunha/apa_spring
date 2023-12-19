@@ -20,8 +20,8 @@
 		        	to_char(appointmentDate, 'yyyy-mm-dd hh24:mi') as appointmentDate, doctorName, symptom, regdate
 		        from vwAppointmentList
 		        where hospitalid = #{id}
-		            <!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
-		            and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27'  
+		            and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd')
+		            <!-- and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27' -->  
 		            and appointmentSeq in (select appointmentSeq from tblAppointmentStatus where status = '승인대기')
 		        order by regdate
 		    ) a
@@ -34,8 +34,8 @@
 		select count(*)
 		from vwAppointmentList
 		where hospitalId = #{id}
-			<!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
-			and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27'
+			and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd')
+			<!-- and to_char(regdate, 'yyyy-mm-dd') = '2023-12-27' -->
 			and status = '승인대기'
 	</select>
 	
@@ -53,7 +53,8 @@
 		        from vwAppointmentList
 		        where hospitalid = #{id}
 		            and status in ('진료대기', '진료중', '진료완료')
-		            and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27'
+		            and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd')
+		            <!-- and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27' -->
 		        order by appointmentDate, appointmentSeq
 		    ) a
 		) 
@@ -66,8 +67,8 @@
 		from vwAppointmentList
 		where hospitalid = #{id}
 		    and status in ('진료대기', '진료중', '진료완료')
-		    and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27'
-		<!-- and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd') -->
+		    <!-- and to_char(appointmentDate, 'yyyy-mm-dd') = '2023-12-27' -->
+			and to_char(regdate, 'yyyy-mm-dd') = to_char((select sysdate from dual), 'yyyy-mm-dd')
 	</select>
 	
 	<!-- 모든 진료 - 예약 - 목록 -->

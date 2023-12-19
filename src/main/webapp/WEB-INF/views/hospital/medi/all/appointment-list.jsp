@@ -116,7 +116,6 @@ select:hover {
 /* #search {
 	border: 1px solid #CCC;
 } */
-
 .sel-appointment-order-area {
 	display: flex;
 }
@@ -129,7 +128,6 @@ select:hover {
 #sel-appointment-order {
 	border: 1px solid #CCC;
 }
-
 </style>
 
 <!-- Begin Page Content -->
@@ -258,6 +256,7 @@ select:hover {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-appointment-order').val();
 
-		location.href = '/apa/hospital/${id}/medi/all/appointment?page=1&order=' + selectedValue;
+		location.href = '/apa/hospital/${id}/medi/all/appointment?page=1&order='
+				+ selectedValue;
 	}
 </script>
