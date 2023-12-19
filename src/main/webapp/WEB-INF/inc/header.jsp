@@ -81,7 +81,7 @@
                                 <li><a class="dropdown-item" href="#">의학 매거진</a></li>
                                 <li><a class="dropdown-item" href="#">질병백과</a></li>
                                	<li>
-								<sec:authorize access="isAuthenticated()">
+								<sec:authorize access="hasRole('ROLE_USER')">
                                 	<a class="dropdown-item" href="/apa/selftest/<sec:authentication property="principal.dto1.userseq"/>/list.do">셀프 테스트</a>
 								</sec:authorize>
 								<sec:authorize access="isAnonymous()">
