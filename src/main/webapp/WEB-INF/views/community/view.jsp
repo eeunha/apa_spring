@@ -169,10 +169,13 @@
 		</table>
 			<div class="bottomBtn">
 			<button type="button" class="back" onclick="location.href='/apa/community/list.do';">뒤로가기</button>
-			
-		<c:if test="${not empty userseq && (dto.userseq == userseq)}"> 
+		
+		<sec:authorize access="hasRole('ROLE_USER')">
+		<sec:authentication property="principal.dto1.userseq" var="principalUserseq" />
+		<c:if test="${principalUserseq == dto.userseq}">
 			<button type="button" class="del" onclick="location.href='/apa/community/del.do?seq=${dto.communityseq}';">삭제하기</button>
-		</c:if> 
+		</c:if>
+		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<button type="button" class="del" onclick="location.href='/apa/community/del.do?seq=${dto.communityseq}';">삭제하기</button>		
 		</sec:authorize>
@@ -218,7 +221,9 @@
 	
 	$('#btnComment').click(function() {
 		let obj = {
+				<sec:authorize access="hasRole('ROLE_USER')">
 				userseq: <sec:authentication property="principal.dto1.userseq"/>,
+				</sec:authorize>
 				communitycommentcontent: $('input[name=comment]').val(),
 				communityseq: $('input[id=communitySeq]').val()
 		};
