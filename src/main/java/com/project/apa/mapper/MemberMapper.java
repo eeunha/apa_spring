@@ -1,5 +1,8 @@
 package com.project.apa.mapper;
 
+
+import java.util.List;
+
 import com.project.apa.auth.model.AuthDTO;
 import com.project.apa.auth.model.HospitalMemberDTO;
 import com.project.apa.auth.model.MemberDTO;
@@ -27,5 +30,6 @@ public interface MemberMapper {
 	PharmacyMemberDTO getPharmacy(PharmacyMemberDTO pharmacydto);
 
 	void addPharmacyAuth(AuthDTO adto);
+	
 
 }

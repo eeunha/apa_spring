@@ -147,10 +147,6 @@
 	<update id="encode4" parameterType="com.project.apa.auth.model.AdminMemberDTO">
       update tbladmin set adminpw = #{adminPw} where adminid = #{adminId}
    </update>
-   
-   
-   <select id="getuserseq" resultType="String">
-   	select userseq from tbluser where userid = #{userid}
-   </select>
+   <select id="getuserseq" resultType="String"> select userseq from tbluser where userid = #{userid} </select>
 	
 </mapper>

@@ -133,7 +133,7 @@
 					$('.card-body').append(`
 						<div class="cardHospital">
 							<i class="fas fa-fw fa-times" id="delete" onclick="deleteFavor(\${item.bookmarkSeq});"></i>
-							<a href="/apa/search/view.do?seq=\${item.hospitalId}">
+							<a href="/apa/search/view.do?seq=\${item.hospitalId}&loginuserseq=\${seq}">
 								<div id="box1">
 									<font id="hName">
 										\${item.hospitalName}

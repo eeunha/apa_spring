@@ -62,30 +62,30 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link click-scroll dropdown-toggle" href="#">병원/약국 찾기</a>
+                            <a class="nav-link click-scroll dropdown-toggle" href="/apa/search/list.do?loginuserseq=${loginuserseq}">병원/약국 찾기</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/apa/search/list.do">병원 찾기</a></li>
+                                <li><a class="dropdown-item" href="/apa/search/list.do?loginuserseq=${loginuserseq}">병원 찾기</a></li>
                                 <li><a class="dropdown-item" href="/apa/search/pharmacylist.do">약국 찾기</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#">의학 상담</a>
+                            <a class="nav-link click-scroll" href="/apa/advice/list.do">의학 상담</a>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link click-scroll dropdown-toggle" href="#">의학 정보</a>
+                            <a class="nav-link click-scroll dropdown-toggle" href="/selftest/${seq}/list.do">의학 정보</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">의학 매거진</a></li>
                                 <li><a class="dropdown-item" href="#">질병백과</a></li>
-                                <li><a class="dropdown-item" href="#">셀프 테스트</a></li>
+                                <li><a class="dropdown-item" href="/selftest/${seq}/list.do">셀프 테스트</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#">커뮤니티</a>
+                            <a class="nav-link click-scroll" href="/apa/community/list.do">커뮤니티</a>
                         </li>
 
 				<sec:authorize access="isAnonymous()">
@@ -99,7 +99,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="/apa/user/${seq}/mypage.do">마이페이지</a>
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/user/<sec:authentication property='principal.dto1.userseq'/>/mypage.do">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3">
 							<form action="/apa/auth/mylogout.do" method="POST">
@@ -113,7 +113,7 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_HOSPITAL')">
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/counseling/list.do">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3"><a
 							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/${id}/medi/today/appointment">내
@@ -142,7 +142,7 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/admin/user.do">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3"><form action="/apa/auth/mylogout.do" method="POST">
 								<div>

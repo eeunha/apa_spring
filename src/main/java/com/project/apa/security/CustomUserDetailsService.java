@@ -31,11 +31,16 @@ public class CustomUserDetailsService implements UserDetailsService{
 		  if (sel.equals("1") || sel.equals("0")) {
 			  AdminMemberDTO dto4 = mapper.adminread(username);
 			  MemberDTO dto1 = mapper.read(username);
+			  System.out.println("안녕" );
 			//MemberDTO > 시큐리티에서 사용(변환) > CustomUser
+			  
+			  System.out.println(dto4 == null);
+			  System.out.println(dto1 ==  null);
 //			  
 			  if(dto1 != null) {
 //		      return dto1 != null ? new CustomUser(dto1) : null;
 
+				  System.out.println(dto1.getUserpw());
 				  return new CustomUser(dto1);
 			  } 
 			  else if (dto4 != null) {

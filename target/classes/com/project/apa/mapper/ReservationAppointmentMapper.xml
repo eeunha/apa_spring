@@ -16,7 +16,7 @@
 
 	<insert id="addHospitalAppintmentStatus">
 		insert into tblAppointmentStatus (appointmentStatusSeq,appointmentSeq,status)
-			values (seqAppointmentStatus.nextVal, (select max(appointmentSeq) from tblAppointment), default)
+			values (seqAppointmentStatus.nextVal, (select max(appointmentSeq) from tblAppointment), '승인대기')
 	</insert>
 	<insert id="addPharmacyAppintment" parameterType="com.project.apa.api.search.model.ReservationPharmacyAppointmentDTO">
 		insert into tblDispenseList (dispenseListSeq, appointmentSeq, pharmacyId, pickUpWay, regdate)
@@ -25,7 +25,7 @@
 
 	<insert id="addPharmacyAppintmentStatus">
 		insert into tblDispenseStatus (dispenseStatusSeq,dispenseListSeq,dispenseStatus,regdate)
-			values (seqDispenseStatus.nextVal, (select max(dispenseListSeq) from tblDispenseList), default,null)
+			values (seqDispenseStatus.nextVal, (select max(dispenseListSeq) from tblDispenseList), '제조대기',null)
 	</insert>
 
 </mapper>

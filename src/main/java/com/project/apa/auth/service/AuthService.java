@@ -22,4 +22,5 @@ public class AuthService {
 	
 	@Autowired
 	private AuthDAO authdao;
+
 }

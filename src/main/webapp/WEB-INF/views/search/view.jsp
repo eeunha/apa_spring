@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <style>
 </style>
 <main>
@@ -12,7 +13,7 @@
 					<button type="button" id="bookmark-button"
 						class="bookmark-icon-link bi-star-fill"
 						<c:forEach items="${bookmarkcount}" var="dto">
-									<c:if test="${dto.userseq == '1'}">
+									<c:if test="${dto.userseq == loginuserseq}">
 										    style="color: gold;"
 									</c:if>
 								</c:forEach>></button>
@@ -116,8 +117,6 @@
 			<div id="map" style="width: auto; height: 400px;"></div>
 			<!-- 지도를 담을 영역 만들기 -->
 		</div>
-		<sec:authorize access="isAnonymous()">
-		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<sec:authorize access="hasRole('ROLE_USER')">
 			<div class="container">
@@ -222,7 +221,7 @@
 						</div>
 					</div>
 					<p>${reviewlist.reviewContent}</p>
-				</div> 
+				</div> 	
 				</c:forEach>
 			</div>
 			<hr>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <body>
 	
 	<!-- /reservation/select.jsp -->	
@@ -98,7 +99,7 @@
 					</c:if>
 				</table>
 				<input type="hidden" name="hospitalid" value="${hospitalid}">
-				<input type="hidden" name="userseq" value="1">
+				<input type="hidden" name="userseq" value="${userseq}">
 				<input type="hidden" name="treatmentway" value="${choicetype}">
 				<input type="hidden" name="doctorseq" value="${choicedoc}">
 				<input type="hidden" name="appointmentdate" value="${choicedate} ${choicetime}:00">

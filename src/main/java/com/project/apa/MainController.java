@@ -8,11 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.project.apa.api.user.service.UserService;
-import com.project.apa.mapper.MainMapper;
+
 
 @Controller
 public class MainController {
-
 	@Autowired
 	private UserService userService;
 
@@ -24,6 +23,7 @@ public class MainController {
 		String userSeq = userService.getUserSeq(id);
 		
 		model.addAttribute("seq", userSeq);
+		model.addAttribute("loginuserseq", userSeq);
 		model.addAttribute("id", id);
 		
 		return "main";

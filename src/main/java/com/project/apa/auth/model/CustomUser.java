@@ -7,8 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.project.apa.auth.service.AuthService;
-
 import lombok.Getter;
 
 @Getter
@@ -18,7 +16,6 @@ public class CustomUser extends User{
 	private HospitalMemberDTO dto2;
 	private PharmacyMemberDTO dto3;
 	private AdminMemberDTO dto4;
-	private AuthService service;
 	
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -27,6 +24,7 @@ public class CustomUser extends User{
 	public CustomUser(MemberDTO dto) {		
 		super(dto.getUserid(), dto.getUserpw(), dto.getAuthlist().stream()
 				.map(auth -> new SimpleGrantedAuthority(auth.getUserauth())).collect(Collectors.toList()));
+		
 		this.dto1= dto;
 	}
 	
