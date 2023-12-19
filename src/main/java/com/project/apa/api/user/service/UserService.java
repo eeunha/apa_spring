@@ -103,5 +103,7 @@ public interface UserService {
 	List<SelfTestDTO> getSelfTestResult(String seq);
 
 	int saveTestResult(SelfTestDTO dto);
+
+	String getUserSeq(String id);
  
 }

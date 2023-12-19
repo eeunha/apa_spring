@@ -25,4 +25,6 @@ public class UserDTO {
 	private String userTels;
 	private String userTelm;
 	private String userTele;
+	
+	private String inputCurrentPw;
 }

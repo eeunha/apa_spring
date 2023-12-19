@@ -1,9 +1,9 @@
 package com.project.apa.api.user.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,13 +25,16 @@ import com.project.apa.api.user.domain.UserMyCommunityDTO;
 import com.project.apa.api.user.domain.UserRecordDTO;
 import com.project.apa.api.user.domain.UserReviewDTO;
 import com.project.apa.api.user.service.UserService;
+import com.project.apa.mapper.AuthMapper;
 
 @RestController
 public class RestUserController {
 
 	@Autowired
 	private UserService userService;
-	
+
+	@Autowired
+	private PasswordEncoder encoder;	
 	
 	//내 정보 조회
 	@GetMapping(value="/api/user/{seq}/mypage")
@@ -61,9 +64,17 @@ public class RestUserController {
 	@PutMapping(value="/api/user/{seq}/mypage")
 	public int editUser(@RequestBody UserDTO dto, @PathVariable("seq") String seq) {
 		
+		UserDTO pdto = userService.getUser(seq);
+		
+		if (!encoder.matches(dto.getInputCurrentPw(), pdto.getUserPw())) {
+		    return -5;
+		}
+		
 		String tel = dto.getUserTels() + "-" + dto.getUserTelm() + "-" + dto.getUserTele();
 		
 		dto.setUserTel(tel);
+		
+		dto.setUserPw(encoder.encode(dto.getUserPw()));
 		
 		return userService.editUser(dto);
 	}
