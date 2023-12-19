@@ -119,7 +119,7 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_HOSPITAL')">
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/counseling/list.do">마이페이지</a>
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/counseling/${id}/list.do">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3"><a
 							class="nav-link custom-btn custom-border-btn btn" href="/apa/hospital/${id}/medi/today/appointment">내
