@@ -99,6 +99,25 @@
 	#delete-user:hover {
 		text-decoration: none;
 	}
+	
+	#btn {
+		border: 0;
+		margin-left: 10px;
+		width: 3em;
+ 		color: #1cc88a;
+		font-size: 1em;
+		border-radius: 0.35rem;
+		background-color: #edf0f7;		
+	}
+
+	#btn:hover {
+		background-color: #dddfeb;		
+	}
+
+	.disabled {
+		cursor: not-allowed;
+		background-color: #d3d3d3;			
+	}
 
 </style>
 <!-- <nav
@@ -152,10 +171,10 @@
 									<input type="text" name="id" id="id" disabled>
 								</div>
 								<div class="my-info-input-child">
-									<input type="password" name="pw" id="pw" maxlength="16">
+									<input type="password" name="pw" id="pw" maxlength="16" class="disabled" disabled><button id="btn">OFF</button>
 								</div>
 								<div class="my-info-input-child">
-									<input type="password" name="pw-confirm" id="pw-confirm" maxlength="16"><input type="text" id="message" disabled>
+									<input type="password" name="pw-confirm" id="pw-confirm" maxlength="16" class="disabled" disabled><input type="text" id="message" disabled>
 								</div>
 								<div class="my-info-input-child">
 									<input type="text" size="7" name="ssn1" id="ssn1" disabled> - 
@@ -210,6 +229,24 @@
 	const userSeq = $('input[name=seq]').val();
 	
 	loadLink(userSeq);
+
+    var isOn = true;
+    $("#btn").on("click", function() {
+        isOn = !isOn;
+        if (isOn) {
+            $(this).text('OFF');
+            $("#pw").prop('disabled', true);
+            $("#pw-confirm").prop('disabled', true);
+            $("#pw").addClass('disabled');
+            $("#pw-confirm").addClass('disabled');
+        } else {
+            $(this).text('ON');
+            $("#pw").prop('disabled', false);
+            $("#pw-confirm").prop('disabled', false);
+            $("#pw").removeClass('disabled');
+            $("#pw-confirm").removeClass('disabled');
+        }
+	});
 	
 	function loadLink(seq) {
 	    myPage.setAttribute('href', '/apa/user/' + seq + '/mypage.do');
@@ -326,7 +363,7 @@
 		checkAll();
 		
 		function checkAll(){
-		    if (!validatePassword(id.value, pw.value, pwConfirm.value)){
+		    if (!pw.disabled && !validatePassword(id.value, pw.value, pwConfirm.value)){
 		        return false;
 		    } else if(!checkMail(email.value)){
 		        return false;
@@ -345,8 +382,6 @@
 		}
 		
 		function validatePassword(id, pw, pwchecked) {
-		    if(!checkExistData(pw, "비밀번호를"))
-		        return false;
 		    var pwRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 		    if(!pwRegExp.test(pw)){
 		        alert("비밀번호는 영문 대소문자와 특수문자, 숫자 4~12자리로 입력해야합니다!");

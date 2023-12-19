@@ -8,8 +8,10 @@
 	
 	<update id="editUser" parameterType="com.project.apa.api.user.domain.UserDTO">
 		UPDATE tblUser SET 
-			userName = #{userName}, 
-			userPw = #{userPw}, 
+			userName = #{userName},
+	        <if test="userPw != ''">
+	            userPw = #{userPw}, 
+	        </if>
 			userTel = #{userTel}, 
 			userEmail = #{userEmail}, 
 			userAddress = #{userAddress} 

@@ -74,7 +74,9 @@ public class RestUserController {
 		
 		dto.setUserTel(tel);
 		
-		dto.setUserPw(encoder.encode(dto.getUserPw()));
+		if (!dto.getUserPw().equals("")) {
+			dto.setUserPw(encoder.encode(dto.getUserPw()));
+		}
 		
 		return userService.editUser(dto);
 	}
