@@ -192,3 +192,29 @@
 	</ul>
 
 </nav>
+<script>
+<sec:authorize access="hasRole('ROLE_USER')">
+<sec:authentication property="principal.dto1.userseq" var="principalUserseq" />
+if (${principalUserseq != seq}) {
+	location.href = "/apa/auth/accesserror.do";
+}
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_HOSPITAL')">
+<sec:authentication property="principal.dto2.hospitalId" var="principalHospitalId" />
+if (${principalHospitalId != id}) {
+   location.href = "/apa/auth/accesserror.do";
+}
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_PHARMACY')">
+<sec:authentication property="principal.dto3.pharmacyId" var="principalPharmacyId" />
+if (${principalPharmacyId != id}) {
+   location.href = "/apa/auth/accesserror.do";
+}
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authentication property="principal.dto4.adminId" var="principalAdminId" />
+if (${principalAdminId != id}) {
+   location.href = "/apa/auth/accesserror.do";
+}
+</sec:authorize>
+</script>

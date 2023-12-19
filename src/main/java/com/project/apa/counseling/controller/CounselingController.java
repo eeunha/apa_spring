@@ -29,10 +29,10 @@ public class CounselingController {
 	@Autowired
 	private CounselingDAO dao;
 	
-	@GetMapping(value = "/list.do")
-	public String waitingList(Model model) {
+	@GetMapping(value = "/{id}/list.do")
+	public String waitingList(@PathVariable String id, Model model) {
 		
-
+		model.addAttribute("id", id);
 		
 		return "hospital.counseling.list";
 	}
