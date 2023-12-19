@@ -80,10 +80,16 @@
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">의학 매거진</a></li>
                                 <li><a class="dropdown-item" href="#">질병백과</a></li>
-                                <li><a class="dropdown-item" href="#">셀프 테스트</a></li>
+                               	<li>
+								<sec:authorize access="isAuthenticated()">
+                                	<a class="dropdown-item" href="/apa/selftest/<sec:authentication property="principal.dto1.userseq"/>/list.do">셀프 테스트</a>
+								</sec:authorize>
+								<sec:authorize access="isAnonymous()">
+                                	<a class="dropdown-item" href="/apa/selftest/-1/list.do">셀프 테스트</a>
+								</sec:authorize>
+                               	</li>
                             </ul>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#">커뮤니티</a>
                         </li>
