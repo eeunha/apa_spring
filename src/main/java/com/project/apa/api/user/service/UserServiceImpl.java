@@ -283,4 +283,10 @@ public class UserServiceImpl implements UserService {
 
 		return userDAO.saveTestResult(dto);
 	}
+	
+	@Override
+	public String getUserSeq(String id) {
+
+		return userDAO.getUserSeq(id);
+	}
 }

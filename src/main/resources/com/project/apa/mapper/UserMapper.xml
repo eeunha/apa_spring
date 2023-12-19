@@ -8,8 +8,10 @@
 	
 	<update id="editUser" parameterType="com.project.apa.api.user.domain.UserDTO">
 		UPDATE tblUser SET 
-			userName = #{userName}, 
-			userPw = #{userPw}, 
+			userName = #{userName},
+	        <if test="userPw != ''">
+	            userPw = #{userPw}, 
+	        </if>
 			userTel = #{userTel}, 
 			userEmail = #{userEmail}, 
 			userAddress = #{userAddress} 
@@ -372,5 +374,9 @@
 	<insert id="saveTestResult" parameterType="com.project.apa.api.user.domain.SelfTestDTO">
 		INSERT INTO tblMediTestSave VALUES (seqMediTestSave.nextVal, #{meditestSeq}, #{userSeq}, #{meditestTotalScore}, DEFAULT)
 	</insert>
+	
+	<select id="getUserSeq" parameterType="String" resultType="String">
+		SELECT userSeq FROM tblUser WHERE userID = #{id}
+	</select>
 	
 </mapper>

@@ -103,5 +103,7 @@ public interface UserMapper {
 	List<SelfTestDTO> getSelfTestResult(String seq);
 
 	int saveTestResult(SelfTestDTO dto);
+
+	String getUserSeq(String id);
 	
 }
