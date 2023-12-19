@@ -246,7 +246,7 @@ select:hover {
 <!-- /.container-fluid -->
 
 <script>
-	const hospitalId = 'yonse';
+	//const hospitalId = 'yonse';
 
 	//사이드바 css설정
 	$('#side-main-all > a').addClass('collapsed');
@@ -258,7 +258,6 @@ select:hover {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-appointment-order').val();
 
-		location.href = '/apa/hospital/' + hospitalId
-				+ '/medi/all/appointment?page=1&order=' + selectedValue;
+		location.href = '/apa/hospital/${id}/medi/all/appointment?page=1&order=' + selectedValue;
 	}
 </script>

@@ -57,6 +57,7 @@ public class HospitalMediController {
 
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.today.appointment-detail";
@@ -66,6 +67,7 @@ public class HospitalMediController {
 	@GetMapping(value = "/today/treatment")
 	public String getTodayTreatmentList(Model model, @PathVariable String id, @RequestParam(defaultValue = "1") int page) {
 
+		model.addAttribute("id", id);
 		model.addAttribute("page", page);
 
 		return "hospital.medi.today.treatment-list";
@@ -78,6 +80,7 @@ public class HospitalMediController {
 		// 기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.today.medi-record";
@@ -89,6 +92,7 @@ public class HospitalMediController {
 
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.today.treatment-detail";
@@ -117,6 +121,7 @@ public class HospitalMediController {
 		// 페이지바 생성하기
 		String pagebar = practiceService.getAllAppointmentListPageBar(map);
 		
+		model.addAttribute("id", id);
 		model.addAttribute("order", order);
 		model.addAttribute("pagebar", pagebar);
 		model.addAttribute("appointmentList", appointmentList);
@@ -136,6 +141,7 @@ public class HospitalMediController {
 
 		AppointmentDetailDTO dto = practiceService.getAppointmentDetail(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.all.appointment-detail";
@@ -176,6 +182,7 @@ public class HospitalMediController {
 
 		TreatmentDetailDTO dto = practiceService.getTreatmentDetail(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.all.treatment-detail";
@@ -187,6 +194,7 @@ public class HospitalMediController {
 		// 기본 내용 가져오기 - 예약번호, 병원이름, 의사이름
 		RecordDTO dto = practiceService.getInitMediRecord(appointmentSeq);
 
+		model.addAttribute("id", id);
 		model.addAttribute("dto", dto);
 
 		return "hospital.medi.all.medi-record";
@@ -197,6 +205,7 @@ public class HospitalMediController {
 
 		List<PatientDTO> patientList = patientService.getPatientList(id);
 
+		model.addAttribute("id", id);
 		model.addAttribute("patientList", patientList);
 
 		return "hospital.medi.patient";

@@ -251,7 +251,7 @@ button {
 
 <script>
 
-	const hospitalId = 'yonse';
+	//const hospitalId = 'yonse';
 
 	//사이드바 css설정
 	$('#side-main-all > a').addClass('collapsed');
@@ -263,8 +263,7 @@ button {
 	function handleOrderChange() {
 		const selectedValue = $('#sel-order').val();
 
-		location.href = '/apa/hospital/' + hospitalId
-				+ '/medi/all/treatment?page=1&order=' + selectedValue;
+		location.href = '/apa/hospital/${id}/medi/all/treatment?page=1&order=' + selectedValue;
 	}
 	
 </script>
