@@ -58,7 +58,7 @@ public class HospitalMediController {
 	 */
 	@GetMapping(value = "/today/appointment")
 	public String getToadyAppointmentList(Model model, @PathVariable String id, @RequestParam(defaultValue = "1") int page) {
-
+		
 		model.addAttribute("id", id);
 		model.addAttribute("page", page);
 

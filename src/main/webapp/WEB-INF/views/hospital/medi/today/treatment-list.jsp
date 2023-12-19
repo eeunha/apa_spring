@@ -193,7 +193,7 @@ button {
 				$('.today-date').append('[ ' + year + '년 ' + month + '월 ' + date + '일 ]');
 				
 				
-				if (result.length != undefined) {
+				if (result.list.length != 0) {
 					
 					//예약이 있을 경우
 					
