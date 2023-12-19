@@ -207,7 +207,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/meditest',
+			url: '/apa/api/user/' + seq + '/mybox/meditest',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -239,7 +239,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mymedicounselquestion',
+			url: '/apa/api/user/' + seq + '/mybox/mymedicounselquestion',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -273,7 +273,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/etcmedicounselquestion',
+			url: '/apa/api/user/' + seq + '/mybox/etcmedicounselquestion',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -307,7 +307,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/mycommunity',
+			url: '/apa/api/user/' + seq + '/mybox/mycommunity',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -343,7 +343,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/mymeditest.do', '의학테스트 결과', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('/apa/user/' + seq + '/mymeditest.do', '의학테스트 결과', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 
@@ -353,7 +353,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/mymediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('/apa/user/' + seq + '/mymediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 
@@ -363,7 +363,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/etcmediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('/apa/user/' + seq + '/etcmediquestion.do', '의학상담 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 	
@@ -373,7 +373,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/mycommunitydetail.do', '커뮤니티 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);				
+        window.open('/apa/user/' + seq + '/mycommunitydetail.do', '커뮤니티 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);				
 	}	
 	
 	function deleteMyCounsel(qseq, aseq) {
@@ -386,7 +386,7 @@
 			
 			$.ajax({
 				type: 'DELETE',
-				url: 'http://localhost:8090/apa/api/user/' + qseq + '/' + aseq + '/mybox/deletemycounsel',
+				url: '/apa/api/user/' + qseq + '/' + aseq + '/mybox/deletemycounsel',
 				beforeSend : function(xhr) {
 	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	            },
@@ -413,7 +413,7 @@
 			
 			$.ajax({
 				type: 'DELETE',
-				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deleteetccounsel',
+				url: '/apa/api/user/' + seq + '/mybox/deleteetccounsel',
 				beforeSend : function(xhr) {
 	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	            },
@@ -439,7 +439,7 @@
 			
 			$.ajax({
 				type: 'DELETE',
-				url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/deletecommunity',
+				url: '/apa/api/user/' + seq + '/mybox/deletecommunity',
 				beforeSend : function(xhr) {
 	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	            },

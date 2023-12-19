@@ -235,7 +235,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/getusercommunitydetail',
+			url: '/apa/api/user/' + seq + '/mybox/getusercommunitydetail',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -270,7 +270,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/getusercommunitycomment',
+			url: '/apa/api/user/' + seq + '/mybox/getusercommunitycomment',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -302,7 +302,7 @@
 		
 		$.ajax({
 			type: 'PUT',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/usercommunityupdate',
+			url: '/apa/api/user/' + seq + '/mybox/usercommunityupdate',
 			headers: {'Content-Type': 'application/json'},
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

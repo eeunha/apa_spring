@@ -146,7 +146,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/selftest',
+			url: '/apa/api/user/' + seq + '/selftest',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -179,7 +179,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/selftest/answercontent',
+			url: '/apa/api/user/' + seq + '/selftest/answercontent',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -250,7 +250,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/selftest/result',
+			url: '/apa/api/user/' + seq + '/selftest/result',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },

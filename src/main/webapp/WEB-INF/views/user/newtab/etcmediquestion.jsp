@@ -183,7 +183,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/etcmedicounselquestiondetail',
+			url: '/apa/api/user/' + seq + '/mybox/etcmedicounselquestiondetail',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },

@@ -293,7 +293,7 @@ small {
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/insertreview',
+			url: '/apa/api/user/' + seq + '/mymedi/insertreview',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -409,7 +409,7 @@ small {
     		
     		$.ajax({
     			type: 'POST',
-    			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/insertreviewok',
+    			url: '/apa/api/user/' + seq + '/mymedi/insertreviewok',
     			headers: {'Content-Type': 'application/json'},
     			beforeSend : function(xhr) {
                     xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

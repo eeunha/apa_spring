@@ -120,7 +120,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/myreview',
+			url: '/apa/api/user/' + seq + '/myreview',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -167,7 +167,7 @@
 			
 			$.ajax({
 				type: 'PUT',
-				url: 'http://localhost:8090/apa/api/user/' + seq +'/myreview/deletereview',
+				url: '/apa/api/user/' + seq +'/myreview/deletereview',
 				beforeSend : function(xhr) {
 	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	            },

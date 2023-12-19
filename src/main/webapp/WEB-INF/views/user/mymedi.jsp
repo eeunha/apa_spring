@@ -170,7 +170,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/appointment',
+			url: '/apa/api/user/' + seq + '/mymedi/appointment',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -207,7 +207,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mymedi/record',
+			url: '/apa/api/user/' + seq + '/mymedi/record',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -246,7 +246,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/myrecord.do', '진료 내역', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('/apa/user/' + seq + '/myrecord.do', '진료 내역', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 
@@ -256,7 +256,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        var newWin = window.open('http://localhost:8090/apa/user/' + seq + '/insertreview.do', '리뷰 작성', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        var newWin = window.open('/apa/user/' + seq + '/insertreview.do', '리뷰 작성', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
         
         var timer = setInterval(function() { 
             if(newWin.closed) {

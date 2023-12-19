@@ -212,7 +212,7 @@
 		
 		$.ajax ({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+			url: '/apa/api/user/' + seq + '/mychild',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
@@ -312,7 +312,7 @@
 		
 		$.ajax({
 			type: 'PUT',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+			url: '/apa/api/user/' + seq + '/mychild',
 			headers: {'Content-Type': 'application/json'},
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -337,7 +337,7 @@
 		if(confirm('정말로 탈퇴하시겠습니까?')) {
 			$.ajax({
 				type: 'PATCH',
-				url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+				url: '/apa/api/user/' + seq + '/mychild',
 				beforeSend : function(xhr) {
 	                xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 	            },
@@ -368,7 +368,7 @@
 		
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mychild',
+			url: '/apa/api/user/' + seq + '/mychild',
 			headers: {'Content-Type': 'application/json'},
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -406,7 +406,7 @@
 		
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/myfirstchild',
+			url: '/apa/api/user/' + seq + '/myfirstchild',
 			headers: {'Content-Type': 'application/json'},
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

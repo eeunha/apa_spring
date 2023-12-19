@@ -101,7 +101,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8090/apa/api/user/' + seq + '/mybox/detailmeditest',
+			url: '/apa/api/user/' + seq + '/mybox/detailmeditest',
 			beforeSend : function(xhr) {
                 xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
             },
