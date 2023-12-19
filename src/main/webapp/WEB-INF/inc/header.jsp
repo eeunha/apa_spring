@@ -99,7 +99,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<sec:authorize access="hasRole('ROLE_USER')">
 						<li class="nav-item ms-3"><a
-							class="nav-link custom-btn custom-border-btn btn" href="#">마이페이지</a>
+							class="nav-link custom-btn custom-border-btn btn" href="/apa/user/${seq}/mypage.do">마이페이지</a>
 						</li>
 						<li class="nav-item ms-3">
 							<form action="/apa/auth/mylogout.do" method="POST">

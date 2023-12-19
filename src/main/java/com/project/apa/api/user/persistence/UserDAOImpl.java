@@ -284,4 +284,9 @@ public class UserDAOImpl implements UserDAO {
 		return userMapper.saveTestResult(dto);
 	}
 	
+	@Override
+	public String getUserSeq(String id) {
+
+		return userMapper.getUserSeq(id);
+	}
 }

@@ -373,4 +373,8 @@
 		INSERT INTO tblMediTestSave VALUES (seqMediTestSave.nextVal, #{meditestSeq}, #{userSeq}, #{meditestTotalScore}, DEFAULT)
 	</insert>
 	
+	<select id="getUserSeq" parameterType="String" resultType="String">
+		SELECT userSeq FROM tblUser WHERE userID = #{id}
+	</select>
+	
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <style>
 
 	input {
@@ -116,7 +117,7 @@
 	</div>
 </nav> -->
 <div class="container-fluid">
-
+	
 	<!-- Content Row -->
 
 	<div class="row">
@@ -177,8 +178,8 @@
 							</div>
 						</div>
 						<%-- <input type="hidden" name="id" value="${dto.userId}" id="id"> --%>
-						<input type="hidden" name="currentPw" id="currentPw">
-						<input type="hidden" name="seq" value="${seq}" id="seq">
+<!-- 						<input type="hidden" name="currentPw" id="currentPw"> -->
+						<input type="hidden" name="seq" value="<sec:authentication property="principal.dto1.userseq"/>" id="seq">
 						<div id="info-update-btn">
 							<button id="update-btn" onsubmit="return checkAll()" onclick="edit(${seq})">수정하기</button>
 						</div>
@@ -190,11 +191,14 @@
 	</div>
 </div>
 <script>
+	const id = document.getElementById('id');
 	const pw = document.getElementById('pw');
 	const pwConfirm = document.getElementById('pw-confirm');
+	const name = document.getElementById('name');
+	const email = document.getElementById('email');
 	const message = document.getElementById('message');
 	const btn = document.getElementById('update-btn');
-	const currentPw = document.getElementById('currentPw');
+// 	const currentPw = document.getElementById('currentPw');
 	const inputCurrentPw = document.getElementById('inputCurrentPw');
 	const myPage = document.getElementById('myPage');
 	const myInfo = document.getElementById('myInfo');
@@ -223,7 +227,11 @@
 	load(${seq});
 	
 	function load(seq) {
-
+		pw.value = '';
+		pwConfirm.value = '';
+		inputCurrentPw.value = '';
+		message.value = '';
+		
 		$.ajax({
 			type: 'GET',
 			url: 'http://localhost:8090/apa/api/user/' + seq + '/mypage',
@@ -235,15 +243,14 @@
 				$('input[name=seq]').val(dto.userSeq),
 				$('input[name=id]').val(dto.userId),
 				$('input[name=name]').val(dto.userName),
-				$('input[name=pw]').val(dto.userPw),
 				$('input[name=ssn1]').val(dto.userSSNs),
 				$('input[name=ssn2]').val(dto.maskingSSN),
 				$('input[name=tel1]').val(dto.userTels),
 				$('input[name=tel2]').val(dto.userTelm),
 				$('input[name=tel3]').val(dto.userTele),
 				$('input[name=email]').val(dto.userEmail),
-				$('input[name=address]').val(dto.userAddress),				
-				$('input[name=currentPw]').val(dto.userPw)				
+				$('input[name=address]').val(dto.userAddress)				
+// 				$('input[name=currentPw]').val(dto.userPw)				
 			},
 			error: (a,b,c) => {
 				console.log(a,b,c);
@@ -271,30 +278,30 @@
 		
 	}
 	
-	function currentPwCheck() {
+// 	function currentPwCheck() {
 
-		if (currentPw.value != inputCurrentPw.value) {
-			btn.type = "button";
-		} else {
-			btn.type = "submit";
-		}
+// 		if (currentPw.value != inputCurrentPw.value) {
+// 			btn.type = "button";
+// 		} else {
+// 			btn.type = "submit";
+// 		}
 		
-	}
+// 	}
 	
 	
-	function changePassword() {
+// 	function changePassword() {
 		
-		if (pw.value != currentPw.value) {
+// 		if (pw.value != currentPw.value) {
 				
-			pwConfirm.setAttribute('required', '');
+// 			pwConfirm.setAttribute('required', '');
 			
-		} else if (pw.value == currentPw.value) {
+// 		} else if (pw.value == currentPw.value) {
 			
-			pwConfirm.removeAttribute('required');					
+// 			pwConfirm.removeAttribute('required');					
 			
-		}
+// 		}
 		
-	}
+// 	}
 	
 	// 이벤트 리스너를 추가하여 'pw-confirm'의 값이 변경될 때마다 함수를 실행합니다.
 	pwConfirm.addEventListener('keyup', checkPassword);
@@ -312,73 +319,78 @@
 	});
 	
 	
-	function checkAll(){
-	    if (!validatePassword(form.id.value, form.pw.value, form['pw-confirm'].value)){
-	        return false;
-	    } else if(!checkMail(form.email.value)){
-	        return false;
-	    } else if(!checkName(form.name.value)){
-	        return false;
-	    }
-	    return true;
-	}
-	
-	function checkExistData(value, dataName){
-	    if(value == ""){
-	        alert(dataName + "입력해주세요!");
-	        return false;
-	    }
-	    return true;
-	}
-	
-	function validatePassword(id, pw, pwchecked) {
-	    if(!checkExistData(pw, "비밀번호를"))
-	        return false;
-	    var pwRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-	    if(!pwRegExp.test(pw)){
-	        alert("비밀번호는 영문 대소문자와 특수문자, 숫자 4~12자리로 입력해야합니다!");
-	        form.pw.value = "";
-	        form.pw.focus();
-	        return false;
-	    }
-	
-	    if(id == pw){
-	        alert("아이디와 비밀번호는 같을 수 없습니다!");
-	        form.pw.value = "";
-	        form['pw-confirm'].value = "";
-	        form['pw-confirm'].focus();
-	        return false;
-	    }
-	    return true;
-	}
-	
-	function checkMail(email){
-	    if(!checkExistData(email, "이메일을"))
-	        return false;
-	    var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-	    if(!emailRegExp.test(email)){
-	        alert("이메일 형식이 올바르지 않습니다!");
-	        form.email.value = "";
-	        form.email.focus();
-	        return false;
-	    }
-	    return true;
-	
-	}
-	
-	function checkName(name){
-	    if(!checkExistData(name, "이름을"))
-	        return false;
-	
-	    var nameRegExp = /^[가-힣]{2,10}$/;
-	    if(!nameRegExp.test(name)){
-	        alert("이름이 올바르지 않습니다.");
-	        return false;
-	    }
-	    return true;
-	}
+
 	
 	function edit(seq) {
+		
+		checkAll();
+		
+		function checkAll(){
+		    if (!validatePassword(id.value, pw.value, pwConfirm.value)){
+		        return false;
+		    } else if(!checkMail(email.value)){
+		        return false;
+		    } else if(!checkName(name.value)){
+		        return false;
+		    }
+		    return true;
+		}
+		
+		function checkExistData(value, dataName){
+		    if(value == ""){
+		        alert(dataName + "입력해주세요!");
+		        return false;
+		    }
+		    return true;
+		}
+		
+		function validatePassword(id, pw, pwchecked) {
+		    if(!checkExistData(pw, "비밀번호를"))
+		        return false;
+		    var pwRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+		    if(!pwRegExp.test(pw)){
+		        alert("비밀번호는 영문 대소문자와 특수문자, 숫자 4~12자리로 입력해야합니다!");
+		        pw.value = "";
+		        pw.focus();
+		        return false;
+		    }
+		
+		    if(id == pw){
+		        alert("아이디와 비밀번호는 같을 수 없습니다!");
+		        pw.value = "";
+		        pwConfirm.value = "";
+		        pwConfirm.focus();
+		        return false;
+		    }
+		    return true;
+		}
+		
+		function checkMail(email){
+		    if(!checkExistData(email, "이메일을"))
+		        return false;
+		    var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+		    if(!emailRegExp.test(email)){
+		        alert("이메일 형식이 올바르지 않습니다!");
+		        email.value = "";
+		        email.focus();
+		        return false;
+		    }
+		    return true;
+		
+		}
+		
+		function checkName(name){
+		    if(!checkExistData(name, "이름을"))
+		        return false;
+		    var nameRegExp = /^[가-힣]{2,10}$/;
+		    if(!nameRegExp.test(name)){
+		        alert("이름이 올바르지 않습니다.");
+		        name.value = "";
+		        name.focus();		        
+		        return false;
+		    }
+		    return true;
+		}
 		
 		let obj = {
 			userSeq: $('input[name=seq]').val(),
@@ -388,7 +400,8 @@
 			userTelm: $('input[name=tel2]').val(),
 			userTele: $('input[name=tel3]').val(),
 			userEmail: $('input[name=email]').val(),
-			userAddress: $('input[name=address]').val()
+			userAddress: $('input[name=address]').val(),
+			inputCurrentPw: $('input[name=inputCurrentPw]').val()
 		};
 		
 		$.ajax({
@@ -401,9 +414,13 @@
 			data: JSON.stringify(obj),
 			dataType: 'json',
 			success: result => {
-				alert("정상적으로 수정하였습니다.");
 				if (result == 1) {
+					alert("정상적으로 수정하였습니다.");
 					load(seq);
+				} else if (result == -5){
+					alert('현재 비밀번호가 다릅니다.')
+			        inputCurrentPw.value = "";
+			        inputCurrentPw.focus();	
 				} else {
 					alert('failed');
 				}
