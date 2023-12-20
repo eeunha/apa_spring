@@ -301,7 +301,7 @@
 
 					$.ajax({
 						type : 'POST',
-						url : 'http://localhost:8090/apa/search/bookmark',
+						url : '/apa/search/bookmark',
 						headers : { 
 							'Content-Type' : 'application/json'
 						},

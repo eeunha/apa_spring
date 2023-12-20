@@ -12,7 +12,8 @@ public class AdviceDTO {
 	private String regdate;
 	private String departmentname;
 	private int userseq;
-	private int medicounselanswerseq;
+	//private int medicounselanswerseq;
+	private int seq;
 	private int begin;
 	private int end;
 	
@@ -21,7 +22,7 @@ public class AdviceDTO {
 	private String counselanswercontent;
 	private String answerdate;
 	private int helpedcount;
-	private int departmentSeq;
+	private int departmentseq;
 	private String sort;
 	
 

@@ -37,7 +37,6 @@ public interface UserMapper {
 	 * 내 정보 수정
 	 * 
 	 * @param dto 유저 DTO
-	 * @param seq 유저 번호
 	 * @return 성공시 1 실패시 0 혹은 -5
 	 */
 	int editUser(UserDTO dto);
@@ -126,7 +125,6 @@ public interface UserMapper {
 	 * 리뷰 작성 완료
 	 * 
 	 * @param dto 회원 리뷰 DTO
-	 * @param seq 병원 예약 번호
 	 * @return 성공시 1 실패시 0
 	 */
 	int insertReviewOK(UserReviewDTO dto);
@@ -254,7 +252,7 @@ public interface UserMapper {
 	/**
 	 * 커뮤니티 내 글 상세 조회
 	 * 
-	 * @param 커뮤니티 글 번호
+	 * @param seq 커뮤니티 글 번호
 	 * @return 커뮤니티 내 글 상세 정보
 	 */
 	UserMyCommunityDTO getUserMyCommunityDetail(String seq);
@@ -271,7 +269,6 @@ public interface UserMapper {
 	 * 커뮤니티 내 글 수정
 	 * 
 	 * @param dto 커뮤니티 DTO
-	 * @param seq 커뮤니티 글 번호
 	 * @return 성공시 1 실패시 0
 	 */
 	int userCommunityUpdate(UserMyCommunityDTO dto);

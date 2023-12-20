@@ -315,7 +315,7 @@ a {
 			};
 			$.ajax({
 				type: 'POST',
-				url: 'http://localhost:8090/apa/hospital/counseling/counselingwaitinglist',
+				url: '/apa/hospital/counseling/counselingwaitinglist',
 				headers : {'Content-Type' : 'application/json'
 				},
 				beforeSend : function(xhr) {

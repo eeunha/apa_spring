@@ -118,7 +118,7 @@ public interface PracticeService {
     /**
      * 주어진 예약 번호에 해당하는 진료를 완료 처리합니다.
      * 
-     * @param appointmentSeq 완료 처리할 예약 번호
+     * @param string 완료 처리할 예약 번호
      * @return 완료 처리 성공 시 1, 실패 시 0
      */
 	int completeTreatment(String string);
