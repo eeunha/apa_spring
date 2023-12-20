@@ -41,7 +41,7 @@ public class AdviceRepositoryImp implements AdviceRepository {
 			
 			// Elasticsearch 클라이언트 생성
 			RestHighLevelClient client = new RestHighLevelClient(
-					RestClient.builder(new HttpHost("172.26.176.1", 9200, "http")));
+					RestClient.builder(new HttpHost("localhost", 9200, "http")));
 
 			// 인덱스 선택  // 검색 요청 생성
 			SearchRequest searchRequest = new SearchRequest("advice");
