@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.project.apa.mapper.MainMapper;
 import com.zaxxer.hikari.HikariDataSource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,15 +21,15 @@ import com.zaxxer.hikari.HikariDataSource;
 public class MyBatisTest {
 
 	@Autowired
-	private SqlSessionTemplate template;
+	private MainMapper mapper;
 	
 	@Test
 	public void testQuery() {
 		
-		int count = template.selectOne("rest.test");
+		int count = mapper.test();
 		
-		assertNotNull(template);
-		assertEquals(8, count);
+		assertNotNull(mapper);
+		assertEquals(301, count);
 	}
 	
 	@Test

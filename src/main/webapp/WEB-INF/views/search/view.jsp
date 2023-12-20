@@ -10,13 +10,18 @@
 			<div class="review-grid">
 				<h2>${dto.hospitalname}</h2>
 				<div class="social-icon-item">
+				<sec:authorize access="isAuthenticated()">
+					<sec:authorize access="hasRole('ROLE_USER')">
 					<button type="button" id="bookmark-button"
 						class="bookmark-icon-link bi-star-fill"
 						<c:forEach items="${bookmarkcount}" var="dto">
-									<c:if test="${dto.userseq == loginuserseq}">
-										    style="color: gold;"
-									</c:if>
-								</c:forEach>></button>
+							<c:if test="${dto.userseq == loginuserseq}">
+									    style="color: gold;"
+							</c:if>
+						</c:forEach>>
+					</button>
+					</sec:authorize>
+				</sec:authorize>
 				</div>
 			</div>
 			<div class="hospital-info-flex">
@@ -270,7 +275,7 @@
 			function() {
 				var color = $(this).css('color');
 				let obj = {
-					userseq : 1,
+					userseq : '${loginuserseq}',
 					hospitalid : '${dto.hospitalid}'
 				};
 				if ($("#bookmark-button").css('color') === 'rgb(255, 215, 0)') {
