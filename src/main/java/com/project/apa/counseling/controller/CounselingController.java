@@ -72,10 +72,11 @@ public class CounselingController {
      * @return 상담 대기 상세 페이지의 뷰 이름
      */
 	@GetMapping(value = "/waitingview.do")
-	public String view(Model model, int mediCounselQuestionSeq, String doctorSeq) {
+	public String view(Model model, int mediCounselQuestionSeq, String doctorSeq, String hospitalId) {
 		
 		CounselingDTO counselingdto = dao.get(mediCounselQuestionSeq);
 		
+		model.addAttribute("id", hospitalId);
 		model.addAttribute("counselingdto", counselingdto);
 		model.addAttribute("doctorSeq",doctorSeq);
 
@@ -92,7 +93,7 @@ public class CounselingController {
      * @return 리다이렉트 URL
      */
 	@PostMapping(value="/answeraddok.do")
-	public String answeraddok(int mediCounselQuestionSeq, int doctorSeq, String counselAnswerContent) {
+	public String answeraddok(int mediCounselQuestionSeq, int doctorSeq, String counselAnswerContent, String hospitalId) {
 		CounselingDTO counselingdto = new CounselingDTO();
 		counselingdto.setCounselAnswerContent(counselAnswerContent);
 		counselingdto.setDoctorSeq(doctorSeq);
@@ -106,7 +107,7 @@ public class CounselingController {
 		
 		
 		
-		return "redirect:/hospital/counseling/list.do";
+		return "redirect:/hospital/counseling/" + hospitalId + "/list.do";
 
 	}
 	
@@ -120,10 +121,11 @@ public class CounselingController {
      * @return 상담 완료 상세 페이지의 뷰 이름
      */
 	@GetMapping(value = "/completeview.do")
-	public String completeview(Model model, int mediCounselQuestionSeq, int doctorSeq, int mediCounselAnswerSeq) {
+	public String completeview(Model model, int mediCounselQuestionSeq, int doctorSeq, int mediCounselAnswerSeq, String hospitalId) {
 		
 		CounselingDTO counselingdto = dao.getcomplete(mediCounselQuestionSeq);
 	
+		model.addAttribute("id", hospitalId);
 		model.addAttribute("counselingdto", counselingdto);
 		model.addAttribute("doctorSeq",doctorSeq);
 

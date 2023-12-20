@@ -12,7 +12,7 @@
 	</a>
 
 	<!-- Nav Item - Dashboard -->
-	<li class="nav-item active"><a class="nav-link" href="index.html">
+	<li class="nav-item active"><a class="nav-link" href="/apa/hospital/counseling/${id}/list.do">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>MyPage</span>
 	</a></li>
 
@@ -44,7 +44,7 @@
 <!-- 	<div class="sidebar-heading">Addons</div> -->
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="/apa/hospital/counseling/list.do"
+	<li class="nav-item"><a class="nav-link collapsed" href="/apa/hospital/counseling/${id}/list.do"
 		data-toggle="collapse" data-target="#collapsePages"
 		aria-expanded="true" aria-controls="collapsePages"> <i
 			class="fas fa-fw fa-folder"></i> <span>의학상담</span>
