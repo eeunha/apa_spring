@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
 	<div class="container my-auto">
 		<div class="copyright text-center my-auto">
-			<span>아파! 어디가?</span> <span>Copyright &copy; Your Website 2021</span>
+			<span>Copyright &copy; 아파! 어디가? 2023</span>
 		</div>
 	</div>
 	<!-- Logout Modal-->
