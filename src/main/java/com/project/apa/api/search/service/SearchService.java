@@ -268,7 +268,7 @@ public class SearchService {
 	
 	  /**
      * 특정 약국의 정보를 가져오는 메서드
-     * @param seq 약국 번호
+     * @param parmacyseq 약국 번호
      * @return 특정 약국의 정보
      */
 

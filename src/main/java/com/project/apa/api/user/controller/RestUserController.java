@@ -456,7 +456,7 @@ public class RestUserController {
 	/**
 	 * 커뮤니티 내 글 상세 조회
 	 * 
-	 * @param 커뮤니티 글 번호
+	 * @param seq 커뮤니티 글 번호
 	 * @return 커뮤니티 내 글 상세 정보
 	 */
 	@GetMapping(value = "/api/user/{seq}/mybox/getusercommunitydetail")

@@ -371,7 +371,7 @@ public class UserDAOImpl implements UserDAO {
 	/**
 	 * 커뮤니티 내 글 상세 조회
 	 * 
-	 * @param 커뮤니티 글 번호
+	 * @param seq 커뮤니티 글 번호
 	 * @return 커뮤니티 내 글 상세 정보
 	 */
 	@Override
@@ -396,7 +396,6 @@ public class UserDAOImpl implements UserDAO {
 	 * 커뮤니티 내 글 수정
 	 * 
 	 * @param dto 커뮤니티 DTO
-	 * @param seq 커뮤니티 글 번호
 	 * @return 성공시 1 실패시 0
 	 */
 	@Override
