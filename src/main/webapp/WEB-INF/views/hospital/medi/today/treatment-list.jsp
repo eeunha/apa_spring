@@ -5,6 +5,17 @@
 <!-- treatment.jsp -->
 
 <style>
+button {
+	border: none;
+	border-radius: 5px;
+	color: #858796;
+	cursor: pointer;
+	background-color: #edf0f7;
+}
+
+button:hover {
+	background-color: #dddfeb;
+}
 
 .list tr {
 	height: 40px;
@@ -36,13 +47,6 @@
 
 .list tr td button:hover {
 	background-color: #CCC;
-}
-
-button {
-	border: none;
-	border-radius: 5px;
-	color: #858796;
-	cursor: pointer;
 }
 
 .null-msg {

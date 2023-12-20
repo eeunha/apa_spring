@@ -12,11 +12,13 @@ button {
 	width: 100px;
 	height: 40px;
 	margin-right: 10px;
+	background-color: #edf0f7;
 }
 
 button:hover {
-	background-color: #CCC;
+	background-color: #dddfeb;
 }
+
 
 #btnArea {
 	margin: 10px auto;
