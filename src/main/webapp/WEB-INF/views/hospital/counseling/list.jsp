@@ -332,7 +332,7 @@ a {
 						if (item.iscounselanswer == 'N') {
 							let temp = `
 								<tr>
-									<td><a href="/apa/hospital/counseling/waitingview.do?mediCounselQuestionSeq=\${item.mediCounselQuestionSeq}&doctorSeq=\${doctorSeq}">\${item.counseltitle}</a></td>
+									<td><a href="/apa/hospital/counseling/waitingview.do?mediCounselQuestionSeq=\${item.mediCounselQuestionSeq}&doctorSeq=\${doctorSeq}&hospitalId=\${hospitalId}">\${item.counseltitle}</a></td>
 									<td>\${item.username}</td>
 									<td class="date">\${item.regdate}</td>
 								</tr> 
@@ -341,7 +341,7 @@ a {
 						} else {
 							let temp = `
 								<tr>
-									<td><a href="/apa/hospital/counseling/completeview.do?mediCounselQuestionSeq=\${item.mediCounselQuestionSeq}&doctorSeq=\${doctorSeq}&mediCounselAnswerSeq=\${item.mediCounselAnswerSeq}">\${item.counseltitle}</a></td>
+									<td><a href="/apa/hospital/counseling/completeview.do?mediCounselQuestionSeq=\${item.mediCounselQuestionSeq}&doctorSeq=\${doctorSeq}&mediCounselAnswerSeq=\${item.mediCounselAnswerSeq}&hospitalId=\${hospitalId}">\${item.counseltitle}</a></td>
 									<td>\${item.username}</td>
 									<td class="date">\${item.regdate}</td>
 								</tr>
