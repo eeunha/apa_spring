@@ -24,34 +24,49 @@ import com.project.apa.api.pharmacy.service.DispenseService;
 import com.project.apa.api.pharmacy.service.PharmacyInfoService;
 import com.project.apa.mapper.PharmacyMapper;
 
-
-
-
+/**
+ * PharmacyController는 약국 정보와 관련된 페이지를 관리하는 컨트롤러입니다.
+ * @author 김민정
+ */
 @Controller
 @RequestMapping("/pharmacy/{id}")
 //@RequestMapping("/pharmacy/sla0623")
 public class PharmacyController {
 	Logger logger = Logger.getLogger(PharmacyController.class.getName());
 	
+	 // PharmacyMapper 객체에 대한 주입
 	@Autowired
 	private PharmacyMapper mapper;
 	
+	// PharmacyInfoService 객체에 대한 주입
 	@Autowired
 	private PharmacyInfoService service;
 	
+	// DispenseService 객체에 대한 주입
 	@Autowired
 	private DispenseService dispenseService;
 	
+	// DispenseDAO 객체에 대한 주입
 	@Autowired
 	private DispenseDAO dispenseDAO;
-
+	
+	// DispenseRepository 객체에 대한 주입 (엘라스틱서치)
 	@Autowired
 	private DispenseRepository repo;	//엘라스틱서치
 	
+	// DispenseService 객체를 매개변수로 받는 생성자
 	public PharmacyController(DispenseService dispenseService) {
         this.dispenseService = dispenseService;
     }
 	
+	
+	/**
+     * 약국 정보 페이지를 보여주는 메소드입니다.
+     *
+     * @param model Model 객체
+     * @param id 약국 ID
+     * @return pharmacy.info 페이지의 뷰 이름
+     */
 	  @GetMapping("/info.do")
 	 //public String info(Model model, @RequestParam("id") String id) {
 		public String info(Model model, @PathVariable("id") String id) {
@@ -79,6 +94,13 @@ public class PharmacyController {
 	    }
 	
 	
+	/**
+     * 약국 오픈 정보를 가져와서 모델에 추가한 후, pharmacy.opening 페이지를 반환합니다.
+     *
+     * @param model 모델 객체
+     * @param id 약국 ID
+     * @return pharmacy.opening 페이지
+     */
 	@GetMapping(value = "/opening.do")
 	//public String opening(Model model, @RequestParam("id") String id) {
 		public String opening(Model model, @PathVariable("id") String id) {	 
@@ -88,6 +110,16 @@ public class PharmacyController {
 		return "pharmacy.opening";
 	}
 	
+	/**
+     * 전체 조제 목록을 가져오거나, 검색어를 통해 엘라스틱서치에서 데이터를 조회합니다.
+     * 목록을 가져온 후, 모델에 데이터를 추가하고, pharmacy.dispenselist 페이지를 반환합니다.
+     *
+     * @param model 모델 객체
+     * @param id 약국 ID
+     * @param word 검색어
+     * @param page 페이지 정보
+     * @return pharmacy.dispenselist 페이지
+     */
 	//전제 조제 목록
 	@GetMapping(value = "/dispenselist.do")
 		public String dispenselist(Model model, @PathVariable("id") String id, String word
@@ -166,7 +198,14 @@ public class PharmacyController {
 	}
 	
 	
-	
+	/**
+	 * 대기 중인 조제 상태의 목록을 가져와서 페이지네이션된 데이터를 반환합니다.
+	 *
+	 * @param model 모델 객체
+	 * @param id 약국 ID
+	 * @param page 페이지 정보
+	 * @return pharmacy.dispensewaiting 페이지
+	 */
 	
 	@GetMapping(value = "/dispensewaiting.do")
 	//public String dispensewaiting(Model model, @RequestParam("id") String id){
@@ -233,6 +272,14 @@ public class PharmacyController {
 		return "pharmacy.dispensewaiting";
 	}
 	
+	/**
+	 * 진행 중인 조제 상태의 목록을 가져와서 페이지네이션된 데이터를 반환합니다.
+	 *
+	 * @param model 모델 객체
+	 * @param id 약국 ID
+	 * @param page 페이지 정보
+	 * @return pharmacy.dispensing 페이지
+	 */
 	@GetMapping(value = "/dispensing.do")
 	//public String dispensing(Model model, @RequestParam("id") String id){
 		public String dispensing(Model model, @PathVariable("id") String id, @ModelAttribute("page") String page) {
@@ -298,6 +345,14 @@ public class PharmacyController {
 	}
 	
 	
+	/**
+	 * 완료된 조제 상태의 목록을 가져와서 페이지네이션된 데이터를 반환합니다.
+	 *
+	 * @param model 모델 객체
+	 * @param id 약국 ID
+	 * @param page 페이지 정보
+	 * @return pharmacy.dispensecomplete 페이지
+	 */
 	@GetMapping(value = "/dispensecomplete.do")
 	//public String dispensecomplete(Model model, @RequestParam("id") String id){
 		public String dispensecomplete(Model model, @PathVariable("id") String id, @ModelAttribute("page") String page) {
@@ -363,7 +418,14 @@ public class PharmacyController {
 		return "pharmacy.dispensecomplete";
 	}
 	
-	
+	/**
+	 * 픽업 완료된 조제 상태의 목록을 가져와서 페이지네이션된 데이터를 반환합니다.
+	 *
+	 * @param model 모델 객체
+	 * @param id 약국 ID
+	 * @param page 페이지 정보
+	 * @return pharmacy.dispensepickup 페이지
+	 */
 	@GetMapping(value = "/dispensepickup.do")
 	public String dispensepickup(Model model, @PathVariable("id") String id, @ModelAttribute("page") String page) {
 		

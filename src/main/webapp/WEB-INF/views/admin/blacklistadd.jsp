@@ -55,7 +55,7 @@
 	
 	    $.ajax({
 	        type: 'POST',
-	        url: 'http://localhost:8090/apa/admin/blacklistadd',
+	        url: '/apa/admin/blacklistadd',
 	        headers: {'Content-Type': 'application/json', '${_csrf.headerName}': '${_csrf.token}'},
 	        data: JSON.stringify(obj),
 	        dataType: 'json',

@@ -233,7 +233,7 @@ thead tr:nth-child(3) th {
 			};
 			$.ajax({
 				type: 'POST',
-				url: 'http://localhost:8090/apa/search/reservation/finddoc',
+				url: '/apa/search/reservation/finddoc',
 				headers : {'Content-Type' : 'application/json'
 				},
 				beforeSend : function(xhr) {

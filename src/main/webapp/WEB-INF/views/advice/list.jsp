@@ -125,8 +125,11 @@
 					<div class="answer-content">${dto.counselanswercontent}</div>
 					<div
 						style="display: flex; justify-content: flex-end; margin-top: 7px;">
-						<button type="button" class="storage"
-							value="${dto.medicounselanswerseq}" name="medicounselanswerseq">보관</button>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authorize access="hasRole('ROLE_USER')">
+						<button type="button" class="storage" value="${dto.medicounselanswerseq}" name="medicounselanswerseq">보관</button>
+							</sec:authorize>
+						</sec:authorize>
 						<button type="button" class="helped" value="도움">도움됐어요</button>
 					</div>
 				</div>
@@ -137,10 +140,14 @@
 
 
 
+						<sec:authorize access="isAuthenticated()">
+							<sec:authorize access="hasRole('ROLE_USER')">
 		<div id="regist-btn">
 			<a href="/apa/advice/add.do"><button id="counselregist"
 					type="button">의학상담 등록하기</button></a>
 		</div>
+			</sec:authorize>
+						</sec:authorize>
 	</div>
 </main>
 
@@ -166,14 +173,15 @@
 	function box(){
 	$('button[name=medicounselanswerseq]').click(function(){
 		let medicounselanswerseq = $(this).val();
+		let userseq = ${loginuserseq};
 		let obj = {
-			userSeq: <sec:authentication property="principal.dto1.userseq"/>,
+			userSeq: userseq,
 			medicounselanswerseq: medicounselanswerseq
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/advice/storage',
+			url: '/apa/advice/storage',
 			headers: {'Content-Type':'application/json'},
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -201,7 +209,7 @@
 			};
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/advice/findlist',
+			url: '/apa/advice/findlist',
 			headers: {'Content-Type':'application/json'},
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

@@ -111,7 +111,7 @@
 	
 	        $.ajax({
 	            type: 'POST',
-	            url: 'http://localhost:8090/apa/admin/commentreportapprove',
+	            url: '/apa/admin/commentreportapprove',
 	            headers: {
 	                'Content-Type': 'application/json',
 	                '${_csrf.headerName}': '${_csrf.token}'
@@ -135,7 +135,7 @@
 	
 	        $.ajax({
 	            type: 'POST',
-	            url: 'http://localhost:8090/apa/admin/commentreportdecline',
+	            url: '/apa/admin/commentreportdecline',
 	            headers: {
 	                'Content-Type': 'application/json',
 	                '${_csrf.headerName}': '${_csrf.token}'

@@ -230,7 +230,7 @@
 		console.log(JSON.stringify(obj));
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/community/commentadd',
+			url: '/apa/community/commentadd',
 			headers: {'Content-Type':'application/json'},
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
@@ -270,7 +270,7 @@
 			if(confirm('댓글을 삭제하시겠습니까?')){
 				$.ajax({
 					type:'POST',
-					url: 'http://localhost:8090/apa/community/commentdel',
+					url: '/apa/community/commentdel',
 					headers: {'Content-Type':'application/json'},
 					beforeSend : function(xhr) {
 						xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

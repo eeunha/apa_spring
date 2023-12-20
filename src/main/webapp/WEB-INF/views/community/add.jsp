@@ -93,7 +93,7 @@ function add(){
 	//alert(JSON.stringify(obj));
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:8090/apa/community/add',
+		url: '/apa/community/add',
 		headers: {'Content-Type':'application/json'},
 		beforeSend : function(xhr) {
 			xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

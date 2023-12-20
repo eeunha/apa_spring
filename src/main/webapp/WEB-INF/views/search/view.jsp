@@ -276,7 +276,7 @@
 				if ($("#bookmark-button").css('color') === 'rgb(255, 215, 0)') {
 					$.ajax({
 						type : 'POST',
-						url : 'http://localhost:8090/apa/search/bookmarkout',
+						url : '/apa/search/bookmarkout',
 						headers : {
 							'Content-Type' : 'application/json'
 						},

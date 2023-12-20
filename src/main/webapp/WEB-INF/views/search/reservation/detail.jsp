@@ -121,7 +121,7 @@
 			let parmacyseq = $(event.target).val();
 			$.ajax({
 				type : 'POST',
-				url : 'http://localhost:8090/apa/search/reservation/pharmacychoice',
+				url : '/apa/search/reservation/pharmacychoice',
 				headers : { 
 					'Content-Type' : 'application/json'
 				},
@@ -155,7 +155,7 @@
 			let childseq = $(event.target).val();
 			$.ajax({
 				type : 'POST',
-				url : 'http://localhost:8090/apa/search/reservation/child',
+				url : '/apa/search/reservation/child',
 				headers : { 
 					'Content-Type' : 'application/json'
 				},

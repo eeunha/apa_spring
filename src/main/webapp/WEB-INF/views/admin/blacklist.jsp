@@ -159,7 +159,7 @@
 			            // 선택된 blacklistSeq 값을 서버로 전송
 			            $.ajax({
 			                type: 'POST',
-			                url: 'http://localhost:8090/apa/admin/blacklistdel',
+			                url: '/apa/admin/blacklistdel',
 			                headers: {
 			                    'Content-Type': 'application/json',
 			                    '${_csrf.headerName}': '${_csrf.token}'

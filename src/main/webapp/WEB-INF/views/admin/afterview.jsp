@@ -200,7 +200,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8090/apa/admin/afteredit',
+                url: '/apa/admin/afteredit',
                 headers: {
                     'Content-Type': 'application/json',
                     '${_csrf.headerName}': '${_csrf.token}'

@@ -71,7 +71,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="/apa/advice/list.do">의학 상담</a>
+                            <a class="nav-link click-scroll" href="/apa/advice/list.do?loginuserseq=${loginuserseq}">의학 상담</a>
                         </li>
 
                         <li class="nav-item dropdown">

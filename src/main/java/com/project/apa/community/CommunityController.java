@@ -14,13 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.apa.api.community.domain.CommunityCommentDTO;
 import com.project.apa.api.community.domain.CommunityDTO;
 import com.project.apa.api.community.service.CommunityService;
-
+/**
+ * 커뮤니티 관련 기능을 처리하는 컨트롤러 클래스
+ */
 @Controller
 public class CommunityController {
 
 	@Autowired
 	private CommunityService communityservice;
-	
+    /**
+     * 커뮤니티 리스트 페이지 요청 처리
+     * @param page 페이지 번호
+     * @param model Spring MVC 모델
+     * @return 리스트 페이지 뷰 이름
+     */	
 	@GetMapping(value = "/community/list.do")
 	public String list(String page, Model model) {
 		
@@ -94,6 +101,12 @@ public class CommunityController {
 		return "community.list";
 	}
 	
+    /**
+     * 커뮤니티 상세 페이지 요청 처리
+     * @param model Spring MVC 모델
+     * @param seq 커뮤니티 글 번호
+     * @return 상세 페이지 뷰 이름
+     */	
 	//상세페이지
 	//댓글불러오기
 	@GetMapping(value = "/community/view.do")
@@ -111,14 +124,22 @@ public class CommunityController {
 		model.addAttribute("communitycommentseq", listComment);
 		return "community.view";
 	}
-	
+    /**
+     * AJAX를 통해 댓글 리스트 가져오기
+     * @param seq 커뮤니티 글 번호
+     * @return 댓글 리스트
+     */
 	@GetMapping(value = "/community/getCommentList")
 	@ResponseBody
 	public List<CommunityCommentDTO> getCommentList(String seq) {
 		
 	    return communityservice.getCommentList(seq);
 	}
-	
+    /**
+     * 댓글 추가 처리
+     * @param dto 댓글 정보
+     * @return 처리 결과 코드
+     */	
 	@PostMapping(value = "/community/commentadd")
 	@ResponseBody
 	public int commentadd(@RequestBody CommunityCommentDTO dto) {
@@ -128,7 +149,12 @@ public class CommunityController {
 		
 		return communityservice.commentadd(dto);
 	}
-	
+    /**
+     * 댓글 삭제 처리
+     * @param dto 댓글 정보
+     * @param communitycommentseq 댓글 번호
+     * @return 처리 결과 코드
+     */
 	@PostMapping(value="/community/commentdel")
 	@ResponseBody
 	public int commentdel(@RequestBody CommunityCommentDTO dto, String communitycommentseq) {
@@ -138,14 +164,22 @@ public class CommunityController {
 		
 		return communityservice.commentdel(dto);
 	}
-	
+    /**
+     * 커뮤니티 추가 페이지 요청 처리
+     * @param model Spring MVC 모델
+     * @return 추가 페이지 뷰 이름
+     */
 	@GetMapping(value = "/community/add.do")
 	public String add(Model model) {
 		
 		
 		return "community.add";
 	}
-	
+    /**
+     * 커뮤니티 추가 처리
+     * @param dto 커뮤니티 정보
+     * @return 처리 결과 코드
+     */
 	@PostMapping(value = "/community/add")
 	@ResponseBody
 	public int add(@RequestBody CommunityDTO dto) {

@@ -133,7 +133,7 @@ textarea{
 		//alert(JSON.stringify(obj));
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8090/apa/advice/add',
+			url: '/apa/advice/add',
 			headers: {'Content-Type':'application/json'},
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');

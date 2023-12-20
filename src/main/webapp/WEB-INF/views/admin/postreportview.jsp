@@ -112,7 +112,7 @@
 	
 	        $.ajax({
 	            type: 'POST',
-	            url: 'http://localhost:8090/apa/admin/postreportdecline',
+	            url: '/apa/admin/postreportdecline',
 	            headers: {
 	                'Content-Type': 'application/json',
 	                '${_csrf.headerName}': '${_csrf.token}'
@@ -136,7 +136,7 @@
 	
 	        $.ajax({
 	            type: 'POST',
-	            url: 'http://localhost:8090/apa/admin/postreportapprove',
+	            url: '/apa/admin/postreportapprove',
 	            headers: {
 	                'Content-Type': 'application/json',
 	                '${_csrf.headerName}': '${_csrf.token}'
@@ -159,7 +159,7 @@
     	
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8090/apa/admin/postprivate',
+            url: '/apa/admin/postprivate',
             headers: {
                 'Content-Type': 'application/json',
                 '${_csrf.headerName}': '${_csrf.token}'
@@ -181,7 +181,7 @@
     	
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8090/apa/admin/cautionAdd',
+            url: '/apa/admin/cautionAdd',
             headers: {
                 'Content-Type': 'application/json',
                 '${_csrf.headerName}': '${_csrf.token}'
