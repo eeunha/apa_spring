@@ -2,6 +2,7 @@ package com.project.apa.advice;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.apa.api.advice.domain.AdviceDTO;
 import com.project.apa.api.advice.persistence.AdviceDAO;
+import com.project.apa.api.advice.persistence.AdviceRepository;
 import com.project.apa.api.advice.service.AdviceService;
 
 @Controller
@@ -24,6 +26,9 @@ public class AdviceController {
 	@Autowired
 	private AdviceService adviceservice;
 	
+	@Autowired
+	private AdviceRepository repo;
+	
 
     /**
      * 진료과 목록과 게시물 목록을 가져와서 페이지에 표시하는 메서드
@@ -32,7 +37,7 @@ public class AdviceController {
      * @return advice.list 뷰 페이지
      */	
 	@GetMapping(value = "/advice/list.do")
-	public String list(String page, Model model, String loginuserseq) {
+	public String list(String page, Model model, String loginuserseq, String word) {
 		 
 		// 진료과 목록을 가져오는 비즈니스 로직 수행
 		List<AdviceDTO> listDepartment = adviceservice.getDepartmentList();
@@ -68,6 +73,8 @@ public class AdviceController {
 		map.put("end", end);
 
 		
+		//오라클
+		if(word == null || word.equals("")) { 
 		 // AdviceDTO 목록을 가져오는 비즈니스 로직 수행
 		List<AdviceDTO> list = adviceservice.getAdviceList(map);
 
@@ -128,6 +135,14 @@ public class AdviceController {
 		model.addAttribute("loop", loop);
 		model.addAttribute("blockSize", blockSize);
 		
+		} else {
+			
+			//엘라스틱서치
+			List<Map<String,Object>> searchlist =  repo.search(word);
+			model.addAttribute("list", searchlist);
+			model.addAttribute("word", word);
+			
+		}
 		return "advice.list";
 
 	}

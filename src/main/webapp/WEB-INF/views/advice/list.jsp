@@ -93,19 +93,50 @@
 	font-size: 18px;
 	margin-bottom: 5px;
 }
+
+
+
+#searchBtn{
+		border: 0;
+		background-color: #dadce2;
+		color: #424263;
+		width: 4em;
+		height: 2em;
+		border-radius: 0.35rem;
+		font-size: 1em;
+	}
+#search {
+    display: flex;
+    justify-content: flex-end;
+}	
+
+.forms-container {
+    display: flex;
+    justify-content: space-between; /* 각 요소를 가능한 넓게 펼쳐서 정렬합니다. */
+    align-items: center; /* 세로 가운데 정렬을 위해 필요할 수 있습니다. */
+
 </style>
 <main>
 	<div class="maindiv">
 		<h1>의학상담</h1>
+		
 		<h6>무엇이든 물어보세요. 전문의사가 답해드립니다!</h6>
+		
+		<div class="forms-container"> 
 		<form>
 			<select name="departmentSeq" id="departmentselect" required>
 				<option style="text-align: center;">진료과 선택</option>
 				<c:forEach items="${listDepartment}" var="dto" varStatus="loop">
-					<option value="${dto.departmentSeq}">${dto.departmentname}</option>
+					<option value="${dto.departmentseq}">${dto.departmentname}</option>
 				</c:forEach>
 			</select>
 		</form>
+		<form method="GET" action="list.do" id="search">
+			<input type="text" name="word" class="middle"  required
+				placeholder="검색어를 입력하세요" value="${word}"> <input id ="searchBtn"
+				type="submit" value="검색">
+		</form>
+		</div>
 
 		<div id="advice-list">
 			<c:forEach items="${list}" var="dto" varStatus="loop">
@@ -127,7 +158,8 @@
 						style="display: flex; justify-content: flex-end; margin-top: 7px;">
 						<sec:authorize access="isAuthenticated()">
 							<sec:authorize access="hasRole('ROLE_USER')">
-						<button type="button" class="storage" value="${dto.medicounselanswerseq}" name="medicounselanswerseq">보관</button>
+						<%-- <button type="button" class="storage" value="${dto.medicounselanswerseq}" name="medicounselanswerseq">보관</button> --%>
+						<button type="button" class="storage" value="${dto.seq}" name="medicounselanswerseq">보관</button>
 							</sec:authorize>
 						</sec:authorize>
 						<button type="button" class="helped" value="도움">도움됐어요</button>
@@ -172,11 +204,13 @@
 	//보관함
 	function box(){
 	$('button[name=medicounselanswerseq]').click(function(){
-		let medicounselanswerseq = $(this).val();
+//		let medicounselanswerseq = $(this).val();
+		let seq = $(this).val();
 		let userseq = ${loginuserseq};
 		let obj = {
 			userSeq: userseq,
-			medicounselanswerseq: medicounselanswerseq
+			//medicounselanswerseq: medicounselanswerseq
+			seq: seq
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
