@@ -152,33 +152,33 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
 										</div>
 										<div id="my-info-input">
 											<div class="my-info-input-child">
-												<input type="text" name="pharmacyName" value="아무약국" required>
+												<input type="text" name="pharmacyName"  required>
 											</div>
 											<div class="my-info-input-child">
-												<input type="text" size="3" id="ssn1" name="ssn1" value="123"> -
-												<input type="text" size="2" id="ssn2" name="ssn2" value="45"> -
-												<input type="text" size="5" id="ssn3" name="ssn3" value="678901">
+												<input type="text" size="3" id="ssn1" name="ssn1"> -
+												<input type="text" size="2" id="ssn2" name="ssn2"> -
+												<input type="text" size="5" id="ssn3" name="ssn3">
 											</div>
 											<div class="my-info-input-child">
-												<input type="text" name="pharmacyId" value="jhw02043" required>
+												<input type="text" name="pharmacyId" required>
 											</div>
 											<div class="my-info-input-child">
-												<input type="password" name="pharmacyPw" value="!52Ekdrms"
+												<input type="password" name="pharmacyPw" 
 													required>
 											</div>
 											<div class="my-info-input-child">
-												<input type="password" name="pwchecked" value="!52Ekdrms"
+												<input type="password" name="pwchecked" 
 													required>
 											</div>
 											<div class="my-info-input-child">
-												<input type="text" name="tel1" size="4" value="010" required>
-												- <input type="text" name="tel2" size="4" value="8627"
+												<input type="text" name="tel1" size="4"  required>
+												- <input type="text" name="tel2" size="4" 
 													required> - <input type="text" name="tel3" size="4"
-													value="4139" required>
+													 required>
 											</div>
 											<div class="my-info-input-child">
 												<input type="email" name="pharmacyEmail"
-													value="jhw02045@naver.com" required>
+													 required>
 											</div>
 											<div class="my-info-input-child">
 												<input type="text" name="zipcode" maxlength="5" readonly>
@@ -214,12 +214,12 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script>
- 		alert("script start"); 
+ 		
             function checkAll() {
-            	alert("validation start");
+            	
           
                 if (!checkUserId($('input[name=pharmacyId]').val())) {
-                 	alert("userid validation success"); 
+                 	
                     return false;
                 } 
                 
@@ -262,7 +262,7 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
             }
 
             function checkUserId(pharmacyId) {
-             	alert("checkUserId"); 
+             	
                 if (!checkExistData(pharmacyId, "아이디를"))
                     return false;
 
@@ -277,7 +277,7 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
             }
 
              function checkPassword(pharmacyId, pharmacyPw, pwchecked) {
-            	 alert("checkUserPw"); 
+            	 
                 if (!checkExistData(pharmacyId, "비밀번호를"))
                     return false;
                 if (!checkExistData(pwchecked, "비밀번호 확인을"))
@@ -311,7 +311,7 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
 
             
             function checkMail(pharmacyEmail) {
-            	alert("checkUserEmail"); 
+            	
                 if (!checkExistData(pharmacyEmail, "이메일을"))
                     return false;
                 var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -327,7 +327,7 @@ form[name="userJoin"]>inputp[name="addr1"], form[name="userJoin"]>input[name="ad
 
             
             function checkName(pharmacyName) {
-            	alert("checkUserName");
+            	
                 if (!checkExistData(pharmacyName, "이름을"))
                     return false;
 

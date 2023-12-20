@@ -18,6 +18,9 @@ import com.project.apa.counseling.model.DoctorDto;
 import com.project.apa.counseling.repository.CounselingDAO;
 import com.project.apa.mapper.CounselingMapper;
 
+/**
+ * 병원 상담 관련 기능을 담당하는 컨트롤러 클래스
+ */
 @Controller
 @RequestMapping("/hospital/counseling")
 public class CounselingController {
@@ -29,6 +32,14 @@ public class CounselingController {
 	@Autowired
 	private CounselingDAO dao;
 	
+	
+	/**
+     * 대기 중인 상담 목록 페이지로 이동하는 메서드
+     *
+     * @param id    병원 ID
+     * @param model Spring MVC의 모델 객체
+     * @return 대기 중인 상담 목록 페이지의 뷰 이름
+     */
 	@GetMapping(value = "/{id}/list.do")
 	public String waitingList(@PathVariable String id, Model model) {
 		
@@ -37,6 +48,13 @@ public class CounselingController {
 		return "hospital.counseling.list";
 	}
 
+	
+	 /**
+     * 병원의 의사 목록을 조회하는 메서드
+     *
+     * @param hospitalId 병원 ID
+     * @return ResponseEntity<List<DoctorDto>> 응답 엔터티
+     */
 	@GetMapping(value = "/doctors/{hospitalId}")
 	@ResponseBody
 	public ResponseEntity<List<DoctorDto>> getDoctors(@PathVariable String hospitalId) {
@@ -45,7 +63,14 @@ public class CounselingController {
 	    return new ResponseEntity<>(doctorList, HttpStatus.OK);
 	}
 	
-	
+	/**
+     * 상담 대기 목록에서 상담 내용을 조회하여 상담 대기 상세 페이지로 이동하는 메서드
+     *
+     * @param model                  Spring MVC의 모델 객체
+     * @param mediCounselQuestionSeq 상담 질문 일련번호
+     * @param doctorSeq              의사 일련번호
+     * @return 상담 대기 상세 페이지의 뷰 이름
+     */
 	@GetMapping(value = "/waitingview.do")
 	public String view(Model model, int mediCounselQuestionSeq, String doctorSeq) {
 		
@@ -57,6 +82,15 @@ public class CounselingController {
 		return "hospital.counseling.waitingview";
 	}
 	
+	
+	 /**
+     * 상담 응답을 등록하는 메서드
+     *
+     * @param mediCounselQuestionSeq 상담 질문 일련번호
+     * @param doctorSeq              의사 일련번호
+     * @param counselAnswerContent   상담 응답 내용
+     * @return 리다이렉트 URL
+     */
 	@PostMapping(value="/answeraddok.do")
 	public String answeraddok(int mediCounselQuestionSeq, int doctorSeq, String counselAnswerContent) {
 		CounselingDTO counselingdto = new CounselingDTO();
@@ -76,6 +110,15 @@ public class CounselingController {
 
 	}
 	
+	 /**
+     * 상담 완료 상세 페이지로 이동하는 메서드
+     *
+     * @param model                  Spring MVC의 모델 객체
+     * @param mediCounselQuestionSeq 상담 질문 일련번호
+     * @param doctorSeq              의사 일련번호
+     * @param mediCounselAnswerSeq   상담 응답 일련번호
+     * @return 상담 완료 상세 페이지의 뷰 이름
+     */
 	@GetMapping(value = "/completeview.do")
 	public String completeview(Model model, int mediCounselQuestionSeq, int doctorSeq, int mediCounselAnswerSeq) {
 		

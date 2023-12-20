@@ -9,6 +9,10 @@ import com.project.apa.counseling.model.CounselingDTO;
 import com.project.apa.counseling.model.CounselingPageDTO;
 import com.project.apa.mapper.CounselingMapper;
 
+
+/**
+ * 상담과 관련된 데이터 액세스 구현 클래스
+ */
 @Repository
 public class CounselingDAOImpl implements CounselingDAO{
 	
@@ -19,13 +23,13 @@ public class CounselingDAOImpl implements CounselingDAO{
 
 	@Override
 	public List<CounselingDTO> list(CounselingPageDTO pdto) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public int getTotalCount(CounselingPageDTO pdto) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -37,7 +41,7 @@ public class CounselingDAOImpl implements CounselingDAO{
 
 	@Override
 	public void answeradd(CounselingDTO counselingdto) {
-		// TODO Auto-generated method stub
+		
 		System.out.println( counselingdto.getCounselAnswerContent());
 		System.out.println( counselingdto.getMediCounselQuestionSeq());
 		System.out.println( counselingdto.getDoctorSeq());
@@ -53,7 +57,7 @@ public class CounselingDAOImpl implements CounselingDAO{
 
 	@Override
 	public CounselingDTO getcomplete(int mediCounselQuestionSeq) {
-		// TODO Auto-generated method stub
+		
 		return cmapper.getcomplete(mediCounselQuestionSeq);
 	}
 

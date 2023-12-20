@@ -13,6 +13,11 @@ import com.project.apa.counseling.model.DoctorDto;
 import com.project.apa.counseling.repository.CounselingDAO;
 import com.project.apa.mapper.CounselingMapper;
 
+
+
+/**
+ * 상담과 관련된 RESTful API를 제공하는 컨트롤러 클래스
+ */
 @RestController
 @RequestMapping("/hospital/counseling")
 public class RestCounselingController {
@@ -24,7 +29,12 @@ public class RestCounselingController {
 	private CounselingMapper mapper;
 	
 	
-	
+	   /**
+     * 상담 대기 목록을 조회하는 메서드
+     *
+     * @param dto DoctorDto 객체
+     * @return 상담 대기 목록
+     */
 	@PostMapping(value = "/counselingwaitinglist")
 	public List<CounselingDTO> counselingwaitinglist(@RequestBody DoctorDto dto) {
 		
@@ -37,6 +47,12 @@ public class RestCounselingController {
 		return list;
 	}
 
+	 /**
+     * 상담 완료 목록을 조회하는 메서드
+     *
+     * @param dto DoctorDto 객체
+     * @return 상담 완료 목록
+     */
 	@PostMapping(value = "/counselingcompletelist")
 	public List<CounselingDTO> counselingcompletelist(@RequestBody DoctorDto dto) {
 		

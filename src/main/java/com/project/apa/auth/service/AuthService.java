@@ -17,6 +17,11 @@ import com.project.apa.auth.model.AuthDTO;
 import com.project.apa.auth.model.MemberDTO;
 import com.project.apa.auth.repository.AuthDAO;
 
+
+/**
+ * 사용자 인증과 관련된 비즈니스 로직을 처리하는 서비스 클래스
+ */
+
 @Service
 public class AuthService {
 	

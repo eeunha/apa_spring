@@ -13,6 +13,9 @@ import com.project.apa.auth.model.MemberDTO;
 import com.project.apa.auth.model.PharmacyMemberDTO;
 import com.project.apa.mapper.MemberMapper;
 
+/**
+ * 회원가입 및 관련 기능을 처리하는 컨트롤러 클래스입니다.
+ */
 @Controller
 public class MemberController {
 	
@@ -22,27 +25,58 @@ public class MemberController {
 	@Autowired
 	private MemberMapper mapper;
 
+	
+	 /**
+     * 회원가입 화면으로 이동하는 메서드
+     * @param model Spring MVC Model 객체
+     * @return auth.clickregister 뷰 페이지
+     */
 	@GetMapping(value = "/auth/clickregister.do")
 	public String clickRegister(Model model) {
 		
 		return "auth.clickregister";
 	}
 	
+	 /**
+     * 일반 사용자 회원가입 화면으로 이동하는 메서드
+     * @param model Spring MVC Model 객체
+     * @return auth.userregister 뷰 페이지
+     */
 	@GetMapping(value = "/auth/userregister.do")
 	public String userRegister(Model model) {
 		
 		return "auth.userregister";
 	}
+	
+	  /**
+     * 병원 회원가입 화면으로 이동하는 메서드
+     * @param model Spring MVC Model 객체
+     * @return auth.hospitalregister 뷰 페이지
+     */
 	@GetMapping(value = "/auth/hospitalregister.do")
 	public String hospitalRegister(Model model) {
 		
 		return "auth.hospitalregister";
 	}
+	
+	/**
+     * 약국 회원가입 화면으로 이동하는 메서드
+     * @param model Spring MVC Model 객체
+     * @return auth.pharmacyregister 뷰 페이지
+     */
 	@GetMapping(value = "/auth/pharmacyregister.do")
 	public String pharmacyRegister(Model model) {
 		
 		return "auth.pharmacyregister";
 	}
+	
+	/**
+     * 일반 사용자 회원가입 처리 메서드
+     * @param model Spring MVC Model 객체
+     * @param memberdto MemberDTO 객체
+     * @param auth 회원 권한
+     * @return 회원가입 성공 시 auth/mylogin.do로 리다이렉트
+     */
 	@PostMapping(value = "/auth/userregisterok.do")
 	public String userRegisterok(Model model, MemberDTO memberdto, String auth) {
 		
@@ -115,6 +149,14 @@ public class MemberController {
 	    return "redirect:/auth/mylogin.do";
 	}
 	
+	
+	 /**
+     * 병원 회원가입 처리 메서드
+     * @param model Spring MVC Model 객체
+     * @param hospitaldto HospitalMemberDTO 객체
+     * @param auth 회원 권한
+     * @return 회원가입 성공 시 auth/mylogin.do로 리다이렉트
+     */
 	@PostMapping(value = "/auth/hospitalregisterok.do")
 	public String hospitalRegisterok(Model model, HospitalMemberDTO hospitaldto, String auth) {
 		
@@ -186,6 +228,14 @@ public class MemberController {
 	    return "redirect:/auth/mylogin.do";
 	}
 	
+	
+	 /**
+     * 약국 회원가입 처리 메서드
+     * @param model Spring MVC Model 객체
+     * @param pharmacydto PharmacyMemberDTO 객체
+     * @param auth 회원 권한
+     * @return 회원가입 성공 시 auth/mylogin.do로 리다이렉트
+     */
 	@PostMapping(value = "/auth/pharmacyregisterok.do")
 	public String pharmacyRegisterok(Model model, PharmacyMemberDTO pharmacydto, String auth) {
 		

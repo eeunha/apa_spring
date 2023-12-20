@@ -12,11 +12,23 @@ import com.project.apa.auth.model.MemberDTO;
 import com.project.apa.auth.model.PharmacyMemberDTO;
 import com.project.apa.mapper.AuthMapper;
 
+
+/**
+ * Spring Security의 UserDetailsService를 구현한 클래스로, 사용자의 인증 정보를 로드합니다.
+ */
 public class CustomUserDetailsService implements UserDetailsService{
 
 	   @Autowired
 	   private AuthMapper mapper;
 	   
+	   
+	   /**
+	     * 사용자명(아이디)을 기반으로 데이터베이스에서 사용자 정보를 조회하고, Spring Security에서 사용할 수 있는 UserDetails로 변환합니다.
+	     *
+	     * @param username 사용자명(아이디)
+	     * @return UserDetails 인터페이스를 구현한 객체
+	     * @throws UsernameNotFoundException 지정된 사용자명을 찾을 수 없는 경우 발생
+	     */
 	   @Override
 	   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	      
