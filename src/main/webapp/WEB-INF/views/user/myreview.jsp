@@ -157,7 +157,7 @@
         var winWidth = 800;
         var winTop = (screen.height / 2) - (winHeight / 2);
         var winLeft = (screen.width / 2) - (winWidth / 2);
-        window.open('http://localhost:8090/apa/user/' + seq + '/myreviewdetail.do', '리뷰 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
+        window.open('/apa/user/' + seq + '/myreviewdetail.do', '리뷰 상세 조회', 'height=' + winHeight + ',width=' + winWidth + ',top=' + winTop + ',left=' + winLeft);		
 		
 	}	
 	
