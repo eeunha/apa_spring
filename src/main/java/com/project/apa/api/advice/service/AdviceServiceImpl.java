@@ -49,8 +49,8 @@ public class AdviceServiceImpl implements AdviceService {
      */	
 
 	@Override
-	public List<AdviceDTO> findlist(AdviceDTO dto) {
-		return adviceDAO.findlist(dto);
+	public List<AdviceDTO> findlist(HashMap<String, Integer> map) {
+		return adviceDAO.findlist(map);
 	}
     /**
      * StorageDTO를 통해 데이터를 저장하는 메서드
@@ -62,5 +62,18 @@ public class AdviceServiceImpl implements AdviceService {
 		
 		return adviceDAO.storage(dto);
 	}
-
+	
+	@Override
+	public int getTotalCount() {
+		
+		return adviceDAO.getTotalCount();
+	}
+	
+	@Override
+	public List<AdviceDTO> getFilteredAdviceList(String selectedDepartment) {
+		
+		return adviceDAO.getFilteredAdviceList(selectedDepartment);
+	}
+	
+	
 }

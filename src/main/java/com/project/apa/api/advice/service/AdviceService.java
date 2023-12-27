@@ -16,7 +16,19 @@ public interface AdviceService {
 
   int storage(StorageDTO dto);
 
-  List<AdviceDTO> findlist(AdviceDTO dto);
+  List<AdviceDTO> findlist(HashMap<String, Integer> map);
+
+  int getTotalCount();
+
+List<AdviceDTO> getFilteredAdviceList(String selectedDepartment);
+
+
+
+
+
+
+
+
 
 
 

@@ -74,9 +74,13 @@ public class AdviceDAOImpl implements AdviceDAO {
      * @return 검색 결과 목록
      */
 	@Override
-	public List<AdviceDTO> findlist(AdviceDTO dto) {
-		return adviceMapper.findlist(dto);
+	public List<AdviceDTO> findlist(HashMap<String, Integer> map) {
+		return adviceMapper.findlist(map);
 	}
 	
-
+	@Override
+	public List<AdviceDTO> getFilteredAdviceList(String selectedDepartment) {
+		
+		return adviceMapper.getFilteredAdviceList(selectedDepartment);
+	}
 }

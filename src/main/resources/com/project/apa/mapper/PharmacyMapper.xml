@@ -39,6 +39,7 @@
 	    		row_number() over(order by appointmentdate desc) as rn, seq, hospitalname, username, usertel,appointmentdate, regdate, pickupway, pickupdate, dispensestatus
 	        from vwdslist
 					where pharmacyid = #{id}
+					 <![CDATA[and appointmentdate <= (select sysdate from dual)]]>
 			) 
 		where rn between #{begin} and #{end}
     </select>
@@ -62,6 +63,7 @@
 		 		row_number() over(order by appointmentdate desc) as rn, dispenseListSeq, hospitalName, userName, userTel,appointmentdate,regdate, pickUpWay, dispenseStatus 
 			from vwdstat      
        	 		where dispenseStatus = '제조대기' and pharmacyId=#{id}
+       	 		
 				)
        	 	where rn between #{begin} and #{end}
     </select>
@@ -96,6 +98,7 @@
 		 		row_number() over(order by appointmentdate desc) as rn, dispenseListSeq, hospitalName, userName, userTel,appointmentdate,regdate, pickUpWay, dispenseStatus 
 			from vwdstat      
        	 		where dispenseStatus = '제조중' and pharmacyId=#{id}
+       	 		
 				)
        	 	where rn between #{begin} and #{end}
     </select>
@@ -120,6 +123,7 @@
 		 		row_number() over(order by appointmentdate desc) as rn, dispenseListSeq, hospitalName, userName, userTel,appointmentdate,regdate, pickUpWay, dispenseStatus 
 			from vwdstat      
        	 		where dispenseStatus = '제조완료' and pharmacyId=#{id}
+       	 		
 				)
        	 	where rn between #{begin} and #{end}
     </select>
@@ -143,6 +147,7 @@
 			  	row_number() over(order by appointmentdate desc) as rn, dispenseListSeq, hospitalName, userName,userTel, appointmentDate,  pickUpWay,pickUpDate, dispenseStatus
 		  	 from vwdisPu 
 	            where dispenseStatus = '수령완료' and pharmacyId=#{id}
+	           
 	            	)
 	       	 	where rn between #{begin} and #{end}
     </select>

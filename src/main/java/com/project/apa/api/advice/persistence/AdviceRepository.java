@@ -7,7 +7,6 @@ import java.util.Map;
 public interface AdviceRepository {
 
 
-
 	
 	List<Map<String, Object>> search(String word);
 

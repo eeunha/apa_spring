@@ -37,7 +37,7 @@
 			               dc.doctorname,
 			               h.hospitalname
 			        FROM tblmedicounselingquestion mq
-			            INNER JOIN tblmedicounselinganswer ma ON mq.medicounselquestionseq = ma.medicounselquestionseq
+			            LEFT OUTER JOIN tblmedicounselinganswer ma ON mq.medicounselquestionseq = ma.medicounselquestionseq
 			            LEFT OUTER JOIN tblUser u ON u.userseq = mq.userseq
 			            LEFT OUTER JOIN tbldepartment d ON d.departmentseq = mq.departmentseq
 			            LEFT OUTER JOIN tbldoctor dc ON dc.doctorseq = ma.doctorseq
@@ -53,7 +53,7 @@
 	
 	<select id="getTotalCount" resultType="Integer">
     SELECT COUNT(*) FROM tblmedicounselingquestion mq
-        INNER JOIN tblmedicounselinganswer ma ON mq.medicounselquestionseq = ma.medicounselquestionseq
+        LEFT OUTER JOIN tblmedicounselinganswer ma ON mq.medicounselquestionseq = ma.medicounselquestionseq
         LEFT OUTER JOIN tblUser u ON u.userseq = mq.userseq
         LEFT OUTER JOIN tbldepartment d ON d.departmentseq = mq.departmentseq
         LEFT OUTER JOIN tbldoctor dc ON dc.doctorseq = ma.doctorseq
@@ -62,7 +62,7 @@
 	
 	
 	<insert id="add" parameterType="com.project.apa.api.advice.domain.AdviceDTO">
-		insert into tblmedicounselingquestion (mediCounselQuestionSeq, userSeq, departmentSeq, counselTitle, counselContent, isCounselAnswer, regdate) values (seqMediCounselingQuestion.nextVal, #{userseq}, #{departmentSeq},#{counseltitle},#{counselcontent},default,sysdate)
+		insert into tblmedicounselingquestion (mediCounselQuestionSeq, userSeq, departmentseq, counselTitle, counselContent, isCounselAnswer, regdate) values (seqMediCounselingQuestion.nextVal, #{userseq}, #{departmentseq},#{counseltitle},#{counselcontent},default,sysdate)
 	</insert>
 	
 	<select id="getDepartmentList" resultType="com.project.apa.api.advice.domain.AdviceDTO">
@@ -73,9 +73,13 @@
 		insert into tblMediCounselingBox (mediCounselBoxSeq, userSeq, mediCounselAnswerSeq) values (seqMediCounselingBox.nextVal, #{userSeq}, #{medicounselanswerseq})
 	</insert>
 	
-	<select id="findlist" parameterType="com.project.apa.api.advice.domain.AdviceDTO" resultType="com.project.apa.api.advice.domain.AdviceDTO">
+	<select id="findlist" parameterType="java.util.HashMap" resultType="com.project.apa.api.advice.domain.AdviceDTO">
 	<!--  select * from ( -->
-        select
+        SELECT *
+			FROM (
+			    SELECT c.*,
+			           rownum AS rnum
+			    FROM (select
                 mq.counseltitle,
                 mq.counselcontent,
                 mq.iscounselanswer,
@@ -90,14 +94,16 @@
                 dc.doctorname,
                 h.hospitalname
             from tblmedicounselingquestion mq
-                inner join tblmedicounselinganswer ma on mq.medicounselquestionseq = ma.medicounselquestionseq
+                left outer join tblmedicounselinganswer ma on mq.medicounselquestionseq = ma.medicounselquestionseq
                 left outer join tblUser u on u.userseq = mq.userseq
                 left outer join tbldepartment d on d.departmentseq = mq.departmentseq
                 left outer join tbldoctor dc on dc.doctorseq = ma.doctorseq
                 left outer join tblhospital h on h.hospitalid = dc.hospitalid
-            where d.departmentseq = #{departmentSeq}
-            order by mq.regdate desc 
+            where d.departmentseq = #{departmentseq}
+            order by mq.regdate desc ) c ) WHERE rnum BETWEEN #{begin} AND #{end}
 	</select>
+	
+	
 	
 	
 </mapper>

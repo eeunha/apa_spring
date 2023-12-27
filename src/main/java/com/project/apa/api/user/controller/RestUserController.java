@@ -51,8 +51,6 @@ public class RestUserController {
 	@GetMapping(value="/api/user/{seq}/mypage")
 	public UserDTO getUser(@PathVariable String seq) {
 
-		//seq = "1";
-		
 		UserDTO dto = userService.getUser(seq);
 
 		String[] ssnArr = dto.getUserSSN().split("-");

@@ -93,10 +93,10 @@ textarea{
 		<tr>
 			<th>진료과</th>
 			<td id="dep">
-			<select name="departmentSeq" required>
+			<select name="departmentseq" required>
 				<option style="text-align: center;">----선택----</option> 
 				<c:forEach items="${add}" var="dto" varStatus="loop">
-				<option value="${dto.departmentSeq}">${dto.departmentname}</option>
+				<option value="${dto.departmentseq}">${dto.departmentname}</option>
 				</c:forEach>
 			</select>
 			</td>
@@ -126,7 +126,7 @@ textarea{
 		
 		let obj ={
 			userseq: <sec:authentication property="principal.dto1.userseq"/>,
-			departmentSeq: $('select[name=departmentSeq]').val(),
+			departmentseq: $('select[name=departmentseq]').val(),
 			counseltitle: $('input[name=counselTitle]').val(),
 			counselcontent: $('textarea[name=counselContent]').val()
 		};

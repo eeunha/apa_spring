@@ -19,7 +19,11 @@ public interface AdviceDAO  {
 
 	int storage(StorageDTO dto);
 
-	List<AdviceDTO> findlist(AdviceDTO dto);
+	List<AdviceDTO> findlist(HashMap<String, Integer> map);
+
+	List<AdviceDTO> getFilteredAdviceList(String selectedDepartment);
+
+
 
 
 

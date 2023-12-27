@@ -124,7 +124,7 @@
 		
 		<div class="forms-container"> 
 		<form>
-			<select name="departmentSeq" id="departmentselect" required>
+			<select name="departmentseq" id="departmentselect" required>
 				<option style="text-align: center;">진료과 선택</option>
 				<c:forEach items="${listDepartment}" var="dto" varStatus="loop">
 					<option value="${dto.departmentseq}">${dto.departmentname}</option>
@@ -238,8 +238,10 @@
 	};
 	
 	$('#departmentselect').change(function() {
+		
+		//apa/advice/list.do?page=&seq=s'
 		let obj = {
-				departmentSeq : $(event.target).val()
+				departmentseq : $(event.target).val()
 			};
 		$.ajax({
 			type: 'POST',
@@ -249,6 +251,9 @@
 				xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
 			},
 			data: JSON.stringify(obj),
+			//data: JSON.stringify{
+			// 'seq'=$('select').val();
+			//},
 			dataType: 'json',
 			success: function(result) {
 				$('#advice-list').html('');

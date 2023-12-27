@@ -22,6 +22,11 @@ public interface AdviceMapper {
 
 	List<AdviceDTO> findlist(AdviceDTO dto);
 
+	List<AdviceDTO> findlist(HashMap<String, Integer> map);
+
+	List<AdviceDTO> getFilteredAdviceList(String selectedDepartment);
+
+
 
 
 }

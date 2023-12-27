@@ -39,7 +39,8 @@ public class RestAdviceController {
 	     */
 	  @PostMapping(value = "/advice/findlist")
 	 public List<AdviceDTO> findlist(@RequestBody AdviceDTO dto, String page) {
-		  	int nowPage = 0; // 현재 페이지 번호
+		  	
+		  int nowPage = 0; // 현재 페이지 번호
 			int totalCount = 0; // 총 게시물 수
 			int pageSize = 10; // 한 페이지에서 출력할 게시물 수
 			int totalPage = 0; // 총 페이지 수
@@ -62,9 +63,10 @@ public class RestAdviceController {
 			map.put("begin", begin);
 			map.put("end", end);
 			
+			
 			// 의학 목록 및 검색 결과 목록 가져오기
-			List<AdviceDTO> list = adviceservice.getAdviceList(map);
-			List<AdviceDTO> findlist = adviceservice.findlist(dto);
+			
+			List<AdviceDTO> findlist = adviceservice.findlist(map);
 			
 			// 검색 결과에 대한 처리
 			for (AdviceDTO finddto : findlist) {
@@ -74,6 +76,41 @@ public class RestAdviceController {
 					finddto.setIscounselanswer("대기중");
 				}
 			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			totalCount = adviceservice.getTotalCount();
+			// System.out.println(totalCount);
+			totalPage = (int) Math.ceil((double) totalCount / pageSize);
+			// System.out.println(totalPage);
+			loop = 1; // 루프 변수(10바퀴)
+			n = ((nowPage - 1) / blockSize) * blockSize + 1;
+			if (n == 1) {
+				sb.append(String.format("<a href='#'!> 이전 | </a>"));
+			} else {
+				sb.append(String.format("<a href='/apa/advice/list.do?page=%d'> 이전 | </a>", n - 1));
+			}
+
+			while (!(loop > blockSize || n > totalPage)) {
+
+				if (n == nowPage) {
+					sb.append(String.format(" <a href='#!' style='color:tomato;'>%d</a> ", n));
+				} else {
+					sb.append(String.format(" <a href='/apa/advice/list.do?page=%d'>%d</a> ", n, n));
+				}
+
+				loop++;
+				n++;
+
+				if (n > totalPage) {
+					break;
+				}
+			}
+
+			// 다음 10페이지
+
+			sb.append(String.format("<a href='/apa/advice/list.do?page=%d'> | 다음</a>", n));
+
 			
 			
 		return findlist;
